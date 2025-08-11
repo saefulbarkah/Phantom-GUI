@@ -9,7 +9,7 @@ import { CircleAlert } from "lucide-react";
 type TFeatureCard = React.ComponentProps<"div"> & {
   title: string;
   description: string;
-  onSwitch: React.MouseEventHandler<HTMLButtonElement>;
+  onSwitch?: React.MouseEventHandler<HTMLButtonElement>;
   defaultCheck?: boolean;
   warningInfo?: React.ReactNode;
   Info?: React.ReactNode;
@@ -35,7 +35,7 @@ export const FeatureCardSwitch = ({
                 {warningInfo ? (
                   <Tooltip>
                     <TooltipTrigger>
-                      <CircleAlert className="w-5 h-5 text-red-400" />
+                      <CircleAlert className="w-4.5 h-4.5 text-red-400" />
                     </TooltipTrigger>
                     <TooltipContent className="p-2.5 text-start">{warningInfo}</TooltipContent>
                   </Tooltip>
@@ -43,7 +43,7 @@ export const FeatureCardSwitch = ({
                 {Info ? (
                   <Tooltip>
                     <TooltipTrigger>
-                      <CircleAlert className="w-5 h-5 text-slate-300" />
+                      <CircleAlert className="w-4.5 h-4.5 text-slate-300" />
                     </TooltipTrigger>
                     <TooltipContent className="p-2.5 flex items-center justify-start">{Info}</TooltipContent>
                   </Tooltip>
@@ -52,7 +52,7 @@ export const FeatureCardSwitch = ({
             </div>
             <p className="text-sm font-normal text-slate-300/80 line-clamp-2">{description}</p>
           </div>
-          <Switch onClick={onSwitch} checked={defaultCheck} variant={"destructive"} />
+          {onSwitch ? <Switch onClick={onSwitch} checked={defaultCheck} variant={"destructive"} /> : null}
         </div>
         {children ? <div className="mt-5">{children}</div> : null}
       </CardContent>
