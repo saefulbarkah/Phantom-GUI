@@ -4,6 +4,7 @@ import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import { LoadingContent } from "@/components/LoadingContent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
+import { Dot } from "lucide-react";
 import React from "react";
 
 export const World = () => {
@@ -141,25 +142,34 @@ export const World = () => {
           </FeatureCardSwitch>
 
           <FeatureCardSwitch
-            title="Infinite Stamina"
+            title="Auto Plot Skip"
             description="lorem adma msd asd as das"
-            defaultCheck={feature.InfiniteStamina}
+            defaultCheck={feature.PlotSkip}
             onSwitch={() => {
-              OnUpdateFeature("InfiniteStamina");
+              OnUpdateFeature("PlotSkip");
             }}
           />
 
           <FeatureCardSwitch
-            title="No Cooldown"
+            title="Semi Auto Quest"
             description="lorem adma msd asd as das"
-            defaultCheck={feature.NoCD}
+            defaultCheck={feature.AutoQuest}
             onSwitch={() => {
-              OnUpdateFeature("NoCD");
+              OnUpdateFeature("AutoQuest");
             }}
           />
 
           <FeatureCardSwitch
-            title="Auto Dodge"
+            title="Auto Open Teleport"
+            description="lorem adma msd asd as das"
+            defaultCheck={feature.AutoOpenTeleports}
+            onSwitch={() => {
+              OnUpdateFeature("AutoOpenTeleports");
+            }}
+          />
+
+          <FeatureCardSwitch
+            title="Auto Sonance Casket"
             description="lorem adma msd asd as das"
             defaultCheck={feature.AutoDodge}
             onSwitch={() => {
@@ -168,20 +178,49 @@ export const World = () => {
           />
 
           <FeatureCardSwitch
-            title="Auto Parry"
-            description="lorem adma msd asd as das"
+            title="Auto Solve Puzzle"
+            description="Automatically solve some puzzle"
             defaultCheck={feature.AutoParry}
             onSwitch={() => {
               OnUpdateFeature("AutoParry");
             }}
+            Info={
+              <div className="flex flex-col gap-1">
+                <div className="">
+                  <h2>Automatically solve puzzle</h2>
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center">
+                    <Dot />
+                    <p>Overflowing palette</p>
+                  </div>
+                  <div className="flex items-center">
+                    <Dot />
+                    <p>Signal Device</p>
+                  </div>
+                  <div className="flex items-center">
+                    <Dot />
+                    <p>Cipher</p>
+                  </div>
+                  <div className="flex items-center">
+                    <Dot />
+                    <p>Melody Orchestration</p>
+                  </div>
+                  <div className="flex items-center">
+                    <Dot />
+                    <p>Treasure Slots</p>
+                  </div>
+                </div>
+              </div>
+            }
           />
 
           <FeatureCardSwitch
-            title="Walk On Water"
+            title="Auto Mining"
             description="lorem adma msd asd as das"
-            defaultCheck={feature.WalkOnwater}
+            defaultCheck={feature.AutoDestroy}
             onSwitch={() => {
-              OnUpdateFeature("WalkOnwater");
+              OnUpdateFeature("AutoDestroy");
             }}
           />
         </div>
