@@ -15,7 +15,7 @@ export const Player = () => {
     <section className="flex flex-col gap-5">
       {/* Player */}
       <div className="flex flex-col gap-5">
-        <h2 className="text-2xl font-semibold ">Player</h2>
+        <h2 className="text-xl font-semibold ">Player</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
             title="Player Speed"
@@ -84,7 +84,7 @@ export const Player = () => {
 
       {/* Ability */}
       <div className="flex flex-col gap-5">
-        <h2 className="text-2xl font-semibold">Ability</h2>
+        <h2 className="text-xl font-semibold">Ability</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
             title="Infinite Ultimate"
@@ -162,7 +162,7 @@ export const Player = () => {
 
       {/* Teleport */}
       <div className="flex flex-col gap-5">
-        <h2 className="text-2xl font-semibold">Teleport</h2>
+        <h2 className="text-xl font-semibold">Teleport</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
             title="Quest Teleport"
