@@ -38,6 +38,65 @@ export const Buff = () => {
 
   return (
     <section className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 mt-5">
+        <h2 className="text-xl font-semibold">Custom Buff</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          <FeatureCardSwitch title="Apply Custom Buff" description="">
+            <div className="flex items-stretch gap-5">
+              <FeatureComboBox
+                data={Buffs}
+                onSelect={(val) => {
+                  toast(`Buff selected ID ${val}`);
+                  SetBuffSelected(val);
+                }}
+              />
+              <Button
+                size={"lg"}
+                onClick={() => {
+                  if (BuffSelected === "" || !BuffSelected) {
+                    return toast.error("Please select buff");
+                  }
+
+                  return toast("Applied buff " + BuffSelected);
+                }}
+              >
+                Apply
+              </Button>
+            </div>
+          </FeatureCardSwitch>
+
+          <FeatureCardSwitch title="Custom Buff ID" description="">
+            <div className="flex items-center gap-5">
+              <Input
+                placeholder="Enter buff id..."
+                className="h-10"
+                onChange={(e) => {
+                  const value = e.currentTarget.value;
+
+                  if (Number(value)) {
+                    SetBuffId(Number(value));
+                  } else {
+                    SetBuffId(null);
+                  }
+                }}
+              />
+              <Button
+                size={"lg"}
+                onClick={() => {
+                  if (!Buffid) {
+                    return toast.error("Invalid buff id");
+                  }
+
+                  return toast("Applied buff " + Buffid);
+                }}
+              >
+                Apply
+              </Button>
+            </div>
+          </FeatureCardSwitch>
+        </div>
+      </div>
+
       {/* Player */}
       <div className="flex flex-col gap-5">
         <h2 className="text-xl font-semibold ">Character Buff</h2>
@@ -217,65 +276,6 @@ export const Buff = () => {
                 OnUpdateFeature("Hp", e);
               }}
             />
-          </FeatureCardSwitch>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-5 mt-5">
-        <h2 className="text-xl font-semibold">Custom Buff</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-          <FeatureCardSwitch title="Apply Custom Buff" description="">
-            <div className="flex items-stretch gap-5">
-              <FeatureComboBox
-                data={Buffs}
-                onSelect={(val) => {
-                  toast(`Buff selected ID ${val}`);
-                  SetBuffSelected(val);
-                }}
-              />
-              <Button
-                size={"lg"}
-                onClick={() => {
-                  if (BuffSelected === "" || !BuffSelected) {
-                    return toast.error("Please select buff");
-                  }
-
-                  return toast("Applied buff " + BuffSelected);
-                }}
-              >
-                Apply
-              </Button>
-            </div>
-          </FeatureCardSwitch>
-
-          <FeatureCardSwitch title="Custom Buff ID" description="">
-            <div className="flex items-center gap-5">
-              <Input
-                placeholder="Enter buff id..."
-                className="h-10"
-                onChange={(e) => {
-                  const value = e.currentTarget.value;
-
-                  if (Number(value)) {
-                    SetBuffId(Number(value));
-                  } else {
-                    SetBuffId(null);
-                  }
-                }}
-              />
-              <Button
-                size={"lg"}
-                onClick={() => {
-                  if (!Buffid) {
-                    return toast.error("Invalid buff id");
-                  }
-
-                  return toast("Applied buff " + Buffid);
-                }}
-              >
-                Apply
-              </Button>
-            </div>
           </FeatureCardSwitch>
         </div>
       </div>
