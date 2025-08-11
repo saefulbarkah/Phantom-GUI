@@ -144,9 +144,9 @@ export const World = () => {
           <FeatureCardSwitch
             title="Auto Plot Skip"
             description="lorem adma msd asd as das"
-            defaultCheck={feature.PlotSkip}
+            defaultCheck={feature.AutoSkipPlot}
             onSwitch={() => {
-              OnUpdateFeature("PlotSkip");
+              OnUpdateFeature("AutoSkipPlot");
             }}
           />
 
