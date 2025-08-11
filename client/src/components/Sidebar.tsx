@@ -100,12 +100,12 @@ function Sidebar() {
               {IsFeatureReady ? (
                 <>
                   <p className="capitalize">Connected</p>
-                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                  <div className="h-1.5 w-1.5 rounded-full bg-green-500"></div>
                 </>
               ) : (
                 <>
                   <p className="capitalize">Disconnected</p>
-                  <div className="h-2 w-2 rounded-full bg-red-500"></div>
+                  <div className="h-1.5 w-1.5 rounded-full bg-red-500"></div>
                 </>
               )}
             </div>
