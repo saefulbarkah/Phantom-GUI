@@ -9,7 +9,7 @@ export const Navbar = () => {
           <Image src={"./assets/icon/k-logo.png"} alt="" width={45} height={45} />
           <h2 className="text-lg font-bold">Phantom Waves</h2>
           <div className="ml-auto">
-            <p className="text-slate-500 text-sm">v1.2</p>
+            <p className="text-slate-500 text-sm">v0.9 beta</p>
           </div>
         </div>
       </div>

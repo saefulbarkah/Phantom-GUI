@@ -9,9 +9,10 @@ import { CircleAlert } from "lucide-react";
 type TFeatureCard = React.ComponentProps<"div"> & {
   title: string;
   description: string;
-  onSwitch: React.MouseEventHandler<HTMLButtonElement>;
+  onSwitch?: React.MouseEventHandler<HTMLButtonElement>;
   defaultCheck?: boolean;
   warningInfo?: React.ReactNode;
+  Info?: React.ReactNode;
 };
 
 export const FeatureCardSwitch = ({
@@ -21,6 +22,7 @@ export const FeatureCardSwitch = ({
   onSwitch,
   children,
   warningInfo,
+  Info,
 }: TFeatureCard) => {
   return (
     <Card className="rounded-md bg-box/50 backdrop-blur-sm text-slate-100 border-none">
@@ -29,18 +31,28 @@ export const FeatureCardSwitch = ({
           <div className="flex flex-col gap-2 w-full">
             <div className="flex items-center gap-2">
               <h2 className="leading-none font-semibold">{title}</h2>
-              {warningInfo ? (
-                <Tooltip>
-                  <TooltipTrigger>
-                    <CircleAlert className="w-5 h-5 text-red-400" />
-                  </TooltipTrigger>
-                  <TooltipContent className="p-2.5 text-start">{warningInfo}</TooltipContent>
-                </Tooltip>
-              ) : null}
+              <div className="flex items-center gap-2">
+                {warningInfo ? (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <CircleAlert className="w-4.5 h-4.5 text-red-400" />
+                    </TooltipTrigger>
+                    <TooltipContent className="p-2.5 text-start">{warningInfo}</TooltipContent>
+                  </Tooltip>
+                ) : null}
+                {Info ? (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <CircleAlert className="w-4.5 h-4.5 text-slate-300" />
+                    </TooltipTrigger>
+                    <TooltipContent className="p-2.5 flex items-center justify-start">{Info}</TooltipContent>
+                  </Tooltip>
+                ) : null}
+              </div>
             </div>
             <p className="text-sm font-normal text-slate-300/80 line-clamp-2">{description}</p>
           </div>
-          <Switch onClick={onSwitch} checked={defaultCheck} variant={"destructive"} />
+          {onSwitch ? <Switch onClick={onSwitch} checked={defaultCheck} variant={"destructive"} /> : null}
         </div>
         {children ? <div className="mt-5">{children}</div> : null}
       </CardContent>

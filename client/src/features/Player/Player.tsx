@@ -2,19 +2,20 @@
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
-import useFeatureManager from "@/stores/feature-manager";
+import { LoadingContent } from "@/components/LoadingContent";
+import { useFeatureManager } from "@/hooks/useFeatureManager";
 import React from "react";
 
 export const Player = () => {
-  const { feature, OnUpdateFeature } = useFeatureManager();
+  const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
+
+  if (!IsFeatureReady) return <LoadingContent />;
 
   return (
-    <section>
+    <section className="flex flex-col gap-5">
       {/* Player */}
-      <div>
-        <div className="mb-5">
-          <h2 className="text-2xl font-semibold ">Player</h2>
-        </div>
+      <div className="flex flex-col gap-5">
+        <h2 className="text-xl font-semibold ">Player</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
             title="Player Speed"
@@ -82,10 +83,8 @@ export const Player = () => {
       </div>
 
       {/* Ability */}
-      <div className="mt-10">
-        <div className="mb-5">
-          <h2 className="text-2xl font-semibold">Ability</h2>
-        </div>
+      <div className="flex flex-col gap-5">
+        <h2 className="text-xl font-semibold">Ability</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
             title="Infinite Ultimate"
@@ -162,10 +161,8 @@ export const Player = () => {
       </div>
 
       {/* Teleport */}
-      <div className="mt-10">
-        <div className="mb-5">
-          <h2 className="text-2xl font-semibold">Teleport</h2>
-        </div>
+      <div className="flex flex-col gap-5">
+        <h2 className="text-xl font-semibold">Teleport</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
             title="Quest Teleport"
