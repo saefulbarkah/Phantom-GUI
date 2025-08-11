@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { FeatureBinder } from "@/features/FeatureBinder";
 import Image from "next/image";
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.className} antialiased bg-background text-white min-h-screen font-sans`}>
+        <NextTopLoader color="#0095ff" showSpinner={false} />
         <Toaster
           toastOptions={{
             style: {
