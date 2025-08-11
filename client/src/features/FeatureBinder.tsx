@@ -26,6 +26,6 @@ export const FeatureBinder = () => {
   React.useEffect(() => {
     BindingFeature();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.failureCount]);
+  }, [query.failureCount, query.data, query.isSuccess]);
   return null;
 };

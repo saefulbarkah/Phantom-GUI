@@ -6,7 +6,7 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT;
 
 // Atur CORS supaya origin tertentu diizinkan
 app.use(
