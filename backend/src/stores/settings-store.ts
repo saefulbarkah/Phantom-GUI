@@ -1,9 +1,6 @@
 import fs from "fs";
-import { TModSettings } from "../types/mod";
 
-const filePath = "./settings.json";
-
-export function CheckIfConfigExist() {
+export function CheckIfConfigExist(filePath: string) {
   if (fs.existsSync(filePath)) {
     return true;
   } else {
@@ -11,23 +8,23 @@ export function CheckIfConfigExist() {
   }
 }
 
-export async function SaveSettings(setting: TModSettings) {
+export async function SaveSettings<T>(setting: T, filePath: string, name: string) {
   const data = JSON.stringify(setting, null, 2);
   fs.writeFileSync(filePath, data, "utf-8");
-  console.log("JSON settings saved!");
+  console.log(`JSON ${name} saved!`);
 }
 
-export async function LoadSettings(): Promise<TModSettings | null> {
+export async function LoadSettings<T>(filePath: string, name: string): Promise<T | null> {
   if (!fs.existsSync(filePath)) {
-    console.error("Settings file not found.");
+    console.error(`${name} file not found.`);
     return null;
   }
 
   try {
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(fileContent) as TModSettings;
+    return JSON.parse(fileContent) as T;
   } catch (err) {
-    console.error("Error reading settings file:", err);
+    console.error(`Error reading ${name} file:`, err);
     return null;
   }
 }

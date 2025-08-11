@@ -1,19 +1,22 @@
 import { Request, Response } from "express";
 import { ModSettings } from "../const/ModSettings";
 import { CheckIfConfigExist, LoadSettings, SaveSettings } from "../stores/settings-store";
+import { TModSettings } from "../types/mod";
+
+const filePath = "./phantom.json";
 
 let state = { ...ModSettings };
 
 // Saat server mulai, load dulu dari file (sync/async sesuai kebutuhan)
 async function initializeSettings() {
-  if (CheckIfConfigExist()) {
-    const data = await LoadSettings();
+  if (CheckIfConfigExist(filePath)) {
+    const data = await LoadSettings<TModSettings>(filePath, "setting");
     if (data) {
       console.log("Settings loaded from file.");
       state = data;
     }
   } else {
-    await SaveSettings(state);
+    await SaveSettings<TModSettings>(state, filePath, "setting");
     console.log("Default settings saved.");
   }
 }
@@ -26,7 +29,7 @@ export const GetSettings = async (req: Request, res: Response) => {
 };
 
 export const UpdateSettings = async (req: Request, res: Response) => {
-  const newSettings = req.body;
+  const newSettings = req.body as Partial<TModSettings>;
 
   if (!newSettings || Object.keys(newSettings).length === 0) {
     return res.status(400).json({ error: "No settings provided or object is empty" });
@@ -45,7 +48,7 @@ export const UpdateSettings = async (req: Request, res: Response) => {
 
 export const SaveSettingsJSON = async (req: Request, res: Response) => {
   try {
-    await SaveSettings(state);
+    await SaveSettings<TModSettings>(state, filePath, "setting");
     res.json({ ok: "Settings saved" });
   } catch (err) {
     console.error(err);
@@ -55,7 +58,7 @@ export const SaveSettingsJSON = async (req: Request, res: Response) => {
 
 export const LoadSettingJSON = async (req: Request, res: Response) => {
   try {
-    const data = await LoadSettings();
+    const data = await LoadSettings<TModSettings>(filePath, "setting");
     state = { ...state, ...data };
     res.json({ ok: "Config loaded" });
   } catch (err) {
