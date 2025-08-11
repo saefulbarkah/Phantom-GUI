@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { FeatureBinder } from "@/features/FeatureBinder";
 import Image from "next/image";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.className} antialiased bg-background text-white min-h-screen font-sans`}>
+        <Toaster
+          toastOptions={{
+            style: {
+              backgroundColor: "var(--c-box)",
+              color: "var(--color-slate-100)",
+            },
+          }}
+        />
         <div className="relative z-10">
           <QueryProvider>
             <FeatureBinder />

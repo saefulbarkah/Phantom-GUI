@@ -18,10 +18,12 @@ export const FeatureSlider = ({
   onValueChange,
   disabled = false,
 }: TFeatureSlider) => {
+  const [IsMounted, setIsMounted] = React.useState(false);
   const [value, setValue] = React.useState(defaultValue);
   const [debouncedValue] = useDebounce(value, 1000);
 
   React.useEffect(() => {
+    if (!IsMounted) return;
     onValueChange(debouncedValue);
     /* eslint-disable react-hooks/exhaustive-deps */
   }, [debouncedValue]);
@@ -29,6 +31,10 @@ export const FeatureSlider = ({
   React.useEffect(() => {
     setValue(defaultValue);
   }, [defaultValue]);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className="relative h-6 flex items-center">

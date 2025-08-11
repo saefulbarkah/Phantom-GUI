@@ -1,11 +1,11 @@
 "use client";
 import { GetFeatureSettings } from "@/API/settings";
-import useFeatureManager from "@/stores/feature-manager";
+import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export const FeatureBinder = () => {
-  const { setFeature } = useFeatureManager();
+  const { setFeature, SetFeatureReady } = useFeatureManager();
 
   // Queries
   const query = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
@@ -14,6 +14,7 @@ export const FeatureBinder = () => {
     if (query.isSuccess) {
       setFeature(query.data?.data);
       console.log(query.data?.data);
+      SetFeatureReady(true);
     }
   };
 
