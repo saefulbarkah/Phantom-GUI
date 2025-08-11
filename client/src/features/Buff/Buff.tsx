@@ -160,7 +160,7 @@ export const Buff = () => {
           />
 
           <FeatureCardSwitch
-            title="Quick Mode Fleurdelys"
+            title="Ultimate Mode Fleurdelys"
             description="Skip animation transform to Fleurdelys mode"
             defaultCheck={feature.Always2ndFormFleurdelys}
             onSwitch={() => {
