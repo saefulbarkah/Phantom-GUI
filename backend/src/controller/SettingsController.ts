@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ModSettings } from "../const/ModSettings";
 import { CheckIfConfigExist, LoadSettings, SaveSettings } from "../stores/settings-store";
 import { TModSettings } from "../types/mod";
+import chalk from "chalk";
 
 const filePath = "./phantom.json";
 
@@ -38,6 +39,10 @@ export const UpdateSettings = async (req: Request, res: Response) => {
   try {
     // Update in-memory state (optional)
     state = { ...state, ...newSettings };
+
+    Object.entries(newSettings).forEach(([key, value]) => {
+      console.log(`${chalk.blue(key.padEnd(10))} → ${chalk.green(value as string)}`);
+    });
 
     res.json({ ok: "Settings updated", settings: newSettings });
   } catch (err) {
