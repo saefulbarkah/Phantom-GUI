@@ -110,7 +110,7 @@ export const Buff = () => {
             description="Increasing attribute character"
             defaultCheck={feature.SuperBuff}
             onSwitch={() => {
-              OnUpdateFeature("VacuumCollect");
+              OnUpdateFeature("SuperBuff");
             }}
             Info={
               <div className="flex flex-col gap-1">
