@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export const FeatureBinder = () => {
-  const { setFeature, SetFeatureReady, SetNetworkStatus, NetworkStatus } = useFeatureManager();
+  const { setFeature, SetFeatureReady, SetNetworkStatus } = useFeatureManager();
 
   // Queries
   const query = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
