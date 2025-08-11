@@ -9,6 +9,8 @@ export const useFeatureManager = () => {
     setFeature,
     IsFeatureReady,
     SetFeatureReady,
+    NetworkStatus,
+    SetNetworkStatus,
   } = useFeatureManagerStore();
 
   const OnUpdateFeature = async (key: keyof TFeature, value?: string | number | boolean) => {
@@ -25,5 +27,5 @@ export const useFeatureManager = () => {
     }
   };
 
-  return { OnUpdateFeature, feature, setFeature, IsFeatureReady, SetFeatureReady };
+  return { OnUpdateFeature, feature, setFeature, IsFeatureReady, SetFeatureReady, NetworkStatus, SetNetworkStatus };
 };

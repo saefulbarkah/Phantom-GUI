@@ -7,6 +7,8 @@ export const QueryProvider = ({ children }: React.ComponentProps<"div">) => {
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
+        retry: 50,
+        retryDelay: () => 2000, // delay antar retry = 2 detik
       },
     },
   });

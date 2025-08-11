@@ -81,7 +81,7 @@ const SideNav = ({ href, children }: LinkProps & HTMLAttributes<HTMLAnchorElemen
 };
 
 function Sidebar() {
-  const { IsFeatureReady } = useFeatureManager();
+  const { NetworkStatus } = useFeatureManager();
   return (
     <aside className="fixed left-0 top-[72px] h-[calc(100vh-72px)] w-56 border-r border-r-slate-400/15 overflow-hidden">
       <div className="h-full">
@@ -97,17 +97,22 @@ function Sidebar() {
         <div className="px-5 shadow-xl shadow-slate-200">
           <div className="flex items-center justify-center gap-2 h-12 shrink-0 text-sm text-slate-400">
             <div className="flex items-center gap-2">
-              {IsFeatureReady ? (
+              {NetworkStatus === "connected" ? (
                 <>
                   <p className="capitalize">Connected</p>
                   <div className="h-1.5 w-1.5 rounded-full bg-green-500"></div>
                 </>
-              ) : (
+              ) : NetworkStatus === "reconnect" ? (
+                <>
+                  <p className="capitalize">Reconnecting</p>
+                  <div className="h-1.5 w-1.5 rounded-full bg-yellow-500"></div>
+                </>
+              ) : NetworkStatus === "disconnected" ? (
                 <>
                   <p className="capitalize">Disconnected</p>
                   <div className="h-1.5 w-1.5 rounded-full bg-red-500"></div>
                 </>
-              )}
+              ) : null}
             </div>
           </div>
         </div>

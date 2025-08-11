@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export const FeatureBinder = () => {
-  const { setFeature, SetFeatureReady } = useFeatureManager();
+  const { setFeature, SetFeatureReady, SetNetworkStatus, NetworkStatus } = useFeatureManager();
 
   // Queries
   const query = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
@@ -15,12 +15,17 @@ export const FeatureBinder = () => {
       setFeature(query.data?.data);
       console.log(query.data?.data);
       SetFeatureReady(true);
+      SetNetworkStatus("connected");
+    } else if (query.failureCount > 1 && query.isFetching) {
+      SetNetworkStatus("reconnect");
+    } else {
+      SetNetworkStatus("disconnected");
     }
   };
 
   React.useEffect(() => {
     BindingFeature();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.data]);
+  }, [query.failureCount]);
   return null;
 };

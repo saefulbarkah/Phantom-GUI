@@ -7,7 +7,7 @@ export const GetFeatureSettings = async () => {
     return response;
   } catch (error) {
     console.log(error);
-    return null;
+    throw error;
   }
 };
 
