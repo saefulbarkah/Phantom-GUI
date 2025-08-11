@@ -1,0 +1,40 @@
+[
+  {
+    "id": 25,
+    "name": "increase ATK +10.000",
+    "stacks": 10
+  },
+  {
+    "id": 672010105,
+    "name": "Increase Critical Damage +20%"
+  },
+  {
+    "id": 672010102,
+    "name": "Increase ATK +600"
+  },
+  {
+    "id": 674011002,
+    "name": "Increase ATK +50"
+  },
+  {
+    "name": "Increase Critical Damage +150%",
+    "id": 671000010
+  },
+  {
+    "name": "Increase Material Drop +50%",
+    "id": 83011202
+  },
+  {
+    "name": "Increase Coin Drop +50%",
+    "id": 83011302
+  },
+  {
+    "name": "Super Buff",
+    "id": [
+      25,
+      26,
+      672010105
+    ],
+    "stacks": 10
+  }
+]

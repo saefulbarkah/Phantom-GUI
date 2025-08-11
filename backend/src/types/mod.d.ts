@@ -147,3 +147,9 @@ export type TModSettings = {
   };
   BGMPlayerOverlay: boolean;
 };
+
+export type TBuffs = {
+  name: string | null;
+  id: number | number[] | null;
+  stacks?: number | null;
+};
