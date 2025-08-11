@@ -86,7 +86,7 @@ function Sidebar() {
     <aside className="fixed left-0 top-[72px] h-[calc(100vh-72px)] w-56 border-r border-r-slate-400/15 overflow-hidden">
       <div className="h-full">
         <ScrollArea className="w-full h-[calc(100vh-120px)] relative">
-          <div className="flex flex-col gap-2 mt-5 p-5">
+          <div className="flex flex-col gap-2 mt-5 px-5">
             {Routes.map((item, i) => (
               <SideNav key={i} href={item.href}>
                 {item.label}
