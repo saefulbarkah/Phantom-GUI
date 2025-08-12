@@ -6,17 +6,20 @@ import { FeatureSlider } from "@/components/FeatureSlider";
 import { LoadingContent } from "@/components/LoadingContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useBuffs } from "@/hooks/useBuffs";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
+import { TSelectedBuff } from "@/types/buff";
 import { Dot } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export const Buff = () => {
-  const { feature, OnUpdateFeature, IsFeatureReady, buffs, OnApplyBuff, SetSelectedBuff, SelectedBuff } =
-    useFeatureManager();
+  const { feature, OnUpdateFeature, IsFeatureReady, OnApplyBuff } = useFeatureManager();
+  const [SelectedBuff, SetSelectedBuff] = useState<Partial<TSelectedBuff> | null>(null);
+  const { data: buffs, isSuccess } = useBuffs();
   const [Buffid, SetBuffId] = React.useState<number | null>(null);
 
-  if (!IsFeatureReady) return <LoadingContent />;
+  if (!IsFeatureReady || !isSuccess) return <LoadingContent />;
 
   return (
     <section className="flex flex-col gap-5">

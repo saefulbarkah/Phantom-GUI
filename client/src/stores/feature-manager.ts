@@ -1,5 +1,4 @@
 "use client";
-import { TBuffs, TSelectedBuff } from "@/types/buff";
 import { TSetting } from "@/types/setting";
 import { create } from "zustand";
 
@@ -17,12 +16,6 @@ type TFeatureState = {
     value?: string | number | boolean
   ) => Record<keyof TFeature, string | number | boolean> | null;
   setFeature: (newFeature: TFeature) => void;
-
-  // buffs
-  buffs: TBuffs[];
-  SelectedBuff: Partial<TSelectedBuff>;
-  SetSelectedBuff: (data: Partial<TSelectedBuff>) => void;
-  SetBuffs: (data: TBuffs[]) => void;
 };
 
 const useFeatureManagerStore = create<TFeatureState>()((set) => ({
@@ -50,19 +43,6 @@ const useFeatureManagerStore = create<TFeatureState>()((set) => ({
   setFeature: (newFeature) =>
     set((state) => ({
       feature: { ...state.feature, ...newFeature }, // immutable
-    })),
-
-  // buff manager
-  buffs: [],
-  SelectedBuff: {
-    id: null,
-    name: null,
-    stacks: null,
-  },
-  SetSelectedBuff: (data) => set(() => ({ SelectedBuff: data })),
-  SetBuffs: (data) =>
-    set((state) => ({
-      buffs: [...state.buffs, ...data],
     })),
 }));
 

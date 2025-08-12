@@ -1,25 +1,24 @@
 "use client";
-import { GetBuffs } from "@/API/buffs";
 import { GetFeatureSettings } from "@/API/settings";
 import { CheckConnection } from "@/API/test";
+import { useBuffs } from "@/hooks/useBuffs";
 import { useDungeons } from "@/hooks/useDungeons";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export const FeatureBinder = () => {
-  const { setFeature, SetFeatureReady, SetNetworkStatus, SetBuffs } = useFeatureManager();
+  const { setFeature, SetFeatureReady, SetNetworkStatus } = useFeatureManager();
 
   // Initial queries
   const connection = useQuery({ queryKey: ["connection"], queryFn: CheckConnection });
   const queryFeature = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
-  const queryBuffs = useQuery({ queryKey: ["buffs"], queryFn: GetBuffs });
+  const queryBuffs = useBuffs();
   const queryDungeon = useDungeons();
 
   const BindingFeature = () => {
     if (queryFeature.isSuccess && queryBuffs.isSuccess && queryDungeon.isSuccess) {
       setFeature(queryFeature.data?.data);
-      SetBuffs(queryBuffs.data);
       SetFeatureReady(true);
       SetNetworkStatus("connected");
     } else if (connection.failureCount > 0 && connection.isFetching) {
