@@ -22,7 +22,7 @@ export const Buff = () => {
 
   return (
     <section className="flex flex-col gap-5">
-      <div className="flex flex-col gap-5 mt-5">
+      <div className="flex flex-col gap-5">
         <h2 className="text-xl font-semibold">Custom Buff</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch title="Apply Custom Buff" description="">
@@ -95,7 +95,7 @@ export const Buff = () => {
       </div>
 
       {/* Player */}
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 mt-5">
         <h2 className="text-xl font-semibold ">Character Buff</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch

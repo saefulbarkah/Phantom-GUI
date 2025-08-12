@@ -83,7 +83,7 @@ export const Player = () => {
       </div>
 
       {/* Ability */}
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 mt-5">
         <h2 className="text-xl font-semibold">Ability</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
@@ -161,7 +161,7 @@ export const Player = () => {
       </div>
 
       {/* Teleport */}
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 mt-5">
         <h2 className="text-xl font-semibold">Teleport</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch
