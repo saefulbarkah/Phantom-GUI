@@ -11,21 +11,32 @@ export const useFeatureManager = () => {
     SetFeatureReady,
     NetworkStatus,
     SetNetworkStatus,
+    buffs,
+    SelectedBuff,
+    SetSelectedBuff,
   } = useFeatureManagerStore();
 
   const OnUpdateFeature = async (key: keyof TFeature, value?: string | number | boolean) => {
     const data = updateFeature(key, value);
     try {
-      if (data) {
-        const response = await UpdateSetting(data);
-        console.log(response?.data);
-        toast.success(`${response?.data.ok}`);
-      }
+      if (!data) return toast.error("Invalid update feature");
+      await UpdateSetting(data);
     } catch (error) {
       console.log(error);
       toast.error(`Failed to update setting`);
     }
   };
 
-  return { OnUpdateFeature, feature, setFeature, IsFeatureReady, SetFeatureReady, NetworkStatus, SetNetworkStatus };
+  return {
+    OnUpdateFeature,
+    feature,
+    setFeature,
+    IsFeatureReady,
+    SetFeatureReady,
+    NetworkStatus,
+    SetNetworkStatus,
+    buffs,
+    SelectedBuff,
+    SetSelectedBuff,
+  };
 };
