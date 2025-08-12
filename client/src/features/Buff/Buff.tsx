@@ -11,27 +11,11 @@ import { Dot } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
 
-const Buffs: { label: string; value: string; real_value: string | number }[] = [
-  {
-    label: "ATK +10.51251000",
-    value: "ATK +10.51251000",
-    real_value: 25,
-  },
-  {
-    label: "ATK +10.0214100",
-    value: "ATK +10.0214100",
-    real_value: 25,
-  },
-  {
-    label: "ATK +10.000",
-    value: "ATK +10.000",
-    real_value: 25,
-  },
-];
+export type TBuffOptionSelect = { label: string; value: string; real_value: number | number[]; stacks: number };
 
 export const Buff = () => {
-  const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
-  const [BuffSelected, SetBuffSelected] = React.useState<string | number>("");
+  const { feature, OnUpdateFeature, IsFeatureReady, buffs, OnApplyBuff, SetSelectedBuff, SelectedBuff } =
+    useFeatureManager();
   const [Buffid, SetBuffId] = React.useState<number | null>(null);
 
   if (!IsFeatureReady) return <LoadingContent />;
@@ -42,22 +26,34 @@ export const Buff = () => {
         <h2 className="text-xl font-semibold">Custom Buff</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
           <FeatureCardSwitch title="Apply Custom Buff" description="">
-            <div className="flex items-stretch gap-5">
-              <FeatureComboBox
-                data={Buffs}
-                onSelect={(val) => {
-                  toast(`Buff selected ID ${val}`);
-                  SetBuffSelected(val);
-                }}
-              />
+            <div className="flex items-center gap-4">
+              <div className="flex-1 min-w-0">
+                <FeatureComboBox
+                  data={buffs.map((item, index) => ({
+                    label: item.name,
+                    real_value: item.id,
+                    value: `${item.name}-${index}`,
+                    stacks: item.stacks,
+                  }))}
+                  onSelect={(val) => {
+                    toast(`Buff selected ID ${val.real_value}`);
+                    SetSelectedBuff({
+                      id: val.real_value,
+                      name: val.label,
+                      stacks: val.stacks,
+                    });
+                  }}
+                />
+              </div>
+
               <Button
                 size={"lg"}
                 onClick={() => {
-                  if (BuffSelected === "" || !BuffSelected) {
+                  if (!SelectedBuff) {
                     return toast.error("Please select buff");
                   }
-
-                  return toast("Applied buff " + BuffSelected);
+                  toast("Applied buff " + SelectedBuff.id);
+                  OnApplyBuff(SelectedBuff);
                 }}
               >
                 Apply
@@ -87,6 +83,7 @@ export const Buff = () => {
                     return toast.error("Invalid buff id");
                   }
 
+                  OnApplyBuff({ id: Buffid, name: "Custom", stacks: 1 });
                   return toast("Applied buff " + Buffid);
                 }}
               >

@@ -6,19 +6,19 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 export const FeatureBinder = () => {
-  const { setFeature, SetFeatureReady, SetNetworkStatus } = useFeatureManager();
+  const { setFeature, SetFeatureReady, SetNetworkStatus, SetBuffs } = useFeatureManager();
 
   // Queries
   const queryFeature = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
   const queryBuffs = useQuery({ queryKey: ["buffs"], queryFn: GetBuffs });
 
-  const BindingFeature = async () => {
+  const BindingFeature = () => {
     if (queryFeature.isSuccess && queryBuffs.isSuccess) {
       setFeature(queryFeature.data?.data);
-      console.log(queryFeature.data?.data);
+      SetBuffs(queryBuffs.data);
       SetFeatureReady(true);
       SetNetworkStatus("connected");
-    } else if (queryFeature.failureCount > 1 && queryFeature.isFetching) {
+    } else if (queryFeature.failureCount > 1 && queryFeature.isFetching && queryBuffs.isFetching) {
       SetNetworkStatus("reconnect");
     } else {
       SetNetworkStatus("disconnected");

@@ -7,10 +7,11 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { TBuffOptionSelect } from "@/features/Buff";
 
 type TFeatureComboBox = {
-  data: { label: string; value: string; real_value: string | number }[];
-  onSelect?: (val: string | number) => void;
+  data: TBuffOptionSelect[];
+  onSelect?: (val: TBuffOptionSelect) => void;
 };
 
 export function FeatureComboBox({ data, onSelect }: TFeatureComboBox) {
@@ -20,14 +21,19 @@ export function FeatureComboBox({ data, onSelect }: TFeatureComboBox) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className="w-full rounded-md">
-          <Button role="combobox" aria-expanded={open} className="w-full h-full justify-between">
+        <Button
+          role="combobox"
+          aria-expanded={open}
+          className="w-full
+         justify-between"
+        >
+          <span className="truncate">
             {value ? data.find((item) => item.value === value)?.label : "Select item..."}
-            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </div>
+          </span>
+          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
       </PopoverTrigger>
-      <PopoverContent className="lg:w-[var(--radix-popover-trigger-width)] w-full p-0 border-none rounded-2xl">
+      <PopoverContent className="w-[--radix-popover-trigger-width] p-0 border-none rounded-2xl">
         <Command className="text-slate-200 border-none">
           <CommandInput className="border-none" placeholder="Search item..." />
           <CommandList className="border-none">
@@ -42,7 +48,7 @@ export function FeatureComboBox({ data, onSelect }: TFeatureComboBox) {
                     setValue(currentValue);
                     setOpen(false);
                     if (onSelect) {
-                      onSelect(item.real_value);
+                      onSelect(item);
                     }
                   }}
                 >

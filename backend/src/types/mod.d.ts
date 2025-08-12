@@ -151,5 +151,5 @@ export type TModSettings = {
 export type TBuffs = {
   name: string | null;
   id: number | number[] | null;
-  stacks?: number | null;
+  stacks: number | null;
 };

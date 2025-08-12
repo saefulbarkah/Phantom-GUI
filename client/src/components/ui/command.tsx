@@ -12,7 +12,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        "text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md bg-[#131C24]",
+        "text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md bg-[#0c141b]",
         className
       )}
       {...props}

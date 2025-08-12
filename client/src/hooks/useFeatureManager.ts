@@ -1,3 +1,4 @@
+import { UpdateBuffSelected } from "@/API/buffs";
 import { UpdateSetting } from "@/API/settings";
 import useFeatureManagerStore, { TFeature } from "@/stores/feature-manager";
 import toast from "react-hot-toast";
@@ -14,6 +15,7 @@ export const useFeatureManager = () => {
     buffs,
     SelectedBuff,
     SetSelectedBuff,
+    SetBuffs,
   } = useFeatureManagerStore();
 
   const OnUpdateFeature = async (key: keyof TFeature, value?: string | number | boolean) => {
@@ -24,6 +26,16 @@ export const useFeatureManager = () => {
     } catch (error) {
       console.log(error);
       toast.error(`Failed to update setting`);
+    }
+  };
+
+  const OnApplyBuff = async (buff: typeof SelectedBuff) => {
+    try {
+      if (!buff.id) return toast.error(`Buff Id invalid`);
+      await UpdateBuffSelected(buff);
+    } catch (error) {
+      console.log(error);
+      toast.error(`Failed to apply buff`);
     }
   };
 
@@ -38,5 +50,7 @@ export const useFeatureManager = () => {
     buffs,
     SelectedBuff,
     SetSelectedBuff,
+    SetBuffs,
+    OnApplyBuff,
   };
 };

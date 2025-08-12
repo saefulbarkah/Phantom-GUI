@@ -3,11 +3,13 @@ import { CheckIfConfigExist, LoadSettings, SaveSettings } from "../stores/settin
 import { TBuffs } from "../types/mod";
 import { Buff } from "../const/Buff";
 import { z } from "zod";
+import chalk from "chalk";
+import LOG from "../utils/logging";
 
 export const TBuffsSchema = z.object({
   id: z.union([z.number(), z.array(z.number()).min(1)]),
   name: z.string(),
-  stacks: z.number().nullable().optional(),
+  stacks: z.number().nullable(),
 });
 
 const filePath = "./phantom-buff.json";
@@ -15,17 +17,27 @@ const filePath = "./phantom-buff.json";
 let state = Buff;
 let state_selected: TBuffs = { id: null, name: null, stacks: null };
 
+async function LoadConfig() {
+  const data = await LoadSettings<TBuffs[]>(filePath, "Buff");
+  if (data) {
+    state = [...state, ...data];
+  } else {
+    state = [...state];
+  }
+  LOG.SUCCESS("Buff config loaded");
+}
+
 // Saat server mulai, load dulu dari file (sync/async sesuai kebutuhan)
 async function initializeSettings() {
   if (CheckIfConfigExist(filePath)) {
     const data = await LoadSettings<TBuffs[]>(filePath, "Buff");
     if (data) {
-      console.log("Settings loaded from file.");
+      LOG.INFO("Buffs loaded from file.");
       state = data;
     }
   } else {
     await SaveSettings<TBuffs[]>(state, filePath, "Buff");
-    console.log("Default settings saved.");
+    LOG.SUCCESS("Default Buffs saved.");
   }
 }
 
@@ -33,11 +45,15 @@ async function initializeSettings() {
 initializeSettings();
 
 export const GetBuffsettings = async (req: Request, res: Response) => {
+  if (!CheckIfConfigExist(filePath)) {
+    LOG.ERROR("Buff config missing");
+    await LoadConfig();
+  }
   res.json(state);
 };
 
 export async function GetSelectedBuff(req: Request, res: Response) {
-  const current = { ...state_selected, ...req.body };
+  const current: typeof state_selected = { ...state_selected, ...req.body };
 
   // reset when applied buff
   state_selected = {
@@ -45,6 +61,10 @@ export async function GetSelectedBuff(req: Request, res: Response) {
     name: null,
     stacks: null,
   };
+
+  if (current.id) {
+    LOG.SUCCESS(`Buff applied, name: ${chalk.green(current.name)} | ID: ${chalk.cyan(current.id)}`);
+  }
 
   return res.json(current);
 }
@@ -61,21 +81,17 @@ export const UpdateSelectedBuff = async (req: Request, res: Response) => {
 
   const body = req.body as TBuffs;
   state_selected = { ...state_selected, ...body }; // update status
-  console.log(body);
+  LOG.INFO(`Waiting for applied buff name: ${chalk.green(body.name)} | ID: ${chalk.cyan(body.id)}`);
   return res.json(body);
 };
 
 export const LoadBuffJSON = async (req: Request, res: Response) => {
   try {
-    const data = await LoadSettings<TBuffs[]>(filePath, "Buff");
-    if (data) {
-      state = [...state, ...data];
-    } else {
-      state = [...state];
-    }
+    LoadConfig();
+    console.log("load buff config");
     return res.json({ ok: "Config loaded", data: state });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to update Buff setting" });
+    res.status(500).json({ error: "Failed to update Buff" });
   }
 };

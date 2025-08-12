@@ -9,26 +9,32 @@ export const Buff: TBuffs[] = [
   {
     id: 672010105,
     name: "Increase Critical Damage +20%",
+    stacks: 1,
   },
   {
     id: 672010102,
     name: "Increase ATK +600",
+    stacks: 1,
   },
   {
     id: 674011002,
     name: "Increase ATK +50",
+    stacks: 1,
   },
   {
     name: "Increase Critical Damage +150%",
     id: 671000010,
+    stacks: 1,
   },
   {
     name: "Increase Material Drop +50%",
     id: 83011202,
+    stacks: 1,
   },
   {
     name: "Increase Coin Drop +50%",
     id: 83011302,
+    stacks: 1,
   },
   {
     name: "Super Buff",

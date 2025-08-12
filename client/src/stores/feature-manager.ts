@@ -6,6 +6,7 @@ import { create } from "zustand";
 export type TFeature = Partial<TSetting>;
 
 type TFeatureState = {
+  // feature general
   feature: TFeature;
   IsFeatureReady: boolean;
   NetworkStatus: "disconnected" | "connected" | "reconnect";
@@ -16,21 +17,23 @@ type TFeatureState = {
     value?: string | number | boolean
   ) => Record<keyof TFeature, string | number | boolean> | null;
   setFeature: (newFeature: TFeature) => void;
+
+  // buffs
   buffs: TBuffs[];
   SelectedBuff: Partial<TSelectedBuff>;
   SetSelectedBuff: (data: Partial<TSelectedBuff>) => void;
+  SetBuffs: (data: TBuffs[]) => void;
+
+  // farms
 };
 
 const useFeatureManagerStore = create<TFeatureState>()((set) => ({
+  // feature general
   feature: {},
   NetworkStatus: "disconnected",
   SetNetworkStatus: (val) => set(() => ({ NetworkStatus: val })),
-
   IsFeatureReady: false,
-  // binb data
   SetFeatureReady: (bool) => set(() => ({ IsFeatureReady: bool })),
-
-  // update specific feature
   OnUpdateFeature: (key, value) => {
     let data = null;
     set((state) => {
@@ -46,8 +49,6 @@ const useFeatureManagerStore = create<TFeatureState>()((set) => ({
     });
     return data;
   },
-
-  // binb data
   setFeature: (newFeature) =>
     set((state) => ({
       feature: { ...state.feature, ...newFeature }, // immutable
@@ -61,6 +62,12 @@ const useFeatureManagerStore = create<TFeatureState>()((set) => ({
     stacks: null,
   },
   SetSelectedBuff: (data) => set(() => ({ SelectedBuff: data })),
+  SetBuffs: (data) =>
+    set((state) => ({
+      buffs: [...state.buffs, ...data],
+    })),
+
+  // farm manager
 }));
 
 export default useFeatureManagerStore;
