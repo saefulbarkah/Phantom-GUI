@@ -25,7 +25,7 @@ export function FeatureComboBox({ data, onSelect }: TFeatureComboBox) {
           role="combobox"
           aria-expanded={open}
           className="w-full
-         justify-between"
+         justify-between bg-[#0e1c29] hover:bg-[#0e1c29]/90"
         >
           <span className="truncate">
             {value ? data.find((item) => item.value === value)?.label : "Select item..."}
@@ -33,8 +33,8 @@ export function FeatureComboBox({ data, onSelect }: TFeatureComboBox) {
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0 border-none rounded-2xl">
-        <Command className="text-slate-200 border-none">
+      <PopoverContent className="min-w-[--radix-popover-trigger-width] p-0 border-none rounded-2xl">
+        <Command className="text-slate-200 border-none bg-[#0e1c29]/100">
           <CommandInput className="border-none" placeholder="Search item..." />
           <CommandList className="border-none">
             <CommandEmpty>No item found.</CommandEmpty>
