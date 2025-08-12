@@ -153,3 +153,8 @@ export type TBuffs = {
   id: number | number[] | null;
   stacks: number | null;
 };
+
+export type TDungeon = {
+  name: string | null;
+  id: number | null;
+};

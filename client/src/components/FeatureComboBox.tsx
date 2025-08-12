@@ -7,14 +7,15 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { TBuffOptionSelect } from "@/features/Buff";
 
-type TFeatureComboBox = {
-  data: TBuffOptionSelect[];
-  onSelect?: (val: TBuffOptionSelect) => void;
+type TOptionValue = { label: string; value: string };
+
+type TFeatureComboBox<T> = {
+  data: T[];
+  onSelect?: (val: T) => void;
 };
 
-export function FeatureComboBox({ data, onSelect }: TFeatureComboBox) {
+export function FeatureComboBox<T extends TOptionValue>({ data, onSelect }: TFeatureComboBox<T>) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 

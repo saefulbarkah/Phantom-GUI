@@ -2,8 +2,19 @@ import express from "express";
 import { GetStatus, SetStatus } from "../controller/GameStateController";
 import { GetSettings, LoadSettingJSON, SaveSettingsJSON, UpdateSettings } from "../controller/SettingsController";
 import { GetBuffsettings, GetSelectedBuff, LoadBuffJSON, UpdateSelectedBuff } from "../controller/BuffController";
+import {
+  GetDungeons,
+  GetSelectedDungeon,
+  LoadDungeonJSON,
+  StoreDungeon,
+  UpdateSelectedDungeon,
+} from "../controller/DungeonController";
+import { CheckConnection } from "../controller/ConnectionCheck";
 
 const router = express.Router();
+
+// Check Connection
+router.get("/check", CheckConnection);
 
 // settings
 router.get("/settings", GetSettings);
@@ -16,6 +27,13 @@ router.get("/buffs", GetBuffsettings);
 router.get("/buffs/check", GetSelectedBuff);
 router.post("/buffs/update", UpdateSelectedBuff);
 router.post("/buffs/load", LoadBuffJSON);
+
+// Buff
+router.get("/dungeons", GetDungeons);
+router.get("/dungeons/check", GetSelectedDungeon);
+router.post("/dungeons/update", UpdateSelectedDungeon);
+router.post("/dungeons/store", StoreDungeon);
+router.post("/dungeons/load", LoadDungeonJSON);
 
 // event callback
 router.get("/status", GetStatus);

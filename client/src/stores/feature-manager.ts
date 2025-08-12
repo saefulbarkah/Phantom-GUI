@@ -23,8 +23,6 @@ type TFeatureState = {
   SelectedBuff: Partial<TSelectedBuff>;
   SetSelectedBuff: (data: Partial<TSelectedBuff>) => void;
   SetBuffs: (data: TBuffs[]) => void;
-
-  // farms
 };
 
 const useFeatureManagerStore = create<TFeatureState>()((set) => ({
@@ -66,8 +64,6 @@ const useFeatureManagerStore = create<TFeatureState>()((set) => ({
     set((state) => ({
       buffs: [...state.buffs, ...data],
     })),
-
-  // farm manager
 }));
 
 export default useFeatureManagerStore;

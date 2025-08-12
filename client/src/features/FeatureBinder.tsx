@@ -1,6 +1,8 @@
 "use client";
 import { GetBuffs } from "@/API/buffs";
 import { GetFeatureSettings } from "@/API/settings";
+import { CheckConnection } from "@/API/test";
+import { useDungeons } from "@/hooks/useDungeons";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -8,17 +10,19 @@ import React from "react";
 export const FeatureBinder = () => {
   const { setFeature, SetFeatureReady, SetNetworkStatus, SetBuffs } = useFeatureManager();
 
-  // Queries
+  // Initial queries
+  const connection = useQuery({ queryKey: ["connection"], queryFn: CheckConnection });
   const queryFeature = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
   const queryBuffs = useQuery({ queryKey: ["buffs"], queryFn: GetBuffs });
+  const queryDungeon = useDungeons();
 
   const BindingFeature = () => {
-    if (queryFeature.isSuccess && queryBuffs.isSuccess) {
+    if (queryFeature.isSuccess && queryBuffs.isSuccess && queryDungeon.isSuccess) {
       setFeature(queryFeature.data?.data);
       SetBuffs(queryBuffs.data);
       SetFeatureReady(true);
       SetNetworkStatus("connected");
-    } else if (queryFeature.failureCount > 1 && queryFeature.isFetching && queryBuffs.isFetching) {
+    } else if (connection.failureCount > 0 && connection.isFetching) {
       SetNetworkStatus("reconnect");
     } else {
       SetNetworkStatus("disconnected");
@@ -28,6 +32,12 @@ export const FeatureBinder = () => {
   React.useEffect(() => {
     BindingFeature();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryFeature.failureCount, queryFeature.data, queryFeature.isSuccess]);
+  }, [
+    connection.isSuccess,
+    connection.failureCount,
+    queryFeature.isSuccess,
+    queryBuffs.isSuccess,
+    queryDungeon.isSuccess,
+  ]);
   return null;
 };

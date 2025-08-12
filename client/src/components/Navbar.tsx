@@ -6,7 +6,13 @@ export const Navbar = () => {
     <nav className="fixed top-0 right-0 left-0 bg-background border-b h-18 border-b-slate-400/15 z-50">
       <div className="flex items-center h-full mx-[25px]">
         <div className="flex gap-2 items-center w-full">
-          <Image src={"./assets/icon/k-logo.png"} alt="" width={45} height={45} />
+          <Image
+            src={"./assets/icon/k-logo.png"}
+            alt=""
+            width={512}
+            height={512}
+            style={{ width: "50px", height: "50px" }}
+          />
           <h2 className="text-lg font-bold">Phantom Waves</h2>
           <div className="ml-auto">
             <p className="text-slate-500 text-sm">v0.9 beta</p>

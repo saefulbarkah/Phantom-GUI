@@ -11,8 +11,6 @@ import { Dot } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
 
-export type TBuffOptionSelect = { label: string; value: string; real_value: number | number[]; stacks: number };
-
 export const Buff = () => {
   const { feature, OnUpdateFeature, IsFeatureReady, buffs, OnApplyBuff, SetSelectedBuff, SelectedBuff } =
     useFeatureManager();
