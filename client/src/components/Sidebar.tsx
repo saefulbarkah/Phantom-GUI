@@ -69,8 +69,8 @@ const SideNav = ({ href, children }: LinkProps & HTMLAttributes<HTMLAnchorElemen
   return (
     <Link href={href}>
       <Button
-        className={`w-full cursor-pointer h-10 hover:bg-box hover:text-white text-md capitalize ${
-          pathName === href ? "bg-box" : "text-white/50"
+        className={`w-full cursor-pointer h-10 hover:bg-[#0e1c29] hover:text-white text-md capitalize ${
+          pathName === href ? "bg-[#0e1c29]" : "text-white/50"
         }`}
         variant={"ghost"}
       >
