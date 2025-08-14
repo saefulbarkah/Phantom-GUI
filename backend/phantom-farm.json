@@ -1,0 +1,1294 @@
+[
+  {
+    "id": 5,
+    "name": "Celestial Light",
+    "sonataEffects": [
+      {
+        "id": 9,
+        "desc": "Spectro DMG + 10%."
+      },
+      {
+        "id": 10,
+        "desc": "Spectro DMG + 30% for 15s after releasing Intro Skill."
+      }
+    ],
+    "icon": "Celestial-Light",
+    "monsters": [
+      {
+        "id": 310000070,
+        "name": "Havoc Warrior",
+        "cost": 1
+      },
+      {
+        "id": 310000090,
+        "name": "Zig Zag",
+        "cost": 1
+      },
+      {
+        "id": 310000040,
+        "name": "Glacio Predator",
+        "cost": 1
+      },
+      {
+        "id": 310000120,
+        "name": "Gulpuff",
+        "cost": 1
+      },
+      {
+        "id": 310000160,
+        "name": "Spectro Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000170,
+        "name": "Havoc Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000180,
+        "name": "Cruisewing",
+        "cost": 1
+      },
+      {
+        "id": 310000270,
+        "name": "Hoartoise",
+        "cost": 1
+      },
+      {
+        "id": 310000340,
+        "name": "Clang Bang",
+        "cost": 1
+      },
+      {
+        "id": 320000030,
+        "name": "Cyan-Feathered Heron",
+        "cost": 3
+      },
+      {
+        "id": 320000060,
+        "name": "Rocksteady Guardian",
+        "cost": 3
+      },
+      {
+        "id": 320000180,
+        "name": "Autopuppet Scout",
+        "cost": 3
+      },
+      {
+        "id": 320000210,
+        "name": "Lightcrusher",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Dream of the Lost",
+    "sonataEffects": [
+      {
+        "id": 192,
+        "desc": "Holding 0 Resonance Energy increases Crit. Rate by 20% and grants 35% Echo Skill DMG Bonus."
+      }
+    ],
+    "icon": "Dream-of-the-Lost",
+    "monsters": [
+      {
+        "id": 310000430,
+        "name": "Fae Ignis",
+        "cost": 1
+      },
+      {
+        "id": 310000630,
+        "name": "Nightmare: Havoc Warrior",
+        "cost": 1
+      },
+      {
+        "id": 310000640,
+        "name": "Nightmare: Glacio Predator",
+        "cost": 1
+      },
+      {
+        "id": 320000280,
+        "name": "Chop Chop",
+        "cost": 3
+      },
+      {
+        "id": 320000430,
+        "name": "Nightmare: Tambourinist",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Empyrean Anthem",
+    "sonataEffects": [
+      {
+        "id": 132,
+        "desc": "Energy Regen + 10%"
+      },
+      {
+        "id": 135,
+        "desc": "Increase the Resonator's Coordinated Attack DMG by 80%. Upon a critical hit of Coordinated Attack, increase the active Resonator's ATK by 20% for 4s."
+      }
+    ],
+    "icon": "Empyrean-Anthem",
+    "monsters": [
+      {
+        "id": 310000370,
+        "name": "Galescourge Stalker",
+        "cost": 1
+      },
+      {
+        "id": 310000380,
+        "name": "Voltscourge Stalker",
+        "cost": 1
+      },
+      {
+        "id": 310000440,
+        "name": "Nimbus Wraith",
+        "cost": 1
+      },
+      {
+        "id": 310000450,
+        "name": "Hocus Pocus",
+        "cost": 1
+      },
+      {
+        "id": 310000480,
+        "name": "Chest Mimic",
+        "cost": 1
+      },
+      {
+        "id": 310000500,
+        "name": "Calcified Junrock",
+        "cost": 1
+      },
+      {
+        "id": 320000240,
+        "name": "Nocturnus Knight",
+        "cost": 3
+      },
+      {
+        "id": 320000250,
+        "name": "Abyssal Patricius",
+        "cost": 3
+      },
+      {
+        "id": 320000280,
+        "name": "Chop Chop",
+        "cost": 3
+      },
+      {
+        "id": 320000290,
+        "name": "Vitreum Dancer",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Eternal Radiance",
+    "sonataEffects": [
+      {
+        "id": 112,
+        "desc": "Spectro DMG + 10%"
+      },
+      {
+        "id": 115,
+        "desc": "Inflicting Spectro Frazzle on enemies increases Crit. Rate by 20% for 15s. Attacking enemies inflicted with 10 stacks of Spectro Frazzle grants 15% Spectro DMG Bonus for 15s."
+      }
+    ],
+    "icon": "Eternal-Radiance",
+    "monsters": [
+      {
+        "id": 310000390,
+        "name": "Frostscourge Stalker",
+        "cost": 1
+      },
+      {
+        "id": 310000400,
+        "name": "Chop Chop: Headless",
+        "cost": 1
+      },
+      {
+        "id": 310000430,
+        "name": "Fae Ignis",
+        "cost": 1
+      },
+      {
+        "id": 310000470,
+        "name": "Diggy Duggy",
+        "cost": 1
+      },
+      {
+        "id": 310000490,
+        "name": "Golden Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000510,
+        "name": "Aero Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000530,
+        "name": "Sagittario",
+        "cost": 1
+      },
+      {
+        "id": 320000230,
+        "name": "Diurnus Knight",
+        "cost": 3
+      },
+      {
+        "id": 320000270,
+        "name": "Abyssal Mercator",
+        "cost": 3
+      },
+      {
+        "id": 320000290,
+        "name": "Vitreum Dancer",
+        "cost": 3
+      },
+      {
+        "id": 320000310,
+        "name": "Rage Against the Statue",
+        "cost": 3
+      },
+      {
+        "id": 320000330,
+        "name": "Capitaneus",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Flaming Clawprint",
+    "sonataEffects": [
+      {
+        "id": 182,
+        "desc": "Fusion DMG + 10%"
+      },
+      {
+        "id": 185,
+        "desc": "Casting Resonance Liberation grants all Resonators in the team 15% Fusion DMG Bonus and the caster 20% Resonance Liberation DMG Bonus, lasting for 35s."
+      }
+    ],
+    "icon": "Flaming-Clawprint",
+    "monsters": [
+      {
+        "id": 310000520,
+        "name": "La Guardia",
+        "cost": 1
+      },
+      {
+        "id": 310000530,
+        "name": "Sagittario",
+        "cost": 1
+      },
+      {
+        "id": 310000550,
+        "name": "Aero Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000560,
+        "name": "Electro Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000580,
+        "name": "Fusion Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000590,
+        "name": "Spectro Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000600,
+        "name": "Havoc Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000610,
+        "name": "Devotee's Flesh",
+        "cost": 1
+      },
+      {
+        "id": 320000350,
+        "name": "Pilgrim's Shell",
+        "cost": 3
+      },
+      {
+        "id": 320000340,
+        "name": "Kerasaur",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Freezing Frost",
+    "sonataEffects": [
+      {
+        "id": 1,
+        "desc": "Glacio DMG + 10%."
+      },
+      {
+        "id": 2,
+        "desc": "Glacio DMG + 10% after releasing Basic Attack or Heavy Attack. This effect stacks up to 3 times, each stack lasts 15s."
+      }
+    ],
+    "icon": "Freezing-Frost",
+    "monsters": [
+      {
+        "id": 310000040,
+        "name": "Glacio Predator",
+        "cost": 1
+      },
+      {
+        "id": 310000120,
+        "name": "Gulpuff",
+        "cost": 1
+      },
+      {
+        "id": 310000140,
+        "name": "Glacio Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000150,
+        "name": "Fusion Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000190,
+        "name": "Sabyr Boar",
+        "cost": 1
+      },
+      {
+        "id": 310000200,
+        "name": "Excarat",
+        "cost": 1
+      },
+      {
+        "id": 310000270,
+        "name": "Hoartoise",
+        "cost": 1
+      },
+      {
+        "id": 310000340,
+        "name": "Clang Bang",
+        "cost": 1
+      },
+      {
+        "id": 320000050,
+        "name": "Tambourinist",
+        "cost": 3
+      },
+      {
+        "id": 320000090,
+        "name": "Roseshroom",
+        "cost": 3
+      },
+      {
+        "id": 320000180,
+        "name": "Autopuppet Scout",
+        "cost": 3
+      },
+      {
+        "id": 320000190,
+        "name": "Glacio Dreadmane",
+        "cost": 3
+      },
+      {
+        "id": 320000200,
+        "name": "Lumiscale Construct",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Frosty Resolve",
+    "sonataEffects": [
+      {
+        "id": 102,
+        "desc": "Resonance Skill DMG + 12%"
+      },
+      {
+        "id": 105,
+        "desc": "Casting Resonance Skill grants 22.5% Glacio DMG Bonus for 15s and casting Resonance Liberation increases Resonance Skill DMG by 18%, lasting for 5s. This effect stacks up to 2 times."
+      }
+    ],
+    "icon": "Frosty-Resolve",
+    "monsters": [
+      {
+        "id": 310000370,
+        "name": "Galescourge Stalker",
+        "cost": 1
+      },
+      {
+        "id": 310000410,
+        "name": "Chop Chop: Leftless",
+        "cost": 1
+      },
+      {
+        "id": 310000420,
+        "name": "Chop Chop: Rightless",
+        "cost": 1
+      },
+      {
+        "id": 310000450,
+        "name": "Hocus Pocus",
+        "cost": 1
+      },
+      {
+        "id": 310000460,
+        "name": "Lottie Lost",
+        "cost": 1
+      },
+      {
+        "id": 310000480,
+        "name": "Chest Mimic",
+        "cost": 1
+      },
+      {
+        "id": 310000490,
+        "name": "Golden Junrock",
+        "cost": 1
+      },
+      {
+        "id": 320000220,
+        "name": "Questless Knight",
+        "cost": 3
+      },
+      {
+        "id": 320000250,
+        "name": "Abyssal Patricius",
+        "cost": 3
+      },
+      {
+        "id": 320000270,
+        "name": "Abyssal Mercator",
+        "cost": 3
+      },
+      {
+        "id": 320000300,
+        "name": "Cuddle Wuddle",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Gusts of Welkin",
+    "sonataEffects": [
+      {
+        "id": 162,
+        "desc": "Aero DMG + 10%"
+      },
+      {
+        "id": 165,
+        "desc": "Inflicting Aero Erosion upon enemies increases Aero DMG for all Resonators in the team by 15%, and for the Resonator triggering this effect by an additional 15%, lasting for 20s."
+      }
+    ],
+    "icon": "Gusts-of-Welkin",
+    "monsters": [
+      {
+        "id": 310000520,
+        "name": "La Guardia",
+        "cost": 1
+      },
+      {
+        "id": 310000530,
+        "name": "Sagittario",
+        "cost": 1
+      },
+      {
+        "id": 310000540,
+        "name": "Sacerdos",
+        "cost": 1
+      },
+      {
+        "id": 310000550,
+        "name": "Aero Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000560,
+        "name": "Electro Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000570,
+        "name": "Glacio Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000610,
+        "name": "Devotee's Flesh",
+        "cost": 1
+      },
+      {
+        "id": 320000310,
+        "name": "Rage Against the Statue",
+        "cost": 3
+      },
+      {
+        "id": 320000320,
+        "name": "Hurriclaw",
+        "cost": 3
+      },
+      {
+        "id": 320000330,
+        "name": "Capitaneus",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Havoc Eclipse",
+    "sonataEffects": [
+      {
+        "id": 11,
+        "desc": "Havoc DMG + 10%."
+      },
+      {
+        "id": 12,
+        "desc": "Havoc DMG + 7.5% after releasing Basic Attack or Heavy Attack. This effect stacks up to 4 times, each stack lasts 15s."
+      }
+    ],
+    "icon": "Havoc-Eclipse",
+    "monsters": [
+      {
+        "id": 310000070,
+        "name": "Havoc Warrior",
+        "cost": 1
+      },
+      {
+        "id": 310000110,
+        "name": "Tick Tack",
+        "cost": 1
+      },
+      {
+        "id": 310000140,
+        "name": "Glacio Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000170,
+        "name": "Havoc Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000200,
+        "name": "Excarat",
+        "cost": 1
+      },
+      {
+        "id": 310000220,
+        "name": "Young Roseshroom",
+        "cost": 1
+      },
+      {
+        "id": 310000130,
+        "name": "Chirpuff",
+        "cost": 1
+      },
+      {
+        "id": 320000050,
+        "name": "Tambourinist",
+        "cost": 3
+      },
+      {
+        "id": 320000090,
+        "name": "Roseshroom",
+        "cost": 3
+      },
+      {
+        "id": 320000100,
+        "name": "Havoc Dreadmane",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Lingering Tunes",
+    "sonataEffects": [
+      {
+        "id": 17,
+        "desc": "ATK +10%"
+      },
+      {
+        "id": 18,
+        "desc": "While on the field, ATK increases by 5% every 1.5s. This effect stacks up to 4 times. Outro Skill DMG + 60%."
+      }
+    ],
+    "icon": "Lingering-Tunes",
+    "monsters": [
+      {
+        "id": 310000010,
+        "name": "Vanguard Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000080,
+        "name": "Snip Snap",
+        "cost": 1
+      },
+      {
+        "id": 310000090,
+        "name": "Zig Zag",
+        "cost": 1
+      },
+      {
+        "id": 310000110,
+        "name": "Tick Tack",
+        "cost": 1
+      },
+      {
+        "id": 310000150,
+        "name": "Fusion Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000210,
+        "name": "Baby Viridblaze Saurian",
+        "cost": 1
+      },
+      {
+        "id": 310000251,
+        "name": "Hooscamp",
+        "cost": 1
+      },
+      {
+        "id": 310000260,
+        "name": "Diamondclaw",
+        "cost": 1
+      },
+      {
+        "id": 310000350,
+        "name": "Lava Larva",
+        "cost": 1
+      },
+      {
+        "id": 320000040,
+        "name": "Flautist",
+        "cost": 3
+      },
+      {
+        "id": 320000070,
+        "name": "Chasm Guardian",
+        "cost": 3
+      },
+      {
+        "id": 320000120,
+        "name": "Spearback",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Midnight Veil",
+    "sonataEffects": [
+      {
+        "id": 122,
+        "desc": "Havoc DMG + 10%"
+      },
+      {
+        "id": 125,
+        "desc": "When Outro Skill is triggered, deal additional 480% Havoc DMG to surrounding enemies, considered Outro Skill DMG, and grant the incoming Resonator 15% Havoc DMG Bonus for 15s."
+      }
+    ],
+    "icon": "Midnight-Veil",
+    "monsters": [
+      {
+        "id": 310000380,
+        "name": "Voltscourge Stalker",
+        "cost": 1
+      },
+      {
+        "id": 310000390,
+        "name": "Frostscourge Stalker",
+        "cost": 1
+      },
+      {
+        "id": 310000430,
+        "name": "Fae Ignis",
+        "cost": 1
+      },
+      {
+        "id": 310000440,
+        "name": "Nimbus Wraith",
+        "cost": 1
+      },
+      {
+        "id": 310000480,
+        "name": "Chest Mimic",
+        "cost": 1
+      },
+      {
+        "id": 310000520,
+        "name": "La Guardia",
+        "cost": 1
+      },
+      {
+        "id": 310000560,
+        "name": "Electro Drake",
+        "cost": 1
+      },
+      {
+        "id": 320000220,
+        "name": "Questless Knight",
+        "cost": 3
+      },
+      {
+        "id": 320000240,
+        "name": "Nocturnus Knight",
+        "cost": 3
+      },
+      {
+        "id": 320000260,
+        "name": "Abyssal Gladius",
+        "cost": 3
+      },
+      {
+        "id": 320000300,
+        "name": "Cuddle Wuddle",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Molten Rift",
+    "sonataEffects": [
+      {
+        "id": 3,
+        "desc": "Fusion DMG + 10%."
+      },
+      {
+        "id": 4,
+        "desc": "Fusion DMG + 30% for 15s after releasing Resonance Skill."
+      }
+    ],
+    "icon": "Molten-Rift",
+    "monsters": [
+      {
+        "id": 310000030,
+        "name": "Electro Predator",
+        "cost": 1
+      },
+      {
+        "id": 310000060,
+        "name": "Fusion Warrior",
+        "cost": 1
+      },
+      {
+        "id": 310000080,
+        "name": "Snip Snap",
+        "cost": 1
+      },
+      {
+        "id": 310000150,
+        "name": "Fusion Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000160,
+        "name": "Spectro Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000210,
+        "name": "Baby Viridblaze Saurian",
+        "cost": 1
+      },
+      {
+        "id": 310000280,
+        "name": "Fusion Dreadmane",
+        "cost": 1
+      },
+      {
+        "id": 310000330,
+        "name": "Traffic Illuminator",
+        "cost": 1
+      },
+      {
+        "id": 310000350,
+        "name": "Lava Larva",
+        "cost": 1
+      },
+      {
+        "id": 320000020,
+        "name": "Violet-Feathered Heron",
+        "cost": 3
+      },
+      {
+        "id": 320000080,
+        "name": "Viridblaze Saurian",
+        "cost": 3
+      },
+      {
+        "id": 320000100,
+        "name": "Havoc Dreadmane",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Moonlit Clouds",
+    "sonataEffects": [
+      {
+        "id": 15,
+        "desc": "Energy Regen + 10%."
+      },
+      {
+        "id": 16,
+        "desc": "Upon using Outro Skill, increases the ATK of the next Resonator by 22.5% for 15s."
+      }
+    ],
+    "icon": "Moonlit-Clouds",
+    "monsters": [
+      {
+        "id": 310000020,
+        "name": "Fission Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000090,
+        "name": "Zig Zag",
+        "cost": 1
+      },
+      {
+        "id": 310000100,
+        "name": "Whiff Whaff",
+        "cost": 1
+      },
+      {
+        "id": 310000140,
+        "name": "Glacio Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000180,
+        "name": "Cruisewing",
+        "cost": 1
+      },
+      {
+        "id": 310000190,
+        "name": "Sabyr Boar",
+        "cost": 1
+      },
+      {
+        "id": 310000260,
+        "name": "Diamondclaw",
+        "cost": 1
+      },
+      {
+        "id": 320000010,
+        "name": "Stonewall Bracer",
+        "cost": 3
+      },
+      {
+        "id": 320000080,
+        "name": "Viridblaze Saurian",
+        "cost": 3
+      },
+      {
+        "id": 320000120,
+        "name": "Spearback",
+        "cost": 3
+      },
+      {
+        "id": 320000130,
+        "name": "Carapace",
+        "cost": 3
+      },
+      {
+        "id": 320000190,
+        "name": "Glacio Dreadmane",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Rejuvenating Glow",
+    "sonataEffects": [
+      {
+        "id": 13,
+        "desc": "Healing Bonus + 10%."
+      },
+      {
+        "id": 14,
+        "desc": "Increases the ATK of all party members by 15% for 30s upon healing allies."
+      }
+    ],
+    "icon": "Rejuvenating-Glow",
+    "monsters": [
+      {
+        "id": 310000010,
+        "name": "Vanguard Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000020,
+        "name": "Fission Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000080,
+        "name": "Snip Snap",
+        "cost": 1
+      },
+      {
+        "id": 310000100,
+        "name": "Whiff Whaff",
+        "cost": 1
+      },
+      {
+        "id": 310000110,
+        "name": "Tick Tack",
+        "cost": 1
+      },
+      {
+        "id": 310000180,
+        "name": "Cruisewing",
+        "cost": 1
+      },
+      {
+        "id": 310000280,
+        "name": "Fusion Dreadmane",
+        "cost": 1
+      },
+      {
+        "id": 310000360,
+        "name": "Dwarf Cassowary",
+        "cost": 1
+      },
+      {
+        "id": 320000010,
+        "name": "Stonewall Bracer",
+        "cost": 3
+      },
+      {
+        "id": 320000070,
+        "name": "Chasm Guardian",
+        "cost": 3
+      },
+      {
+        "id": 320000060,
+        "name": "Rocksteady Guardian",
+        "cost": 3
+      },
+      {
+        "id": 320000111,
+        "name": "Hoochief",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Sierra Gale",
+    "sonataEffects": [
+      {
+        "id": 7,
+        "desc": "Aero DMG + 10%."
+      },
+      {
+        "id": 8,
+        "desc": "Aero DMG + 30% for 15s after releasing Intro Skill."
+      }
+    ],
+    "icon": "Sierra-Gale",
+    "monsters": [
+      {
+        "id": 310000060,
+        "name": "Fusion Warrior",
+        "cost": 1
+      },
+      {
+        "id": 310000100,
+        "name": "Whiff Whaff",
+        "cost": 1
+      },
+      {
+        "id": 310000050,
+        "name": "Aero Predator",
+        "cost": 1
+      },
+      {
+        "id": 310000190,
+        "name": "Sabyr Boar",
+        "cost": 1
+      },
+      {
+        "id": 310000220,
+        "name": "Young Roseshroom",
+        "cost": 1
+      },
+      {
+        "id": 310000251,
+        "name": "Hooscamp",
+        "cost": 1
+      },
+      {
+        "id": 310000130,
+        "name": "Chirpuff",
+        "cost": 1
+      },
+      {
+        "id": 310000330,
+        "name": "Traffic Illuminator",
+        "cost": 1
+      },
+      {
+        "id": 310000360,
+        "name": "Dwarf Cassowary",
+        "cost": 1
+      },
+      {
+        "id": 320000030,
+        "name": "Cyan-Feathered Heron",
+        "cost": 3
+      },
+      {
+        "id": 320000111,
+        "name": "Hoochief",
+        "cost": 3
+      },
+      {
+        "id": 320000130,
+        "name": "Carapace",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Tidebreaking Courage",
+    "sonataEffects": [
+      {
+        "id": 142,
+        "desc": "Energy Regen + 10%"
+      },
+      {
+        "id": 145,
+        "desc": "Increase the Resonator's ATK by 15%. Reaching 250% Energy Regen increases all Attribute DMG by 30% for the Resonator."
+      }
+    ],
+    "icon": "Tidebreaking-Courage",
+    "monsters": [
+      {
+        "id": 310000400,
+        "name": "Chop Chop: Headless",
+        "cost": 1
+      },
+      {
+        "id": 310000410,
+        "name": "Chop Chop: Leftless",
+        "cost": 1
+      },
+      {
+        "id": 310000420,
+        "name": "Chop Chop: Rightless",
+        "cost": 1
+      },
+      {
+        "id": 310000460,
+        "name": "Lottie Lost",
+        "cost": 1
+      },
+      {
+        "id": 310000470,
+        "name": "Diggy Duggy",
+        "cost": 1
+      },
+      {
+        "id": 310000500,
+        "name": "Calcified Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000510,
+        "name": "Aero Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000550,
+        "name": "Aero Drake",
+        "cost": 1
+      },
+      {
+        "id": 320000230,
+        "name": "Diurnus Knight",
+        "cost": 3
+      },
+      {
+        "id": 320000260,
+        "name": "Abyssal Gladius",
+        "cost": 3
+      },
+      {
+        "id": 320000280,
+        "name": "Chop Chop",
+        "cost": 3
+      },
+      {
+        "id": 320000320,
+        "name": "Hurriclaw",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Void Thunder",
+    "sonataEffects": [
+      {
+        "id": 5,
+        "desc": "Electro DMG + 10%."
+      },
+      {
+        "id": 6,
+        "desc": "Electro DMG + 15% after releasing Heavy Attack or Resonance Skill. This effect stacks up to 2 times, each stack lasts 15s."
+      }
+    ],
+    "icon": "Void-Thunder",
+    "monsters": [
+      {
+        "id": 310000010,
+        "name": "Vanguard Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000020,
+        "name": "Fission Junrock",
+        "cost": 1
+      },
+      {
+        "id": 310000030,
+        "name": "Electro Predator",
+        "cost": 1
+      },
+      {
+        "id": 310000060,
+        "name": "Fusion Warrior",
+        "cost": 1
+      },
+      {
+        "id": 310000160,
+        "name": "Spectro Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000170,
+        "name": "Havoc Prism",
+        "cost": 1
+      },
+      {
+        "id": 310000050,
+        "name": "Aero Predator",
+        "cost": 1
+      },
+      {
+        "id": 310000210,
+        "name": "Baby Viridblaze Saurian",
+        "cost": 1
+      },
+      {
+        "id": 310000330,
+        "name": "Traffic Illuminator",
+        "cost": 1
+      },
+      {
+        "id": 320000020,
+        "name": "Violet-Feathered Heron",
+        "cost": 3
+      },
+      {
+        "id": 320000040,
+        "name": "Flautist",
+        "cost": 3
+      },
+      {
+        "id": 320000200,
+        "name": "Lumiscale Construct",
+        "cost": 3
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Windward Pilgrimage",
+    "sonataEffects": [
+      {
+        "id": 172,
+        "desc": "Aero DMG + 10%"
+      },
+      {
+        "id": 175,
+        "desc": "Hitting a target with Aero Erosion increases Crit. Rate by 10% and grants 30% Aero DMG Bonus, lasting for 10s."
+      }
+    ],
+    "icon": "Windward-Pilgrimage",
+    "monsters": [
+      {
+        "id": 310000540,
+        "name": "Sacerdos",
+        "cost": 1
+      },
+      {
+        "id": 310000570,
+        "name": "Glacio Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000580,
+        "name": "Fusion Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000590,
+        "name": "Spectro Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000600,
+        "name": "Havoc Drake",
+        "cost": 1
+      },
+      {
+        "id": 310000610,
+        "name": "Devotee's Flesh",
+        "cost": 1
+      },
+      {
+        "id": 320000330,
+        "name": "Capitaneus",
+        "cost": 3
+      },
+      {
+        "id": 320000350,
+        "name": "Pilgrim's Shell",
+        "cost": 3
+      },
+      {
+        "id": 320000340,
+        "name": "Kerasaur",
+        "cost": 3
+      }
+    ]
+  }
+]

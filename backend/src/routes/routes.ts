@@ -10,6 +10,7 @@ import {
   UpdateSelectedDungeon,
 } from "../controller/DungeonController";
 import { CheckConnection } from "../controller/ConnectionCheck";
+import { FilterAutoFarm, GetFilteredFarm, GetSonataLists, StoreSonataLists } from "../controller/FarmController";
 
 const router = express.Router();
 
@@ -34,6 +35,12 @@ router.get("/dungeons/check", GetSelectedDungeon);
 router.post("/dungeons/update", UpdateSelectedDungeon);
 router.post("/dungeons/store", StoreDungeon);
 router.post("/dungeons/load", LoadDungeonJSON);
+
+// farms
+router.get("/farm/lists", GetSonataLists);
+router.post("/farm/lists", StoreSonataLists);
+router.post("/farm/filter", FilterAutoFarm);
+router.get("/farm/filter", GetFilteredFarm);
 
 // event callback
 router.get("/status", GetStatus);
