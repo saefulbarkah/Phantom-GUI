@@ -18,6 +18,7 @@ export const Buff = () => {
   const [SelectedBuff, SetSelectedBuff] = useState<Partial<TSelectedBuff> | null>(null);
   const { data: buffs, isSuccess } = useBuffs();
   const [Buffid, SetBuffId] = React.useState<number | null>(null);
+  const [buff, setBuff] = useState("");
 
   if (!IsFeatureReady || !isSuccess) return <LoadingContent />;
 
@@ -44,6 +45,8 @@ export const Buff = () => {
                       stacks: val.stacks,
                     });
                   }}
+                  value={buff}
+                  setValue={setBuff}
                 />
               </div>
 

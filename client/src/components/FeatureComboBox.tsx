@@ -1,23 +1,24 @@
 "use client";
 
 import * as React from "react";
-import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
+import { ChevronsUpDownIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import Image from "next/image";
 
-type TOptionValue = { label: string; value: string };
+export type TOptionValue = { label: string; value: string; icon?: string };
 
 type TFeatureComboBox<T> = {
   data: T[];
   onSelect?: (val: T) => void;
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export function FeatureComboBox<T extends TOptionValue>({ data, onSelect }: TFeatureComboBox<T>) {
+export function FeatureComboBox<T extends TOptionValue>({ data, onSelect, value, setValue }: TFeatureComboBox<T>) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -35,14 +36,14 @@ export function FeatureComboBox<T extends TOptionValue>({ data, onSelect }: TFea
         </Button>
       </PopoverTrigger>
       <PopoverContent className="min-w-[--radix-popover-trigger-width] p-0 border-none rounded-2xl">
-        <Command className="text-slate-200 border-none bg-[#0e1c29]/100">
+        <Command className="text-slate-200 border-none bg-[#0e1c29]">
           <CommandInput className="border-none" placeholder="Search item..." />
           <CommandList className="border-none">
             <CommandEmpty>No item found.</CommandEmpty>
             <CommandGroup>
               {data.map((item) => (
                 <CommandItem
-                  className="border-none"
+                  className={`border-none ${item.value === value ? "bg-[#202e3a]" : ""}`}
                   key={item.value}
                   value={item.value}
                   onSelect={(currentValue) => {
@@ -53,7 +54,7 @@ export function FeatureComboBox<T extends TOptionValue>({ data, onSelect }: TFea
                     }
                   }}
                 >
-                  <CheckIcon className={cn("mr-2 h-4 w-4", value === item.value ? "opacity-100" : "opacity-0")} />
+                  {item.icon ? <Image width={20} height={20} src={item.icon} alt={item.value} /> : null}
                   {item.label}
                 </CommandItem>
               ))}

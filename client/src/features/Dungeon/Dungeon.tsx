@@ -17,6 +17,7 @@ export const Dungeon = () => {
   const [dungeon, SetDungeon] = useState<TDungeon | null>(null);
   const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
   const { dungeons, isSuccess, isFetching, refetch } = useDungeons();
+  const [dungeonValue, setDungeonValue] = useState("");
 
   const { mutate } = useMutation({
     mutationFn: EnterDungeon,
@@ -43,6 +44,8 @@ export const Dungeon = () => {
                       value: `${item.name + index}`,
                       real_value: item.id,
                     }))}
+                    value={dungeonValue}
+                    setValue={setDungeonValue}
                     onSelect={(val) => {
                       toast(`Dungeon selected id ${val.real_value}`);
                       SetDungeon({ id: val.real_value, name: val.label });
