@@ -103,7 +103,10 @@ export const FarmEchoes = () => {
     <div className="flex flex-col gap-5">
       <h2 className="text-xl font-semibold">Auto Farm Echoes</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-        <FeatureCardSwitch title="Filter" description="">
+        <FeatureCardSwitch
+          title="Auto Farm Option"
+          description="Automatically farm echoes and auto kill target monster detection"
+        >
           <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
             {/* filter by sonata */}
             <p>By Sonata</p>
