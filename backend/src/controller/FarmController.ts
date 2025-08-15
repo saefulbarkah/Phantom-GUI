@@ -38,7 +38,7 @@ async function initializeSettings() {
   }
 }
 
-initializeSettings();
+// initializeSettings();
 
 // Get sonata lists
 export async function GetSonataLists(req: Request, res: Response) {
@@ -66,7 +66,7 @@ export async function StoreSonataLists(req: Request, res: Response) {
   LOG.SUCCESS(`${sonataList.length} sonata was loaded`);
 
   sonataLists = [...sonataLists, ...sonataList];
-  await SaveSettings(sonataLists, filePath, "phantom-farm");
+  // await SaveSettings(sonataLists, filePath, "phantom-farm");
   return res.json(sonataLists);
 }
 
