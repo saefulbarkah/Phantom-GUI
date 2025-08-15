@@ -1,15 +1,16 @@
 import { GetFarms } from "@/API/farms/auto-farm-echoes";
-import { TFarmMonsterList } from "@/types/farm";
+import { NullablePartial, TFarmMonsterList, TFilterFarm, TSonataList } from "@/types/farm";
 import { useQuery } from "@tanstack/react-query";
 import { create } from "zustand";
 
 type TFarmStore = {
-  filter: {
-    bySonataId?: number;
-    byCost?: string;
-    byEcho?: string;
-  };
-  setFilter: (data: TFarmStore["filter"]) => void;
+  // sonata
+  sonata: NullablePartial<TSonataList>;
+  setSonata: (data: Partial<TFarmStore["sonata"]>) => void;
+
+  // filter
+  filter: TFilterFarm;
+  setFilter: (data: Partial<TFarmStore["filter"]>) => void;
 
   // monsters
   monsters: TFarmMonsterList[];
@@ -17,6 +18,18 @@ type TFarmStore = {
 };
 
 const FarmStore = create<TFarmStore>((set) => ({
+  sonata: {
+    icon: null,
+    id: null,
+    monsters: [],
+    name: null,
+    sonataEffects: [],
+  },
+  setSonata: (data) =>
+    set((state) => ({
+      sonata: { ...state.sonata, ...data },
+    })),
+
   filter: {
     bySonataId: -1,
     byEcho: "All",

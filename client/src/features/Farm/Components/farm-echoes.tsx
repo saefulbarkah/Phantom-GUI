@@ -1,12 +1,15 @@
 "use client";
 
+import { FilterSonata } from "@/API/farms/auto-farm-echoes";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox, TOptionValue } from "@/components/FeatureComboBox";
 import { LoadingContent } from "@/components/LoadingContent";
 import { Button } from "@/components/ui/button";
 import { useFarms, useFarmState } from "@/hooks/useFarms";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
-import { TSonataList } from "@/types/farm";
+import { HighlightNumberText } from "@/lib/utils";
+import { TFilterFarm } from "@/types/farm";
+import { useMutation } from "@tanstack/react-query";
 import { RefreshCcw } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
@@ -18,21 +21,11 @@ const byCost: TOptionValue[] = [
   { label: "1", value: "1" },
 ];
 
-type NullablePartial<T> = {
-  [P in keyof T]?: T[P] | null;
-};
-
 export const FarmEchoes = () => {
-  const { filter, setFilter, monsters, setMonster } = useFarmState();
-  const [SonataValue, setSonataValue] = useState("");
+  const { filter, setFilter, monsters, setMonster, setSonata, sonata } = useFarmState();
+  const { mutate } = useMutation({ mutationKey: ["filterFarm"], mutationFn: FilterSonata });
 
-  const [sonata, setSonata] = useState<NullablePartial<TSonataList>>({
-    icon: null,
-    id: null,
-    monsters: [],
-    name: null,
-    sonataEffects: [],
-  });
+  const [SonataValue, setSonataValue] = useState("");
 
   const [CostValue, setCostValue] = useState("");
   const [EchoValue, setEchoValue] = useState("");
@@ -50,6 +43,27 @@ export const FarmEchoes = () => {
 
   const Refresh = async () => {
     toast.promise(refetch, { success: "Data loaded", loading: "Refreshing..." });
+  };
+
+  const onFilterSonata = async (a: TFilterFarm) => {
+    try {
+      console.log(a);
+      mutate(a, {
+        onSuccess: (data) => {
+          setSonata({
+            id: data.id,
+            name: data.name,
+            icon: data.icon,
+            sonataEffects: data.sonataEffects,
+            monsters: data.monsters,
+          });
+          console.log(data);
+        },
+        onError: (err) => console.error(err),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // Cache mapping untuk By Sonata
@@ -134,7 +148,11 @@ export const FarmEchoes = () => {
                 setFilter({ bySonataId: data.real_value });
                 setMonster(data.monsters);
                 setEchoValue("All");
-                setSonata({ name: data.label, icon: data.icon, sonataEffects: data.sonataEffects });
+                onFilterSonata({
+                  bySonataId: data.real_value,
+                  byCost: CostValue === "" ? null : Number(CostValue),
+                  byEcho: "All",
+                });
               }}
             />
 
@@ -146,6 +164,11 @@ export const FarmEchoes = () => {
               setValue={setCostValue}
               onSelect={(data) => {
                 setFilter({ byCost: data.value });
+                onFilterSonata({
+                  bySonataId: sonata.id ? sonata.id : null,
+                  byCost: Number(data.value) ? Number(data.value) : "All",
+                  byEcho: "All",
+                });
               }}
             />
 
@@ -157,6 +180,11 @@ export const FarmEchoes = () => {
               setValue={setEchoValue}
               onSelect={(data) => {
                 setFilter({ byEcho: data.value });
+                onFilterSonata({
+                  bySonataId: sonata.id ? sonata.id : null,
+                  byCost: CostValue === "" ? null : Number(CostValue),
+                  byEcho: data.value,
+                });
               }}
             />
           </div>
@@ -186,7 +214,7 @@ export const FarmEchoes = () => {
                 <div className="flex gap-2 items-center">
                   {sonata.name ? (
                     <>
-                      <Image alt="" src="./assets/icon/sonata/havoc-eclipse.webp" width={20} height={20} />
+                      <Image alt="" src={`./assets/icon/sonata/${sonata.icon}.webp`} width={20} height={20} />
                       <span>{SonataValue}</span>
                     </>
                   ) : (
@@ -208,21 +236,12 @@ export const FarmEchoes = () => {
 
             <h2 className="mt-5 mb-2">Sonata Effects</h2>
             <div className="flex flex-col divide-y divide-gray-700">
-              <div className="flex flex-col gap-2 py-3">
-                <p>2-piece effect</p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui eius temporibus accusamus minima aperiam
-                  nisi, quibusdam id nesciunt eum veritatis?
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-2 py-3">
-                <p>4-piece effect</p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui eius temporibus accusamus minima aperiam
-                  nisi, quibusdam id nesciunt eum veritatis?
-                </p>
-              </div>
+              {sonata.sonataEffects?.map((item, i) => (
+                <div className="flex flex-col gap-2 py-3" key={i}>
+                  <p>{i === 0 ? "2" : "4"}-piece effect</p>
+                  <p>{HighlightNumberText(item.desc, "text-yellow-300")}</p>
+                </div>
+              ))}
             </div>
           </FeatureCardSwitch>
         </div>
