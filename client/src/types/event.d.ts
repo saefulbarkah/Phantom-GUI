@@ -7,4 +7,6 @@ export type TEvent = {
   onSaveConfig?: boolean;
   onLoadConfig?: boolean;
   onApplyBuff?: boolean;
+  onRefreshEchoes?: boolean;
+  isEchoesRefreshed?: boolean;
 };

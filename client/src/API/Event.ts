@@ -6,7 +6,7 @@ export async function UpdateEvent(data: TEvent) {
   return response.data;
 }
 
-export async function GetEvent(data: keyof TEvent) {
-  const response = await API.get<TEvent>(`/status?q=${data}`);
-  return response.data;
+export async function GetEvent<K extends keyof TEvent>(key: K): Promise<TEvent[K]> {
+  const response = await API.get(`/status?q=${key}`);
+  return response.data[key]; // ambil value sesuai key
 }

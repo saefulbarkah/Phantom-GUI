@@ -9,6 +9,8 @@ type TGameState = {
   onSaveConfig?: boolean;
   onLoadConfig?: boolean;
   onApplyBuff?: boolean;
+  onRefreshEchoes?: boolean;
+  isEchoesRefreshed?: boolean;
 };
 
 let gameState: TGameState = {
@@ -20,6 +22,7 @@ let gameState: TGameState = {
   // farm echoes
   onStartFarmEchoes: false,
   onStopFarmEchoes: false,
+  onRefreshEchoes: false,
 
   // apply buff
   onApplyBuff: false,

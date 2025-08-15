@@ -17,6 +17,8 @@ import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
+let RefreshInterval: number | null = null; // browser-safe
+
 const byCost: TOptionValue[] = [
   { label: "All", value: "All" },
   { label: "3", value: "3" },
@@ -25,6 +27,8 @@ const byCost: TOptionValue[] = [
 
 export const FarmEchoes = () => {
   const { data: StartFarmEcho, refetch: RefetchFarmStatus } = useEvent("onStartFarmEchoes");
+  const { data: onRefreshEchoes, refetch: RefetchRefreshEchoes } = useEvent("onRefreshEchoes");
+  const { data: isEchoesRefreshed, refetch: refetchRefreshed } = useEvent("isEchoesRefreshed");
 
   const { filter, setFilter, monsters, setMonster, setSonata, sonata } = useFarmState();
   const { mutate } = useMutation({ mutationKey: ["filterFarm"], mutationFn: FilterSonata });
@@ -58,12 +62,60 @@ export const FarmEchoes = () => {
   };
 
   const Refresh = async () => {
-    toast.promise(refetch, { success: "Data loaded", loading: "Refreshing..." });
+    // hentikan interval lama jika ada
+    if (RefreshInterval) {
+      clearInterval(RefreshInterval);
+      RefreshInterval = null;
+    }
+
+    await UpdateEvent({ onRefreshEchoes: true });
+    RefetchRefreshEchoes();
+
+    const maxRetries: number = 5;
+    let retry: number = 0;
+
+    const Toast = toast.loading("Refreshing auto farm lists");
+
+    RefreshInterval = window.setInterval(async () => {
+      if (retry > maxRetries) {
+        if (RefreshInterval) {
+          clearInterval(RefreshInterval); // non-null assertion
+          RefreshInterval = null;
+        }
+
+        UpdateEvent({ onRefreshEchoes: false });
+        toast.error("Refreshing timeout, try again!", { id: Toast });
+        refetch(); // refetch data
+        await UpdateEvent({ onRefreshEchoes: false });
+
+        return;
+      }
+
+      if (isEchoesRefreshed) {
+        refetch(); // refetch data
+        await UpdateEvent({ onRefreshEchoes: false });
+        toast.success("Farm list refreshed", { id: Toast });
+
+        if (RefreshInterval) {
+          clearInterval(RefreshInterval); // non-null assertion
+          RefreshInterval = null;
+        }
+        return;
+      }
+      refetchRefreshed();
+      retry++;
+    }, 1000);
   };
+
+  useEffect(() => {
+    if (onRefreshEchoes) {
+      Refresh();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   const onFilterSonata = async (a: TFilterFarm) => {
     try {
-      console.log(a);
       mutate(a, {
         onSuccess: (data) => {
           setSonata({
@@ -206,13 +258,13 @@ export const FarmEchoes = () => {
           </div>
 
           <div className="flex gap-2 mt-5 w-full">
-            <Button className="flex-1" onClick={StartFarm} disabled={StartFarmEcho?.onStartFarmEchoes}>
+            <Button className="flex-1" onClick={StartFarm} disabled={StartFarmEcho}>
               Start Farm
             </Button>
             <Button className="flex-1" onClick={StopFarm}>
               Stop Farm
             </Button>
-            <Button size="icon" className="flex-shrink-0" onClick={Refresh}>
+            <Button size="icon" className="flex-shrink-0" onClick={Refresh} disabled={onRefreshEchoes}>
               <RefreshCcw />
             </Button>
           </div>
