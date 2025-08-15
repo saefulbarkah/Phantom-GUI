@@ -107,8 +107,11 @@ export async function FilterAutoFarm(req: Request, res: Response) {
   const filter = parsed.data;
   let filtered: Partial<TSonataList> = {};
 
+  const d = sonataLists.filter((item) => item.id === filter.bySonataId)[0];
+
+  if (!d) return res.status(404).json("Sonata not found");
+
   if (filter.bySonataId) {
-    const d = sonataLists.filter((item) => item.id === filter.bySonataId)[0];
     filtered = {
       id: d.id,
       name: d.name,
