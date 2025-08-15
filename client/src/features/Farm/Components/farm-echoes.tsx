@@ -1,10 +1,12 @@
 "use client";
 
+import { UpdateEvent } from "@/API/Event";
 import { FilterSonata } from "@/API/farms/auto-farm-echoes";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox, TOptionValue } from "@/components/FeatureComboBox";
 import { LoadingContent } from "@/components/LoadingContent";
 import { Button } from "@/components/ui/button";
+import { useEvent } from "@/hooks/useEvent";
 import { useFarms, useFarmState } from "@/hooks/useFarms";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { HighlightNumberText } from "@/lib/utils";
@@ -22,6 +24,8 @@ const byCost: TOptionValue[] = [
 ];
 
 export const FarmEchoes = () => {
+  const { data: StartFarmEcho, refetch: RefetchFarmStatus } = useEvent("onStartFarmEchoes");
+
   const { filter, setFilter, monsters, setMonster, setSonata, sonata } = useFarmState();
   const { mutate } = useMutation({ mutationKey: ["filterFarm"], mutationFn: FilterSonata });
 
@@ -34,11 +38,23 @@ export const FarmEchoes = () => {
   const { IsFeatureReady } = useFeatureManager();
 
   const StartFarm = async () => {
-    toast("Farming on start");
+    try {
+      await UpdateEvent({ onStartFarmEchoes: true, onStopFarmEchoes: false });
+      RefetchFarmStatus();
+      toast.success("Auto farm started!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const StopFarm = async () => {
-    toast("Farming on stop");
+    try {
+      await UpdateEvent({ onStartFarmEchoes: false, onStopFarmEchoes: true });
+      toast.success("Auto farm stopped!");
+      RefetchFarmStatus();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const Refresh = async () => {
@@ -190,7 +206,7 @@ export const FarmEchoes = () => {
           </div>
 
           <div className="flex gap-2 mt-5 w-full">
-            <Button className="flex-1" onClick={StartFarm}>
+            <Button className="flex-1" onClick={StartFarm} disabled={StartFarmEcho?.onStartFarmEchoes}>
               Start Farm
             </Button>
             <Button className="flex-1" onClick={StopFarm}>

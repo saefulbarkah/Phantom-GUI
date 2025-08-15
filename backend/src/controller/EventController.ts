@@ -30,33 +30,20 @@ let gameState: TGameState = {
 };
 
 export async function GetStatus(req: Request, res: Response) {
-  const current = { ...gameState, ...req.body };
+  const key = req.query.q as string;
+  let event: boolean | null = null;
 
-  // callback button events
-  gameState = {
-    // teleport
-    onTeleport: false,
-    onNextTeleport: false,
-    onPrevTeleport: false,
+  if (key && key in gameState) {
+    event = gameState[key as keyof TGameState] ?? null;
+  }
 
-    // farm echoes
-    onStartFarmEchoes: false,
-    onStopFarmEchoes: false,
+  if (event === null) return res.json(gameState);
 
-    // apply buff
-    onApplyBuff: false,
-
-    // Config
-    onSaveConfig: false,
-    onLoadConfig: false,
-  };
-
-  return res.json(current);
+  return res.json({ [key]: event });
 }
 
 export async function SetStatus(req: Request, res: Response) {
   gameState = { ...gameState, ...req.body }; // update status
-  console.log(req.body);
   const body = req.body;
   return res.json(body);
 }

@@ -4,6 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { create } from "zustand";
 
 type TFarmStore = {
+  // event state
+  IsFarmStart: boolean;
+  setFarmStatus: (bool: boolean) => void;
+
   // sonata
   sonata: NullablePartial<TSonataList>;
   setSonata: (data: Partial<TFarmStore["sonata"]>) => void;
@@ -18,6 +22,9 @@ type TFarmStore = {
 };
 
 const FarmStore = create<TFarmStore>((set) => ({
+  IsFarmStart: false,
+  setFarmStatus: (b) => set({ IsFarmStart: b }),
+
   sonata: {
     icon: null,
     id: null,
