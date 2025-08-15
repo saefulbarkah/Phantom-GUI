@@ -4,10 +4,11 @@ type TGameState = {
   onTeleport?: boolean;
   onNextTeleport?: boolean;
   onPrevTeleport?: boolean;
-  onStartFarmEchoes?: false;
-  onStopFarmEchoes?: false;
-  onSaveConfig?: false;
-  onLoadConfig?: false;
+  onStartFarmEchoes?: boolean;
+  onStopFarmEchoes?: boolean;
+  onSaveConfig?: boolean;
+  onLoadConfig?: boolean;
+  onApplyBuff?: boolean;
 };
 
 let gameState: TGameState = {
@@ -19,6 +20,9 @@ let gameState: TGameState = {
   // farm echoes
   onStartFarmEchoes: false,
   onStopFarmEchoes: false,
+
+  // apply buff
+  onApplyBuff: false,
 
   // Config
   onSaveConfig: false,
@@ -38,6 +42,13 @@ export async function GetStatus(req: Request, res: Response) {
     // farm echoes
     onStartFarmEchoes: false,
     onStopFarmEchoes: false,
+
+    // apply buff
+    onApplyBuff: false,
+
+    // Config
+    onSaveConfig: false,
+    onLoadConfig: false,
   };
 
   return res.json(current);

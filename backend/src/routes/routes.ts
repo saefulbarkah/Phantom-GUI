@@ -1,5 +1,5 @@
 import express from "express";
-import { GetStatus, SetStatus } from "../controller/GameStateController";
+import { GetStatus, SetStatus } from "../controller/EventController";
 import { GetSettings, LoadSettingJSON, SaveSettingsJSON, UpdateSettings } from "../controller/SettingsController";
 import { GetBuffsettings, GetSelectedBuff, LoadBuffJSON, UpdateSelectedBuff } from "../controller/BuffController";
 import {
