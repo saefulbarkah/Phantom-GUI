@@ -9,4 +9,5 @@ export type TEvent = {
   onApplyBuff?: boolean;
   onRefreshEchoes?: boolean;
   isEchoesRefreshed?: boolean;
+  onEnterDungeon?: boolean;
 };

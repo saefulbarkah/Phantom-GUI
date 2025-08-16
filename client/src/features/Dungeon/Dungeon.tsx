@@ -12,6 +12,7 @@ import { RefreshCcw } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDungeons } from "../../hooks/useDungeons";
+import { UpdateEvent } from "@/API/Event";
 
 export const Dungeon = () => {
   const [dungeon, SetDungeon] = useState<TDungeon | null>(null);
@@ -22,7 +23,9 @@ export const Dungeon = () => {
   const { mutate } = useMutation({
     mutationFn: EnterDungeon,
     onSuccess: (_, t) => {
-      toast.success(`Enter dungeon ${t.name}`);
+      UpdateEvent({ onEnterDungeon: true }).finally(() => {
+        toast.success(`Enter dungeon ${t.name}`);
+      });
     },
   });
 

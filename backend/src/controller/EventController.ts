@@ -9,6 +9,7 @@ type TGameState = {
   onSaveConfig?: boolean;
   onLoadConfig?: boolean;
   onApplyBuff?: boolean;
+  onEnterDungeon?: boolean;
   onRefreshEchoes?: boolean;
   isEchoesRefreshed?: boolean;
 };
@@ -28,6 +29,9 @@ let gameState: TGameState = {
   // apply buff
   onApplyBuff: false,
 
+  // Dungeon
+  onEnterDungeon: false,
+
   // Config
   onSaveConfig: false,
   onLoadConfig: false,
@@ -43,6 +47,7 @@ const oneTimeEvents: (keyof TGameState)[] = [
   "onApplyBuff",
   "onSaveConfig",
   "onLoadConfig",
+  "onEnterDungeon",
 ];
 
 export async function GetStatus(req: Request, res: Response) {
