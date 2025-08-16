@@ -54,18 +54,7 @@ export const GetBuffsettings = async (req: Request, res: Response) => {
 
 export async function GetSelectedBuff(req: Request, res: Response) {
   const current: typeof state_selected = { ...state_selected, ...req.body };
-
-  // reset when applied buff
-  state_selected = {
-    id: null,
-    name: null,
-    stacks: null,
-  };
-
-  if (current.id) {
-    LOG.SUCCESS(`Buff applied, name: ${chalk.green(current.name)} | ID: ${chalk.cyan(current.id)}`);
-  }
-
+  LOG.SUCCESS(`Buff applied, name: ${chalk.green(current.name)} | ID: ${chalk.cyan(current.id)}`);
   return res.json(current);
 }
 

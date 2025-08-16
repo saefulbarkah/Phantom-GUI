@@ -1,6 +1,22 @@
-import { GetBuffs } from "@/API/buffs";
+import { GetBuffs, UpdateBuffSelected } from "@/API/buffs";
+import { UpdateEvent } from "@/API/Event";
+import { TSelectedBuff } from "@/types/buff";
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export const useBuffs = () => {
-  return useQuery({ queryKey: ["buffs"], queryFn: GetBuffs, refetchOnMount: true });
+  const query = useQuery({ queryKey: ["buffs"], queryFn: GetBuffs, refetchOnMount: true });
+
+  const ApplyBuff = async (data: Partial<TSelectedBuff>) => {
+    try {
+      await UpdateBuffSelected(data);
+      await UpdateEvent({ onApplyBuff: true });
+      toast.success("Applied buff " + data.id);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.error("Failed to apply buff");
+    }
+  };
+
+  return { ...query, ApplyBuff };
 };

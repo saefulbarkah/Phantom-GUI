@@ -14,9 +14,9 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export const Buff = () => {
-  const { feature, OnUpdateFeature, IsFeatureReady, OnApplyBuff } = useFeatureManager();
+  const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
   const [SelectedBuff, SetSelectedBuff] = useState<Partial<TSelectedBuff> | null>(null);
-  const { data: buffs, isSuccess } = useBuffs();
+  const { data: buffs, isSuccess, ApplyBuff } = useBuffs();
   const [Buffid, SetBuffId] = React.useState<number | null>(null);
   const [buff, setBuff] = useState("");
 
@@ -56,8 +56,7 @@ export const Buff = () => {
                   if (!SelectedBuff) {
                     return toast.error("Please select buff");
                   }
-                  toast("Applied buff " + SelectedBuff.id);
-                  OnApplyBuff(SelectedBuff);
+                  ApplyBuff(SelectedBuff);
                 }}
               >
                 Apply
@@ -87,7 +86,6 @@ export const Buff = () => {
                     return toast.error("Invalid buff id");
                   }
 
-                  OnApplyBuff({ id: Buffid, name: "Custom", stacks: 1 });
                   return toast("Applied buff " + Buffid);
                 }}
               >
