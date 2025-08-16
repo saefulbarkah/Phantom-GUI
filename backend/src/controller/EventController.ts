@@ -23,6 +23,7 @@ let gameState: TGameState = {
   onStartFarmEchoes: false,
   onStopFarmEchoes: false,
   onRefreshEchoes: false,
+  isEchoesRefreshed: false,
 
   // apply buff
   onApplyBuff: false,
@@ -32,15 +33,32 @@ let gameState: TGameState = {
   onLoadConfig: false,
 };
 
+// daftar event yang auto-reset
+const oneTimeEvents: (keyof TGameState)[] = [
+  "onTeleport",
+  "onNextTeleport",
+  "onPrevTeleport",
+  "onStartFarmEchoes",
+  "onStopFarmEchoes",
+  "onApplyBuff",
+  "onSaveConfig",
+  "onLoadConfig",
+];
+
 export async function GetStatus(req: Request, res: Response) {
   const key = req.query.q as string;
   let event: boolean | null = null;
 
   if (key && key in gameState) {
     event = gameState[key as keyof TGameState] ?? null;
+
+    // hanya reset kalau event termasuk one-time
+    if (event === true && oneTimeEvents.includes(key as keyof TGameState)) {
+      gameState[key as keyof TGameState] = false;
+    }
   }
 
-  if (event === null) return res.json(gameState);
+  if (event === null) return res.status(404).json(null);
 
   return res.json({ [key]: event });
 }
