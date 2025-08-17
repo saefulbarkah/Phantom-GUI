@@ -8,6 +8,8 @@
     "build": "npx tsc",
     "start": "npx tsx dist/index.js",
     "dev": "npx tsx watch src/index.ts",
+    "pkg": "pkg dist/index.js --targets node18-win-x64 --output dist/phantom.exe",
+    "build:exe": "npm run build && npm run pkg",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "./dist/index.js",
