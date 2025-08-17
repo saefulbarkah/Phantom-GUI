@@ -158,3 +158,18 @@ export type TDungeon = {
   name: string | null;
   id: number | null;
 };
+
+export type TWeapon = {
+  id: number;
+  name: string;
+};
+
+export type TRole = {
+  id: number;
+  name: string;
+};
+
+export type TCustomRole = {
+  CustomRoles: TRole[];
+  OwnRoles: TRole[];
+};

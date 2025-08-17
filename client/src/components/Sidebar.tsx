@@ -39,7 +39,7 @@ const Routes: TRoute[] = [
   },
   {
     label: "Inventory",
-    href: "/visual",
+    href: "/inventory",
   },
   {
     label: "teleport",
@@ -48,14 +48,6 @@ const Routes: TRoute[] = [
   {
     label: "ESP",
     href: "/esp",
-  },
-  {
-    label: "Misc",
-    href: "/mics",
-  },
-  {
-    label: "Misc",
-    href: "/mics",
   },
   {
     label: "Misc",
