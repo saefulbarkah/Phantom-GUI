@@ -1,9 +1,9 @@
 {
-  "name": "phantom",
+  "name": "express-typescript-starter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "build": "npx tsc",
     "start": "npx tsx dist/index.js",
