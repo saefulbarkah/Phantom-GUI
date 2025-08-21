@@ -75,7 +75,7 @@ export const FarmEchoes = () => {
         label: item.name,
         value: item.name,
         real_value: item.id,
-        icon: `./assets/icon/sonata/${item.icon.toLowerCase()}.webp`,
+        icon: item.icon,
         sonataEffects: item.sonataEffects,
         monsters: item.monsters,
       })) ?? []
@@ -216,7 +216,7 @@ export const FarmEchoes = () => {
                 <div className="flex gap-2 items-center">
                   {sonata.name ? (
                     <>
-                      <Image alt="" src={`./assets/icon/sonata/${sonata.icon}.webp`} width={20} height={20} />
+                      <Image alt="" src={`${sonata.icon}`} width={20} height={20} />
                       <span>{SonataValue}</span>
                     </>
                   ) : (
