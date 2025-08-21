@@ -173,3 +173,17 @@ export type TCustomRole = {
   CustomRoles: TRole[];
   OwnRoles: TRole[];
 };
+
+export type TGameState = {
+  onTeleport?: boolean;
+  onNextTeleport?: boolean;
+  onPrevTeleport?: boolean;
+  onStartFarmEchoes?: boolean;
+  onStopFarmEchoes?: boolean;
+  onSaveConfig?: boolean;
+  onLoadConfig?: boolean;
+  onApplyBuff?: boolean;
+  onEnterDungeon?: boolean;
+  onRefreshEchoes?: boolean;
+  isEchoesRefreshed?: boolean;
+};

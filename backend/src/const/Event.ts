@@ -1,0 +1,37 @@
+import { TGameState } from "../types/mod";
+
+export const EventState = {
+  // teleport
+  onTeleport: false,
+  onNextTeleport: false,
+  onPrevTeleport: false,
+
+  // farm echoes
+  onStartFarmEchoes: false,
+  onStopFarmEchoes: false,
+  onRefreshEchoes: false,
+  isEchoesRefreshed: false,
+
+  // apply buff
+  onApplyBuff: false,
+
+  // Dungeon
+  onEnterDungeon: false,
+
+  // Config
+  onSaveConfig: false,
+  onLoadConfig: false,
+};
+
+// daftar event yang auto-reset
+export const oneTimeEvents: (keyof TGameState)[] = [
+  "onTeleport",
+  "onNextTeleport",
+  "onPrevTeleport",
+  "onStartFarmEchoes",
+  "onStopFarmEchoes",
+  "onApplyBuff",
+  "onSaveConfig",
+  "onLoadConfig",
+  "onEnterDungeon",
+];
