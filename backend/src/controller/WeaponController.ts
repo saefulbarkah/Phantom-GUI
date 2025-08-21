@@ -23,7 +23,7 @@ async function initializeWeapons() {
     weapons = data.map((item: Partial<TWeapon>) => ({
       id: item.id,
       name: item.name,
-      icon: `https://api.hakush.in/ww/UI/UIResources/Common/Image/IconWeapon/T_IconWeapon${item.id}_UI.webp`,
+      icon: `https://api.hakush.in/ww/UI/UIResources/Common/Image/IconWeapon/${item.icon}.webp`,
     }));
   } catch (error) {
     LOG.ERROR("Invalid fetch weapon");

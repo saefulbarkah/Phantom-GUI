@@ -21,9 +21,9 @@ export const Inventory = () => {
   const Weapons =
     useMemo(() => {
       return weaponQuery.data?.map((item) => ({
+        ...item,
         label: item.name,
         value: item.name,
-        id: item.id,
       }));
     }, [weaponQuery.data]) ?? [];
 
@@ -78,6 +78,7 @@ export const Inventory = () => {
                     weaponQuery.UpdateWeapon({
                       id: data.id,
                     });
+                    console.log(data)
                   }}
                 />
 
