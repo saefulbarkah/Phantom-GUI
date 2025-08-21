@@ -12,7 +12,7 @@ import {
 import { CheckConnection } from "../controller/ConnectionCheck";
 import { FilterAutoFarm, GetFilteredFarm, GetSonataLists, StoreSonataLists } from "../controller/FarmController";
 import { GetWeapons, StoreWeapons } from "../controller/WeaponController";
-import { GetRoles } from "../controller/RoleController";
+import { GetRoles, ReplaceRole, StoreRoles } from "../controller/RoleController";
 
 const router = express.Router();
 
@@ -44,6 +44,8 @@ router.post("/inventory/weapons", StoreWeapons);
 
 // Inventory -> Roles
 router.get("/inventory/roles", GetRoles);
+router.post("/inventory/roles", StoreRoles);
+router.post("/inventory/roles/switch", ReplaceRole);
 
 // farms
 router.get("/farm/lists", GetSonataLists);
