@@ -10,4 +10,5 @@ export type TEvent = {
   onRefreshEchoes?: boolean;
   isEchoesRefreshed?: boolean;
   onEnterDungeon?: boolean;
+  onWeaponAdded?: boolean;
 };

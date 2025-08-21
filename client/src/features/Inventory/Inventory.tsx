@@ -77,8 +77,8 @@ export const Inventory = () => {
                   onSelect={(data) => {
                     weaponQuery.UpdateWeapon({
                       id: data.id,
+                      name: data.name,
                     });
-                    console.log(data)
                   }}
                 />
 
@@ -107,13 +107,17 @@ export const Inventory = () => {
               </div>
 
               <div className="flex gap-2 mt-5 w-full">
-                <Button className="flex-1" onClick={() => weaponQuery.addWeapon()}>
+                <Button className="flex-1" disabled={!weaponQuery.isSuccess} onClick={() => weaponQuery.addWeapon()}>
                   Add
                 </Button>
-                <Button className="flex-1" onClick={() => weaponQuery.AddAllWeapon()}>
+                <Button
+                  className="flex-1"
+                  disabled={!weaponQuery.isSuccess}
+                  onClick={() => weaponQuery.AddAllWeapon(weaponQuery?.data ?? [])}
+                >
                   Add all
                 </Button>
-                <Button className="flex-1" variant={"destructive"}>
+                <Button className="flex-1" disabled={!weaponQuery.isSuccess} variant={"destructive"}>
                   Remove all
                 </Button>
                 <Button size="icon" className="flex-shrink-0" onClick={() => weaponQuery.refreshWeapon()}>

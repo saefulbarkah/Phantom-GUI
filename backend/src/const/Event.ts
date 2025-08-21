@@ -12,6 +12,9 @@ export const EventState = {
   onRefreshEchoes: false,
   isEchoesRefreshed: false,
 
+  // Weapon
+  onWeaponAdded: false,
+
   // apply buff
   onApplyBuff: false,
 
@@ -34,4 +37,5 @@ export const oneTimeEvents: (keyof TGameState)[] = [
   "onSaveConfig",
   "onLoadConfig",
   "onEnterDungeon",
+  "onWeaponAdded",
 ];

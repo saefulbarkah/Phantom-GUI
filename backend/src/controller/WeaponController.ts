@@ -57,10 +57,16 @@ export async function StoreWeapons(req: Request, res: Response) {
 }
 
 // Add weapon
-let weaponAddedState: Partial<TWeapon>[] = [];
+const TWeaponAddedSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  rank: z.number(),
+  level: z.number(),
+});
+let weaponAddedState: z.infer<typeof TWeaponAddedSchema>[] = [];
 export async function OnAddWeapon(req: Request, res: Response) {
-  const data = req.body as Pick<TWeapon, "id" | "name">[];
-  const parsed = z.array(TWeaponSchema.pick({ id: true, name: true })).safeParse(data);
+  const data = req.body as z.infer<typeof TWeaponAddedSchema>[];
+  const parsed = z.array(TWeaponAddedSchema).safeParse(data);
 
   if (!parsed.success) {
     return res.status(400).json({

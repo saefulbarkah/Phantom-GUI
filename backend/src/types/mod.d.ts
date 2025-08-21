@@ -186,4 +186,5 @@ export type TGameState = {
   onEnterDungeon?: boolean;
   onRefreshEchoes?: boolean;
   isEchoesRefreshed?: boolean;
+  onWeaponAdded?: boolean;
 };
