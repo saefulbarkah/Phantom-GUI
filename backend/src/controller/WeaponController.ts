@@ -1,14 +1,36 @@
 import { Request, Response } from "express";
-import { TWeapon } from "../types/mod";
 import z from "zod";
 import LOG from "../utils/logging";
 
 const TWeaponSchema = z.object({
   id: z.number().min(1),
   name: z.string().min(1),
+  icon: z.string().min(1),
 });
 
+type TWeapon = z.infer<typeof TWeaponSchema>;
 let weapons: TWeapon[] = [];
+
+async function initializeWeapons() {
+  try {
+    const response = await fetch(
+      "https://jigvihdbsdvfmzakalqw.supabase.co/storage/v1/object/public/phantom-waves/weapons.json",
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    weapons = data.map((item: Partial<TWeapon>) => ({
+      id: item.id,
+      name: item.name,
+      icon: `https://api.hakush.in/ww/UI/UIResources/Common/Image/IconWeapon/T_IconWeapon${item.id}_UI.webp`,
+    }));
+  } catch (error) {
+    LOG.ERROR("Invalid fetch weapon");
+  }
+}
+
+initializeWeapons();
 
 export async function GetWeapons(req: Request, res: Response) {
   return res.json(weapons);

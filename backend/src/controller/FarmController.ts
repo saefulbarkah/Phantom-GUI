@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import z from "zod";
 import LOG from "../utils/logging";
-import { CheckIfConfigExist, LoadSettings, SaveSettings } from "../stores/settings-store";
 
 const TSonataSchema = z.object({
   id: z.number().min(1),
@@ -24,21 +23,32 @@ const TSonataSchema = z.object({
 type TSonataList = z.infer<typeof TSonataSchema>;
 let sonataLists: TSonataList[] = [];
 
-let filePath = "phantom-farm.json";
-async function initializeSettings() {
-  if (CheckIfConfigExist(filePath)) {
-    const data = await LoadSettings<TSonataList[]>(filePath, "Farm");
-    if (data) {
-      LOG.INFO("farm loaded from file.");
-      sonataLists = data;
-    }
-  } else {
-    await SaveSettings<TSonataList[]>(sonataLists, filePath, "Farm");
-    LOG.SUCCESS("Default farms saved.");
+async function initializeFarms() {
+  try {
+    const response = await fetch(
+      "https://jigvihdbsdvfmzakalqw.supabase.co/storage/v1/object/public/phantom-waves/farm.json",
+      {
+        method: "GET",
+      }
+    );
+    const raw = await response.json();
+
+    // Validasi array
+    const parsed = z.array(TSonataSchema).parse(raw);
+
+    sonataLists = parsed.map((item) => ({
+      id: item.id,
+      name: item.name,
+      monsters: item.monsters,
+      sonataEffects: item.sonataEffects,
+      icon: `https://jigvihdbsdvfmzakalqw.supabase.co/storage/v1/object/public/phantom-waves/sonatas/${item.icon.toLocaleLowerCase()}.webp`,
+    }));
+  } catch (error) {
+    LOG.ERROR("Invalid fetch farms");
   }
 }
 
-// initializeSettings();
+initializeFarms();
 
 // Get sonata lists
 export async function GetSonataLists(req: Request, res: Response) {
