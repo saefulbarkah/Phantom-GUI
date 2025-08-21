@@ -3,24 +3,33 @@
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox } from "@/components/FeatureComboBox";
 import { FeatureSlider } from "@/components/FeatureSlider";
-import { LoadingContent } from "@/components/LoadingContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useBuffs } from "@/hooks/useBuffs";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { TSelectedBuff } from "@/types/buff";
 import { Dot } from "lucide-react";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
 export const Buff = () => {
-  const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
+  const { feature, OnUpdateFeature } = useFeatureManager();
   const [SelectedBuff, SetSelectedBuff] = useState<Partial<TSelectedBuff> | null>(null);
-  const { data: buffs, isSuccess, ApplyBuff } = useBuffs();
+  const { data: buffs, ApplyBuff } = useBuffs();
   const [Buffid, SetBuffId] = React.useState<number | null>(null);
   const [buff, setBuff] = useState("");
 
-  if (!IsFeatureReady || !isSuccess) return <LoadingContent />;
+  // Cache mapping untuk By Sonata
+  const buffOptions = useMemo(() => {
+    return (
+      buffs?.map((item, index) => ({
+        label: item.name,
+        real_value: item.id,
+        value: `${item.name}-${index}`,
+        stacks: item.stacks,
+      })) ?? []
+    );
+  }, [buffs]);
 
   return (
     <section className="flex flex-col gap-5">
@@ -31,12 +40,7 @@ export const Buff = () => {
             <div className="flex items-center gap-4">
               <div className="flex-1 min-w-0">
                 <FeatureComboBox
-                  data={buffs.map((item, index) => ({
-                    label: item.name,
-                    real_value: item.id,
-                    value: `${item.name}-${index}`,
-                    stacks: item.stacks,
-                  }))}
+                  data={buffOptions}
                   onSelect={(val) => {
                     toast(`Buff selected ID ${val.real_value}`);
                     SetSelectedBuff({

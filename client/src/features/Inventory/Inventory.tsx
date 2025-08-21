@@ -1,7 +1,6 @@
 "use client";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox, TOptionValue } from "@/components/FeatureComboBox";
-import { LoadingContent } from "@/components/LoadingContent";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCustomRoleQuery, useWeaponQuery } from "@/hooks/use-inventory";
@@ -17,7 +16,7 @@ export const Inventory = () => {
   const [RankValue, SetRankValue] = useState("");
   const [TargetRole, SetTargetRole] = useState("");
   const [ReplaceRole, SetReplaceRole] = useState("");
-  const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
+  const { feature, OnUpdateFeature } = useFeatureManager();
 
   const Weapons =
     useMemo(() => {
@@ -53,10 +52,6 @@ export const Inventory = () => {
     { label: "4", value: "4" },
     { label: "5", value: "5" },
   ];
-
-  if (!IsFeatureReady || !CustomRole.isSuccess || !OwnRole.isSuccess || !weaponQuery.isSuccess) {
-    return <LoadingContent />;
-  }
 
   return (
     <section className="flex flex-col gap-5">

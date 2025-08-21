@@ -1,13 +1,10 @@
 "use client";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
-import { LoadingContent } from "@/components/LoadingContent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import React from "react";
 
 export const Visual = () => {
-  const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
-
-  if (!IsFeatureReady) return <LoadingContent />;
+  const { feature, OnUpdateFeature } = useFeatureManager();
 
   return (
     <section className="flex flex-col gap-5">

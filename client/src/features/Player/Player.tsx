@@ -2,14 +2,11 @@
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
-import { LoadingContent } from "@/components/LoadingContent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import React from "react";
 
 export const Player = () => {
-  const { feature, OnUpdateFeature, IsFeatureReady } = useFeatureManager();
-
-  if (!IsFeatureReady) return <LoadingContent />;
+  const { feature, OnUpdateFeature } = useFeatureManager();
 
   return (
     <section className="flex flex-col gap-5">

@@ -1,4 +1,5 @@
 "use client";
+import { ModSettings } from "@/constant/settings";
 import { TSetting } from "@/types/setting";
 import { create } from "zustand";
 
@@ -20,10 +21,10 @@ type TFeatureState = {
 
 const useFeatureManagerStore = create<TFeatureState>()((set) => ({
   // feature general
-  feature: {},
+  feature: ModSettings,
   NetworkStatus: "disconnected",
   SetNetworkStatus: (val) => set(() => ({ NetworkStatus: val })),
-  IsFeatureReady: false,
+  IsFeatureReady: true,
   SetFeatureReady: (bool) => set(() => ({ IsFeatureReady: bool })),
   OnUpdateFeature: (key, value) => {
     let data = null;

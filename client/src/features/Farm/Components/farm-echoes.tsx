@@ -17,8 +17,6 @@ import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
-let RefreshInterval: number | null = null; // browser-safe
-
 const byCost: TOptionValue[] = [
   { label: "All", value: "All" },
   { label: "3", value: "3" },
@@ -27,9 +25,6 @@ const byCost: TOptionValue[] = [
 
 export const FarmEchoes = () => {
   const { data: StartFarmEcho, refetch: RefetchFarmStatus } = useEvent("onStartFarmEchoes");
-  const { data: onRefreshEchoes, refetch: RefetchRefreshEchoes } = useEvent("onRefreshEchoes");
-  const { data: isEchoesRefreshed, refetch: refetchRefreshed } = useEvent("isEchoesRefreshed");
-
   const { filter, setFilter, monsters, setMonster, setSonata, sonata } = useFarmState();
   const { mutate } = useMutation({ mutationKey: ["filterFarm"], mutationFn: FilterSonata });
 
@@ -38,81 +33,20 @@ export const FarmEchoes = () => {
   const [CostValue, setCostValue] = useState("");
   const [EchoValue, setEchoValue] = useState("");
 
-  const { isSuccess, refetch, data } = useFarms();
+  const { refetch, data, isFetching } = useFarms();
   const { IsFeatureReady } = useFeatureManager();
 
-  const StartFarm = async () => {
+  // Generic handler untuk start/stop farm
+  const handleFarmToggle = async (start: boolean) => {
     try {
-      await UpdateEvent({ onStartFarmEchoes: true, onStopFarmEchoes: false });
+      await UpdateEvent({ onStartFarmEchoes: start, onStopFarmEchoes: !start });
       RefetchFarmStatus();
-      toast.success("Auto farm started!");
+      toast.success(start ? "Auto farm started!" : "Auto farm stopped!");
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Failed to update farm status");
     }
   };
-
-  const StopFarm = async () => {
-    try {
-      await UpdateEvent({ onStartFarmEchoes: false, onStopFarmEchoes: true });
-      toast.success("Auto farm stopped!");
-      RefetchFarmStatus();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const Refresh = async () => {
-    // hentikan interval lama jika ada
-    if (RefreshInterval) {
-      clearInterval(RefreshInterval);
-      RefreshInterval = null;
-    }
-
-    await UpdateEvent({ onRefreshEchoes: true });
-    RefetchRefreshEchoes();
-
-    const maxRetries: number = 5;
-    let retry: number = 0;
-
-    const Toast = toast.loading("Refreshing auto farm lists");
-
-    RefreshInterval = window.setInterval(async () => {
-      if (retry > maxRetries) {
-        if (RefreshInterval) {
-          clearInterval(RefreshInterval); // non-null assertion
-          RefreshInterval = null;
-        }
-
-        UpdateEvent({ onRefreshEchoes: false });
-        toast.error("Refreshing timeout, try again!", { id: Toast });
-        refetch(); // refetch data
-        await UpdateEvent({ onRefreshEchoes: false });
-
-        return;
-      }
-
-      if (isEchoesRefreshed) {
-        refetch(); // refetch data
-        await UpdateEvent({ onRefreshEchoes: false });
-        toast.success("Farm list refreshed", { id: Toast });
-
-        if (RefreshInterval) {
-          clearInterval(RefreshInterval); // non-null assertion
-          RefreshInterval = null;
-        }
-        return;
-      }
-      refetchRefreshed();
-      retry++;
-    }, 1000);
-  };
-
-  useEffect(() => {
-    if (onRefreshEchoes) {
-      Refresh();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
 
   const onFilterSonata = async (a: TFilterFarm) => {
     try {
@@ -195,7 +129,7 @@ export const FarmEchoes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  if (!IsFeatureReady || !isSuccess) return <LoadingContent />;
+  if (!IsFeatureReady) return <LoadingContent />;
 
   return (
     <div className="flex flex-col gap-5">
@@ -258,13 +192,13 @@ export const FarmEchoes = () => {
           </div>
 
           <div className="flex gap-2 mt-5 w-full">
-            <Button className="flex-1" onClick={StartFarm} disabled={StartFarmEcho}>
+            <Button className="flex-1" onClick={() => handleFarmToggle(true)} disabled={StartFarmEcho}>
               Start Farm
             </Button>
-            <Button className="flex-1" onClick={StopFarm}>
+            <Button className="flex-1" onClick={() => handleFarmToggle(false)}>
               Stop Farm
             </Button>
-            <Button size="icon" className="flex-shrink-0" onClick={Refresh} disabled={onRefreshEchoes}>
+            <Button size="icon" className="flex-shrink-0" onClick={() => refetch()} disabled={isFetching}>
               <RefreshCcw />
             </Button>
           </div>
