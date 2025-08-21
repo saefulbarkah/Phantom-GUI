@@ -3,9 +3,9 @@ import z from "zod";
 import LOG from "../utils/logging";
 
 const TWeaponSchema = z.object({
-  id: z.number().min(1),
-  name: z.string().min(1),
-  icon: z.string().min(1),
+  id: z.number().nullable(),
+  name: z.string().nullable(),
+  icon: z.string().nullable(),
 });
 
 type TWeapon = z.infer<typeof TWeaponSchema>;
@@ -54,4 +54,27 @@ export async function StoreWeapons(req: Request, res: Response) {
 
   weapons = [...weapons, ...weaponFiltered];
   return res.json(weapons);
+}
+
+// Add weapon
+let weaponAddedState: Partial<TWeapon>[] = [];
+export async function OnAddWeapon(req: Request, res: Response) {
+  const data = req.body as Pick<TWeapon, "id" | "name">[];
+  const parsed = z.array(TWeaponSchema.pick({ id: true, name: true })).safeParse(data);
+
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: "Invalid data format",
+      details: z.treeifyError(parsed.error),
+    });
+  }
+
+  weaponAddedState = [...weaponAddedState, ...data.filter((item) => !weaponAddedState.some((w) => w.id === item.id))];
+
+  return res.json({ message: "Weapon added", data: weaponAddedState });
+}
+
+// Get weapon added
+export async function OnGetWeaponAdded(req: Request, res: Response) {
+  return res.json(weaponAddedState);
 }

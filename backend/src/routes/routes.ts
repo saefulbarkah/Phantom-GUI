@@ -11,7 +11,7 @@ import {
 } from "../controller/DungeonController";
 import { CheckConnection } from "../controller/ConnectionCheck";
 import { FilterAutoFarm, GetFilteredFarm, GetSonataLists, StoreSonataLists } from "../controller/FarmController";
-import { GetWeapons, StoreWeapons } from "../controller/WeaponController";
+import { GetWeapons, OnAddWeapon, OnGetWeaponAdded, StoreWeapons } from "../controller/WeaponController";
 import { GetRoles, ReplaceRole, StoreRoles } from "../controller/RoleController";
 
 const router = express.Router();
@@ -41,6 +41,8 @@ router.post("/dungeons/load", LoadDungeonJSON);
 // Inventory -> Weapon
 router.get("/inventory/weapons", GetWeapons);
 router.post("/inventory/weapons", StoreWeapons);
+router.post("/inventory/weapons/add", OnAddWeapon);
+router.get("/inventory/weapons/check", OnGetWeaponAdded);
 
 // Inventory -> Roles
 router.get("/inventory/roles", GetRoles);
