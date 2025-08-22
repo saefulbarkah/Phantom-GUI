@@ -15,6 +15,18 @@ export const Misc = () => {
   const [UID, setUid] = useState("");
   const { feature, OnUpdateFeature } = useFeatureManager();
 
+  const ChangeUID = async () => {
+    try {
+      await OnUpdateFeature("UID", UID);
+      await OnUpdateFeature("UIDColor", UIDColor);
+      await UpdateEvent({ onChangeUID: true });
+      toast.success("UID Changed");
+    } catch (error) {
+      console.error(error);
+      toast.success("Failed to change UID");
+    }
+  };
+
   useEffect(() => {
     if (feature.UIDColor) setUIDColor(feature.UIDColor);
     if (feature.UID) setUid(feature.UID);
@@ -68,15 +80,7 @@ export const Misc = () => {
               </Popover>
             </div>
             <div className="mt-5 flex justify-end">
-              <Button
-                className="w-32"
-                onClick={async () => {
-                  await OnUpdateFeature("UID", UID);
-                  await OnUpdateFeature("UIDColor", UIDColor);
-                  await UpdateEvent({ onChangeUID: true });
-                  toast.success("UID Changed");
-                }}
-              >
+              <Button className="w-32" onClick={() => ChangeUID()}>
                 Apply
               </Button>
             </div>

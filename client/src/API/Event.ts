@@ -3,7 +3,7 @@ import API from "./api";
 
 export async function UpdateEvent(data: TEvent) {
   const response = await API.post("/status/update", data);
-  return response.data;
+  return response;
 }
 
 export async function GetEvent<K extends keyof TEvent>(key: K): Promise<TEvent[K]> {
