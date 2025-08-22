@@ -2,6 +2,7 @@
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
+import { Switch } from "@/components/ui/switch";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { Dot } from "lucide-react";
 import React from "react";
@@ -41,14 +42,41 @@ export const World = () => {
               OnUpdateFeature("killAura");
             }}
           >
-            <FeatureSlider
-              defaultValue={feature.killAuraRadius!}
-              disabled={!feature.killAura}
-              maxValue={100}
-              onValueChange={(e) => {
-                OnUpdateFeature("killAuraRadius", e);
-              }}
-            />
+            <div className="grid grid-cols-[1fr_auto] items-center gap-4 py-2">
+              <p>Damage Over Time</p>
+              <Switch
+                checked={feature.isDotKillAura}
+                onCheckedChange={() => {
+                  if (feature.isInstantKillAura) {
+                    OnUpdateFeature("isInstantKillAura", false);
+                  }
+
+                  OnUpdateFeature("isDotKillAura");
+                }}
+              />
+
+              <p>Instant Kill</p>
+              <Switch
+                checked={feature.isInstantKillAura}
+                onCheckedChange={() => {
+                  if (feature.isDotKillAura) {
+                    OnUpdateFeature("isDotKillAura", false);
+                  }
+
+                  OnUpdateFeature("isInstantKillAura");
+                }}
+              />
+            </div>
+            <div className="mt-5">
+              <FeatureSlider
+                defaultValue={feature.killAuraRadius!}
+                disabled={!feature.killAura}
+                maxValue={100}
+                onValueChange={(e) => {
+                  OnUpdateFeature("killAuraRadius", e);
+                }}
+              />
+            </div>
           </FeatureCardSwitch>
 
           <FeatureCardSwitch
