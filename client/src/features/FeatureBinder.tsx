@@ -18,7 +18,7 @@ export const FeatureBinder = () => {
   const queryDungeon = useDungeons();
   const queryFarm = useFarms();
 
-  const BindingFeature = () => {
+  React.useEffect(() => {
     if (queryFeature.isSuccess && queryBuffs.isSuccess && queryDungeon.isSuccess && queryFarm.isSuccess) {
       setFeature(queryFeature.data?.data);
       SetFeatureReady(true);
@@ -28,11 +28,15 @@ export const FeatureBinder = () => {
     } else {
       SetNetworkStatus("disconnected");
     }
-  };
-
-  React.useEffect(() => {
-    BindingFeature();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [connection.isSuccess, connection.failureCount]);
+  }, [
+    queryFeature.isSuccess,
+    queryBuffs.isSuccess,
+    queryDungeon.isSuccess,
+    queryFarm.isSuccess,
+    connection.failureCount,
+    connection.isFetching,
+  ]);
+
   return null;
 };
