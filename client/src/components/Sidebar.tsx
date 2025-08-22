@@ -51,7 +51,7 @@ const Routes: TRoute[] = [
   },
   {
     label: "Misc",
-    href: "/mics",
+    href: "/misc",
   },
 ];
 
