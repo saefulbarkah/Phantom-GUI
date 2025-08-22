@@ -42,8 +42,8 @@ const Routes: TRoute[] = [
     href: "/inventory",
   },
   {
-    label: "teleport",
-    href: "/teleport",
+    label: "Camera",
+    href: "/camera",
   },
   {
     label: "ESP",
