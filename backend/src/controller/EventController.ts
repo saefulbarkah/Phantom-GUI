@@ -17,9 +17,19 @@ export async function GetStatus(req: Request, res: Response) {
     }
   }
 
-  if (event === null) return res.status(404).json(null);
+  const result: Partial<TGameState> = {};
+  for (const k in gameState) {
+    let val = gameState[k as keyof TGameState] ?? null;
 
-  return res.json({ [key]: event });
+    // reset one-time event di sini juga
+    if (val === true && oneTimeEvents.includes(k as keyof TGameState)) {
+      gameState[k as keyof TGameState] = false;
+    }
+
+    result[k as keyof TGameState] = val;
+  }
+
+  return res.json(result);
 }
 
 export async function SetStatus(req: Request, res: Response) {
