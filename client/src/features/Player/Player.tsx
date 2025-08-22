@@ -4,6 +4,7 @@ import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import React from "react";
+import toast from "react-hot-toast";
 
 export const Player = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
@@ -168,6 +169,7 @@ export const Player = () => {
             onSwitch={() => {
               OnUpdateFeature("QuestTp");
             }}
+            WithKeybind={true}
           />
 
           <FeatureCardSwitch
@@ -177,6 +179,8 @@ export const Player = () => {
             onSwitch={() => {
               OnUpdateFeature("MarkTp");
             }}
+            WithKeybind={true}
+            OnBind={(data) => toast.success("Keybind: " + data)}
           />
         </div>
       </div>

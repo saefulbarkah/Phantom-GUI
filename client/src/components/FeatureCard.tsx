@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Card, CardContent } from "./ui/card";
+import { Card, CardContent, CardFooter } from "./ui/card";
 import { Switch } from "./ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { CircleAlert } from "lucide-react";
+import { KeybindInput } from "./KeybindInput";
 
 type TFeatureCard = React.ComponentProps<"div"> & {
   title: string;
@@ -13,6 +14,8 @@ type TFeatureCard = React.ComponentProps<"div"> & {
   defaultCheck?: boolean;
   warningInfo?: React.ReactNode;
   Info?: React.ReactNode;
+  WithKeybind?: boolean;
+  OnBind?: (e: string) => void;
 };
 
 export const FeatureCardSwitch = ({
@@ -23,6 +26,8 @@ export const FeatureCardSwitch = ({
   children,
   warningInfo,
   Info,
+  WithKeybind = false,
+  OnBind,
 }: TFeatureCard) => {
   return (
     <Card className="rounded-md bg-box/50 backdrop-blur-sm text-slate-100 border-none">
@@ -56,6 +61,14 @@ export const FeatureCardSwitch = ({
         </div>
         {children ? <div className="mt-5">{children}</div> : null}
       </CardContent>
+      {WithKeybind ? (
+        <CardFooter className="mt-auto">
+          <div className="flex items-center gap-2">
+            <p className="text-sm">Keybind</p>
+            <KeybindInput onBind={OnBind} />
+          </div>
+        </CardFooter>
+      ) : null}
     </Card>
   );
 };
