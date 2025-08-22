@@ -3,15 +3,16 @@ import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox, TOptionValue } from "@/components/FeatureComboBox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useCustomRoleQuery, useWeaponQuery } from "@/hooks/use-inventory";
+import { useRole } from "@/hooks/use-role";
+import { useWeaponQuery } from "@/hooks/use-weapon";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { RefreshCcw } from "lucide-react";
 import React, { useMemo, useState } from "react";
+import toast from "react-hot-toast";
 
 export const Inventory = () => {
   const weaponQuery = useWeaponQuery();
-  const CustomRole = useCustomRoleQuery("CustomRole");
-  const OwnRole = useCustomRoleQuery("OwnRole");
+  const role = useRole();
   const [WeaponValue, SetWeaponValue] = useState("");
   const [RankValue, SetRankValue] = useState("");
   const [TargetRole, SetTargetRole] = useState("");
@@ -29,21 +30,21 @@ export const Inventory = () => {
 
   const OwnRoles =
     useMemo(() => {
-      return OwnRole.data?.map((item) => ({
+      return role.ownRole.data?.map((item) => ({
         label: item.name,
         value: item.name,
         id: item.id,
       }));
-    }, [OwnRole.data]) ?? [];
+    }, [role.ownRole.data]) ?? [];
 
   const CustomRoles =
     useMemo(() => {
-      return CustomRole.data?.map((item) => ({
+      return role.CustomRole.data?.map((item) => ({
         label: item.name,
         value: item.name,
         id: item.id,
       }));
-    }, [CustomRole.data]) ?? [];
+    }, [role.CustomRole.data]) ?? [];
 
   const RankOptions: TOptionValue[] = [
     { label: "1", value: "1" },
@@ -134,20 +135,38 @@ export const Inventory = () => {
             >
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
                 <p>Target Role</p>
-                <FeatureComboBox data={OwnRoles} value={TargetRole} setValue={SetTargetRole} onSelect={(data) => {}} />
+                <FeatureComboBox
+                  data={OwnRoles}
+                  value={TargetRole}
+                  setValue={SetTargetRole}
+                  onSelect={(data) => {
+                    role.store.setRole({ target: { id: data.id, name: data.value } });
+                  }}
+                />
 
                 <p>Replace With</p>
                 <FeatureComboBox
                   data={CustomRoles}
                   value={ReplaceRole}
                   setValue={SetReplaceRole}
-                  onSelect={(data) => {}}
+                  onSelect={(data) => {
+                    role.store.setRole({ replacer: { id: data.id, name: data.value } });
+                  }}
                 />
               </div>
 
               <div className="flex gap-2 mt-5 justify-end">
-                <Button className="w-32">Apply</Button>
-                <Button size="icon">
+                <Button className="w-32" onClick={() => role.onSwitchRole()}>
+                  Apply
+                </Button>
+                <Button
+                  size="icon"
+                  onClick={() => {
+                    role.CustomRole.refetch();
+                    role.ownRole.refetch();
+                    toast.success("Role refreshed");
+                  }}
+                >
                   <RefreshCcw />
                 </Button>
               </div>

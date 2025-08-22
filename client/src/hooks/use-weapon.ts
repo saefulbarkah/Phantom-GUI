@@ -1,16 +1,11 @@
 "use client";
 
-import { GetCustomRoles } from "@/API/inventory/role";
 import { AddWeapon as OnAddWeapon, GetWeapons } from "@/API/inventory/weapon";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { UpdateEvent } from "@/API/Event";
 import { TWeapon } from "@/types/weapon";
-
-export const useCustomRoleQuery = (t: string) => {
-  return useQuery({ queryKey: ["customRole", t], queryFn: () => GetCustomRoles(t) });
-};
 
 type WeaponStore = {
   rank: number;

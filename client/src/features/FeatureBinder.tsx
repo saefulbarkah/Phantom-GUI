@@ -1,7 +1,6 @@
 "use client";
 import { GetFeatureSettings } from "@/API/settings";
 import { CheckConnection } from "@/API/test";
-import { useCustomRoleQuery } from "@/hooks/use-inventory";
 import { useBuffs } from "@/hooks/useBuffs";
 import { useDungeons } from "@/hooks/useDungeons";
 import { useFarms } from "@/hooks/useFarms";
@@ -15,21 +14,12 @@ export const FeatureBinder = () => {
   // Initial queries
   const connection = useQuery({ queryKey: ["connection"], queryFn: CheckConnection });
   const queryFeature = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
-  const CustomRole = useCustomRoleQuery("CustomRole");
-  const OwnRole = useCustomRoleQuery("OwnRole");
   const queryBuffs = useBuffs();
   const queryDungeon = useDungeons();
   const queryFarm = useFarms();
 
   const BindingFeature = () => {
-    if (
-      queryFeature.isSuccess &&
-      queryBuffs.isSuccess &&
-      queryDungeon.isSuccess &&
-      queryFarm.isSuccess &&
-      CustomRole.isSuccess &&
-      OwnRole.isSuccess
-    ) {
+    if (queryFeature.isSuccess && queryBuffs.isSuccess && queryDungeon.isSuccess && queryFarm.isSuccess) {
       setFeature(queryFeature.data?.data);
       SetFeatureReady(true);
       SetNetworkStatus("connected");

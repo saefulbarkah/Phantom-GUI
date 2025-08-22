@@ -187,4 +187,5 @@ export type TGameState = {
   onRefreshEchoes?: boolean;
   isEchoesRefreshed?: boolean;
   onWeaponAdded?: boolean;
+  onRoleReplaced?: boolean;
 };

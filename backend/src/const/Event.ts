@@ -15,6 +15,9 @@ export const EventState = {
   // Weapon
   onWeaponAdded: false,
 
+  // role
+  onRoleReplaced: false,
+
   // apply buff
   onApplyBuff: false,
 
@@ -27,7 +30,7 @@ export const EventState = {
 };
 
 // daftar event yang auto-reset
-export const oneTimeEvents: (keyof TGameState)[] = [
+export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onTeleport",
   "onNextTeleport",
   "onPrevTeleport",
@@ -38,4 +41,5 @@ export const oneTimeEvents: (keyof TGameState)[] = [
   "onLoadConfig",
   "onEnterDungeon",
   "onWeaponAdded",
+  "onRoleReplaced",
 ];
