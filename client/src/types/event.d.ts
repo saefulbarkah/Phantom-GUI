@@ -12,4 +12,5 @@ export type TEvent = {
   onEnterDungeon?: boolean;
   onWeaponAdded?: boolean;
   onRoleReplaced?: boolean;
+  onChangeUID?: boolean;
 };

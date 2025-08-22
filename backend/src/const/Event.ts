@@ -24,6 +24,9 @@ export const EventState = {
   // Dungeon
   onEnterDungeon: false,
 
+  // UID
+  onChangeUID: false,
+
   // Config
   onSaveConfig: false,
   onLoadConfig: false,
@@ -42,4 +45,5 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onEnterDungeon",
   "onWeaponAdded",
   "onRoleReplaced",
+  "onChangeUID",
 ];

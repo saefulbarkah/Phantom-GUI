@@ -1,5 +1,6 @@
 "use client";
 
+import { UpdateEvent } from "@/API/Event";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,9 +16,9 @@ export const Misc = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
 
   useEffect(() => {
-    setUIDColor(feature.UIDColor!);
-    setUid(feature.UID!);
-  }, [feature]);
+    if (feature.UIDColor) setUIDColor(feature.UIDColor);
+    if (feature.UID) setUid(feature.UID);
+  }, [feature.UID, feature.UIDColor]);
 
   return (
     <section className="flex flex-col gap-5">
@@ -54,7 +55,7 @@ export const Misc = () => {
           <FeatureCardSwitch title="UID Changer" description="lorem adma msd asd as das">
             <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
               <p>UID</p>
-              <Input defaultValue={UID} onChange={(e) => setUid(e.currentTarget.value)} />
+              <Input value={UID} onChange={(e) => setUid(e.currentTarget.value)} />
 
               <p>Color</p>
               <Popover>
@@ -69,9 +70,10 @@ export const Misc = () => {
             <div className="mt-5 flex justify-end">
               <Button
                 className="w-32"
-                onClick={() => {
-                  OnUpdateFeature("UID", UID);
-                  OnUpdateFeature("UIDColor", UIDColor);
+                onClick={async () => {
+                  await OnUpdateFeature("UID", UID);
+                  await OnUpdateFeature("UIDColor", UIDColor);
+                  await UpdateEvent({ onChangeUID: true });
                   toast.success("UID Changed");
                 }}
               >
