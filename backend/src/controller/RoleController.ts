@@ -46,6 +46,7 @@ export async function StoreRoles(req: Request, res: Response) {
       role.OwnRoles = [...role.OwnRoles, ...roleFiltered];
       LOG.SUCCESS(`Own Role ${data.data.length} was stored`);
     }
+    res.json({ success: true });
   }
 
   if (data.type === "CustomRole") {
@@ -56,9 +57,10 @@ export async function StoreRoles(req: Request, res: Response) {
       LOG.SUCCESS(`Custom Role ${data.data.length} was stored`);
       role.CustomRoles = [...role.CustomRoles, ...roleFiltered];
     }
+    res.json({ success: true });
   }
 
-  res.json({ success: true });
+  res.status(404).json({ success: false });
 }
 
 const TReplaceSchema = z.object({
