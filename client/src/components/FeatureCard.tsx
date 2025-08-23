@@ -16,6 +16,7 @@ type TFeatureCard = React.ComponentProps<"div"> & {
   Info?: React.ReactNode;
   WithKeybind?: boolean;
   OnBind?: (e: string) => void;
+  disabled?: boolean;
 };
 
 export const FeatureCardSwitch = ({
@@ -28,6 +29,7 @@ export const FeatureCardSwitch = ({
   Info,
   WithKeybind = false,
   OnBind,
+  disabled = false,
 }: TFeatureCard) => {
   return (
     <Card className="rounded-md bg-box/50 backdrop-blur-sm text-slate-100 border-none">
@@ -57,7 +59,14 @@ export const FeatureCardSwitch = ({
             </div>
             <p className="text-sm font-normal text-slate-300/80 line-clamp-2">{description}</p>
           </div>
-          {onSwitch ? <Switch onClick={onSwitch} checked={defaultCheck} variant={"destructive"} /> : null}
+          {onSwitch ? (
+            <Switch
+              disabled={disabled}
+              onClick={onSwitch}
+              checked={disabled ? false : defaultCheck}
+              variant={"destructive"}
+            />
+          ) : null}
         </div>
         {children ? <div className="mt-5">{children}</div> : null}
       </CardContent>

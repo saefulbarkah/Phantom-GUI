@@ -35,51 +35,6 @@ export const World = () => {
           </FeatureCardSwitch>
 
           <FeatureCardSwitch
-            title="Kill Aura"
-            description="lorem adma msd asd as das"
-            defaultCheck={feature.killAura}
-            onSwitch={() => {
-              OnUpdateFeature("killAura");
-            }}
-          >
-            <div className="grid grid-cols-[1fr_auto] items-center gap-4 py-2">
-              <p>Damage Over Time</p>
-              <Switch
-                checked={feature.isDotKillAura}
-                onCheckedChange={() => {
-                  if (feature.isInstantKillAura) {
-                    OnUpdateFeature("isInstantKillAura", false);
-                  }
-
-                  OnUpdateFeature("isDotKillAura");
-                }}
-              />
-
-              <p>Instant Kill</p>
-              <Switch
-                checked={feature.isInstantKillAura}
-                onCheckedChange={() => {
-                  if (feature.isDotKillAura) {
-                    OnUpdateFeature("isDotKillAura", false);
-                  }
-
-                  OnUpdateFeature("isInstantKillAura");
-                }}
-              />
-            </div>
-            <div className="mt-5">
-              <FeatureSlider
-                defaultValue={feature.killAuraRadius!}
-                disabled={!feature.killAura}
-                maxValue={100}
-                onValueChange={(e) => {
-                  OnUpdateFeature("killAuraRadius", e);
-                }}
-              />
-            </div>
-          </FeatureCardSwitch>
-
-          <FeatureCardSwitch
             title="Kill Animal"
             description="lorem adma msd asd as das"
             defaultCheck={feature.KillAnimal}
@@ -112,6 +67,59 @@ export const World = () => {
             defaultCheck={feature.VacuumCollect}
             onSwitch={() => {
               OnUpdateFeature("VacuumCollect");
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Player */}
+      <div className="flex flex-col gap-5">
+        <h2 className="text-xl font-semibold ">Kill Aura</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          <FeatureCardSwitch
+            title="Enable Kill Aura"
+            description="lorem adma msd asd as das"
+            warningInfo={<p>Avoid use this in quest</p>}
+            defaultCheck={feature.killAura}
+            onSwitch={() => {
+              OnUpdateFeature("killAura");
+            }}
+          >
+            <FeatureSlider
+              defaultValue={feature.killAuraRadius!}
+              disabled={!feature.killAura}
+              maxValue={100}
+              onValueChange={(e) => {
+                OnUpdateFeature("killAuraRadius", e);
+              }}
+            />
+          </FeatureCardSwitch>
+
+          <FeatureCardSwitch
+            disabled={!feature.killAura}
+            title="Damage Over Time"
+            description="Damage over time to enemy"
+            defaultCheck={feature.isDotKillAura}
+            onSwitch={() => {
+              if (feature.isInstantKillAura) {
+                OnUpdateFeature("isInstantKillAura", false);
+              }
+
+              OnUpdateFeature("isDotKillAura");
+            }}
+          />
+
+          <FeatureCardSwitch
+            title="Instant Kill"
+            disabled={!feature.killAura}
+            description="Instant kill enemy"
+            defaultCheck={feature.isInstantKillAura}
+            onSwitch={() => {
+              if (feature.isDotKillAura) {
+                OnUpdateFeature("isDotKillAura", false);
+              }
+
+              OnUpdateFeature("isInstantKillAura");
             }}
           />
         </div>
