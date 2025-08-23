@@ -41,10 +41,10 @@ export function FeatureComboBox<T extends TOptionValue>({ data, onSelect, value,
           <CommandList className="border-none">
             <CommandEmpty>No item found.</CommandEmpty>
             <CommandGroup>
-              {data.map((item) => (
+              {data.map((item, i) => (
                 <CommandItem
                   className={`border-none ${item.value === value ? "bg-[#202e3a]" : ""}`}
-                  key={item.value}
+                  key={`${item.value}-${i}`}
                   value={item.value}
                   onSelect={(currentValue) => {
                     setValue(currentValue);

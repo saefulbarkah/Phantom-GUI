@@ -39,25 +39,15 @@ export async function StoreRoles(req: Request, res: Response) {
   }
 
   if (data.type === "OwnRole") {
-    const roleFiltered = data.data.filter(
-      (newItem) => !role.OwnRoles.some((existingItem) => existingItem.id === newItem.id)
-    );
-    if (roleFiltered.length > 0) {
-      role.OwnRoles = [...role.OwnRoles, ...roleFiltered];
-      LOG.SUCCESS(`Own Role ${data.data.length} was stored`);
-    }
-    res.json({ success: true });
+    role.OwnRoles = data.data;
+    LOG.SUCCESS(`Own Role ${data.data.length} was stored`);
+    return res.json({ success: true });
   }
 
   if (data.type === "CustomRole") {
-    const roleFiltered = data.data.filter(
-      (newItem) => !role.CustomRoles.some((existingItem) => existingItem.id === newItem.id)
-    );
-    if (roleFiltered.length > 0) {
-      LOG.SUCCESS(`Custom Role ${data.data.length} was stored`);
-      role.CustomRoles = [...role.CustomRoles, ...roleFiltered];
-    }
-    res.json({ success: true });
+    LOG.SUCCESS(`Custom Role ${data.data.length} was stored`);
+    role.CustomRoles = data.data;
+    return res.json({ success: true });
   }
 
   res.status(404).json({ success: false });
