@@ -1,9 +1,10 @@
 "use client";
 
+import { UpdateEvent } from "@/API/Event";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
-import React from "react";
+import React, { useEffect } from "react";
 
 export const ESP = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
@@ -20,6 +21,7 @@ export const ESP = () => {
             defaultCheck={feature.ESP}
             onSwitch={() => {
               OnUpdateFeature("ESP");
+              UpdateEvent({ onESPTrigger: true });
             }}
           >
             <FeatureSlider
@@ -28,6 +30,7 @@ export const ESP = () => {
               maxValue={500}
               onValueChange={(e) => {
                 OnUpdateFeature("ESPRadius", e);
+                UpdateEvent({ onESPTrigger: true });
               }}
             />
           </FeatureCardSwitch>
@@ -38,6 +41,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowName}
             onSwitch={() => {
               OnUpdateFeature("ShowName");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -47,6 +51,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowDistance}
             onSwitch={() => {
               OnUpdateFeature("ShowDistance");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -56,6 +61,17 @@ export const ESP = () => {
             defaultCheck={feature.ShowBox}
             onSwitch={() => {
               OnUpdateFeature("ShowBox");
+              UpdateEvent({ onESPTrigger: true });
+            }}
+          />
+
+          <FeatureCardSwitch
+            title="Debug Entity"
+            description="lorem adma msd asd as das"
+            defaultCheck={feature.DebugEntity}
+            onSwitch={() => {
+              OnUpdateFeature("DebugEntity");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
         </div>
@@ -71,6 +87,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowAnimal}
             onSwitch={() => {
               OnUpdateFeature("ShowAnimal");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -80,6 +97,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowBlobfly}
             onSwitch={() => {
               OnUpdateFeature("ShowBlobfly");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -89,6 +107,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowMonster}
             onSwitch={() => {
               OnUpdateFeature("ShowMonster");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -98,6 +117,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowCollect}
             onSwitch={() => {
               OnUpdateFeature("ShowCollect");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -107,6 +127,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowTreasure}
             onSwitch={() => {
               OnUpdateFeature("ShowTreasure");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -116,6 +137,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowPuzzle}
             onSwitch={() => {
               OnUpdateFeature("ShowPuzzle");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -125,6 +147,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowCasket}
             onSwitch={() => {
               OnUpdateFeature("ShowCasket");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -134,6 +157,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowRock}
             onSwitch={() => {
               OnUpdateFeature("ShowRock");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
 
@@ -143,6 +167,7 @@ export const ESP = () => {
             defaultCheck={feature.ShowMutterfly}
             onSwitch={() => {
               OnUpdateFeature("ShowMutterfly");
+              UpdateEvent({ onESPTrigger: true });
             }}
           />
         </div>

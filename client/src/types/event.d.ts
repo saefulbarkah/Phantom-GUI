@@ -14,4 +14,5 @@ export type TEvent = {
   onRoleReplaced?: boolean;
   onChangeUID?: boolean;
   onShowFPS?: boolean;
+  onESPTrigger?: boolean;
 };

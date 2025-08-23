@@ -31,6 +31,9 @@ export const EventState = {
   onSaveConfig: false,
   onLoadConfig: false,
 
+  // ESP
+  onESPTrigger: false,
+
   //misc
   onShowFPS: false,
 };
@@ -50,4 +53,5 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onRoleReplaced",
   "onChangeUID",
   "onShowFPS",
+  "onESPTrigger",
 ];
