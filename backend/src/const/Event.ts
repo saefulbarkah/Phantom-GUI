@@ -30,6 +30,9 @@ export const EventState = {
   // Config
   onSaveConfig: false,
   onLoadConfig: false,
+
+  //misc
+  onShowFPS: false,
 };
 
 // daftar event yang auto-reset
@@ -46,4 +49,5 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onWeaponAdded",
   "onRoleReplaced",
   "onChangeUID",
+  "onShowFPS",
 ];

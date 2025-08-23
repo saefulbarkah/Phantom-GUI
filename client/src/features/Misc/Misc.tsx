@@ -30,7 +30,8 @@ export const Misc = () => {
   useEffect(() => {
     if (feature.UIDColor) setUIDColor(feature.UIDColor);
     if (feature.UID) setUid(feature.UID);
-  }, [feature.UID, feature.UIDColor]);
+    if (feature.ShowFPS) UpdateEvent({ onShowFPS: true });
+  }, [feature.UID, feature.UIDColor, feature.ShowFPS]);
 
   return (
     <section className="flex flex-col gap-5">

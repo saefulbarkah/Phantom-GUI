@@ -13,4 +13,5 @@ export type TEvent = {
   onWeaponAdded?: boolean;
   onRoleReplaced?: boolean;
   onChangeUID?: boolean;
+  onShowFPS?: boolean;
 };
