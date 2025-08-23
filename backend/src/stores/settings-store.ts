@@ -23,7 +23,6 @@ export async function LoadSettings<T>(filePath: string, name: string): Promise<T
   try {
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const json = JSON.parse(fileContent) as T;
-    console.log(json);
     return json;
   } catch (err) {
     console.error(`Error reading ${name} file:`, err);

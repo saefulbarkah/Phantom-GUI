@@ -14,12 +14,12 @@ async function initializeSettings() {
   if (CheckIfConfigExist(filePath)) {
     const data = await LoadSettings<TModSettings>(filePath, "setting");
     if (data) {
-      console.log("Settings loaded from file.");
+      LOG.INFO("Settings loaded from file.");
       state = data;
     }
   } else {
     await SaveSettings<TModSettings>(state, filePath, "setting");
-    console.log("Default settings saved.");
+    LOG.INFO("Default settings saved.");
   }
 }
 

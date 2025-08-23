@@ -1,6 +1,7 @@
 import express from "express";
 import routes from "./routes/routes";
 import cors from "cors";
+import LOG from "./utils/logging";
 
 const app = express();
 const port = 51235;
@@ -18,12 +19,12 @@ app.use(
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("express + typescript");
+  res.json("Phantom server");
 });
 
 // Routes
 app.use("/api/game", routes);
 
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  LOG.INFO(`Server running on port ${port}`);
 });

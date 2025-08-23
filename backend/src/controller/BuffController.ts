@@ -32,12 +32,12 @@ async function initializeSettings() {
   if (CheckIfConfigExist(filePath)) {
     const data = await LoadSettings<TBuffs[]>(filePath, "Buff");
     if (data) {
-      LOG.INFO("Buffs loaded from file.");
+      LOG.INFO("Buff loaded from file.");
       state = data;
     }
   } else {
     await SaveSettings<TBuffs[]>(state, filePath, "Buff");
-    LOG.SUCCESS("Default Buffs saved.");
+    LOG.SUCCESS("Default buff config saved.");
   }
 }
 
@@ -70,7 +70,7 @@ export const UpdateSelectedBuff = async (req: Request, res: Response) => {
 
   const body = req.body as TBuffs;
   state_selected = { ...state_selected, ...body }; // update status
-  LOG.INFO(`Waiting for applied buff name: ${chalk.green(body.name)} | ID: ${chalk.cyan(body.id)}`);
+  LOG.INFO(`Waiting for applying buff name: ${chalk.green(body.name)} | ID: ${chalk.cyan(body.id)}`);
   return res.json(body);
 };
 
