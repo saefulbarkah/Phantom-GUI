@@ -48,7 +48,6 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onTeleport",
   "onNextTeleport",
   "onPrevTeleport",
-  "onStartFarmEchoes",
   "onStopFarmEchoes",
   "onApplyBuff",
   "onSaveConfig",
