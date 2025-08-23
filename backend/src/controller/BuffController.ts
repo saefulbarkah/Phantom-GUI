@@ -16,6 +16,7 @@ const filePath = "./phantom-buff.json";
 
 let state = Buff;
 let state_selected: TBuffs[] = [];
+let IsNewUpdated = false;
 
 async function LoadConfig() {
   const data = await LoadSettings<TBuffs[]>(filePath, "Buff");
@@ -53,12 +54,16 @@ export const GetBuffsettings = async (req: Request, res: Response) => {
 };
 
 export async function GetSelectedBuff(req: Request, res: Response) {
-  const current: typeof state_selected = state_selected;
-  for (const buff of current) {
+  return res.json(state_selected);
+}
+
+export async function ClearSelectedBuff(req: Request, res: Response) {
+  for (const buff of state_selected) {
     LOG.SUCCESS(`Buff applied, name: ${chalk.green(buff.name)} | ID: ${chalk.cyan(buff.id)}`);
   }
-  state_selected = []; // reset after getting buff
-  return res.json(current);
+  LOG.INFO("Clearing buff selected");
+  state_selected = [];
+  return res.json({ success: true });
 }
 
 export const UpdateSelectedBuff = async (req: Request, res: Response) => {
@@ -73,6 +78,7 @@ export const UpdateSelectedBuff = async (req: Request, res: Response) => {
 
   const body = req.body as TBuffs;
   state_selected = [...state_selected, { ...body }]; // update status
+  IsNewUpdated = true;
   LOG.INFO(`Waiting for applying buff name: ${chalk.green(body.name)} | ID: ${chalk.cyan(body.id)}`);
   return res.json(body);
 };

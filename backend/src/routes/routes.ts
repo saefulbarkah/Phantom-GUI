@@ -1,7 +1,13 @@
 import express from "express";
 import { GetStatus, SetStatus } from "../controller/EventController";
 import { GetSettings, LoadSettingJSON, SaveSettingsJSON, UpdateSettings } from "../controller/SettingsController";
-import { GetBuffsettings, GetSelectedBuff, LoadBuffJSON, UpdateSelectedBuff } from "../controller/BuffController";
+import {
+  ClearSelectedBuff,
+  GetBuffsettings,
+  GetSelectedBuff,
+  LoadBuffJSON,
+  UpdateSelectedBuff,
+} from "../controller/BuffController";
 import {
   GetDungeons,
   GetSelectedDungeon,
@@ -28,6 +34,7 @@ router.post("/settings/load", LoadSettingJSON);
 // Buff
 router.get("/buffs", GetBuffsettings);
 router.get("/buffs/check", GetSelectedBuff);
+router.get("/buffs/clear", ClearSelectedBuff);
 router.post("/buffs/update", UpdateSelectedBuff);
 router.post("/buffs/load", LoadBuffJSON);
 
