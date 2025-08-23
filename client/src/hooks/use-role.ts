@@ -25,13 +25,21 @@ const useStore = create<roleStore>((set) => ({
 
 export const useRole = () => {
   const store = useStore();
-  const CustomRole = useQuery({ queryKey: ["customRole", "CustomRole"], queryFn: () => GetCustomRoles("CustomRole") });
-  const ownRole = useQuery({ queryKey: ["customRole", "OwnRole"], queryFn: () => GetCustomRoles("OwnRole") });
+  const CustomRole = useQuery({
+    queryKey: ["customRole", "CustomRole"],
+    queryFn: () => GetCustomRoles("CustomRole"),
+    refetchOnMount: true,
+  });
+  const ownRole = useQuery({
+    queryKey: ["customRole", "OwnRole"],
+    queryFn: () => GetCustomRoles("OwnRole"),
+    refetchOnMount: true,
+  });
 
   const onSwitchRole = async () => {
     try {
       await ReplaceRole({
-        replaceId: store.role.replacer!.id!,
+        replaceId: store.role.replacer!.skinId!,
         targetId: store.role.target!.id!,
       });
       await UpdateEvent({

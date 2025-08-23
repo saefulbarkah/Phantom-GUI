@@ -167,6 +167,7 @@ export type TWeapon = {
 export type TRole = {
   id: number;
   name: string;
+  skinId: number;
 };
 
 export type TCustomRole = {

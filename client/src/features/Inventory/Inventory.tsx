@@ -33,7 +33,7 @@ export const Inventory = () => {
       return role.ownRole.data?.map((item) => ({
         label: item.name,
         value: item.name,
-        id: item.id,
+        ...item,
       }));
     }, [role.ownRole.data]) ?? [];
 
@@ -42,7 +42,7 @@ export const Inventory = () => {
       return role.CustomRole.data?.map((item) => ({
         label: item.name,
         value: item.name,
-        id: item.id,
+        ...item,
       }));
     }, [role.CustomRole.data]) ?? [];
 
@@ -140,7 +140,7 @@ export const Inventory = () => {
                   value={TargetRole}
                   setValue={SetTargetRole}
                   onSelect={(data) => {
-                    role.store.setRole({ target: { id: data.id, name: data.value } });
+                    role.store.setRole({ target: { id: data.id, name: data.value, skinId: data.skinId } });
                   }}
                 />
 
@@ -150,7 +150,7 @@ export const Inventory = () => {
                   value={ReplaceRole}
                   setValue={SetReplaceRole}
                   onSelect={(data) => {
-                    role.store.setRole({ replacer: { id: data.id, name: data.value } });
+                    role.store.setRole({ replacer: { id: data.id, name: data.value, skinId: data.skinId } });
                   }}
                 />
               </div>

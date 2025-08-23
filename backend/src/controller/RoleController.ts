@@ -13,6 +13,7 @@ const TRoleSchema = z.object({
   data: z.array(
     z.object({
       id: z.number(),
+      skinId: z.number(),
       name: z.string(),
     })
   ),
@@ -54,15 +55,21 @@ export async function StoreRoles(req: Request, res: Response) {
 }
 
 const TReplaceSchema = z.object({
-  replaceId: z.number(),
-  targetId: z.number(),
+  replaceId: z.number().nullable(),
+  targetId: z.number().nullable(),
 });
+
+let replaceData: z.infer<typeof TReplaceSchema> = {
+  replaceId: null,
+  targetId: null,
+};
 
 export async function ReplaceRole(req: Request, res: Response) {
   const data = req.body as z.infer<typeof TReplaceSchema>;
   const parsed = TReplaceSchema.safeParse(data);
 
   if (!parsed.success) {
+    replaceData = { replaceId: null, targetId: null };
     return res.status(400).json({
       error: "Invalid data format",
       details: z.treeifyError(parsed.error),
@@ -70,14 +77,20 @@ export async function ReplaceRole(req: Request, res: Response) {
   }
 
   const FindOwnRole = role.OwnRoles.find((item) => item.id === data.targetId);
-  const FindReplaceRole = role.CustomRoles.find((item) => item.id === data.replaceId);
+  const FindReplaceRole = role.CustomRoles.find((item) => item.skinId === data.replaceId);
 
   if (!FindOwnRole || !FindReplaceRole) {
     LOG.INFO("Target replace role not found");
     return res.json({ replaceId: null, targetId: null, message: "Target role not found" });
   }
 
-  LOG.SUCCESS(`Role changer`);
+  LOG.SUCCESS(`Waiting for role changed`);
+  replaceData = { replaceId: FindReplaceRole.skinId, targetId: FindOwnRole.id };
 
   return res.json({ ...data, message: "Ready to replace" });
+}
+
+export async function GetReplaceRole(req: Request, res: Response) {
+  LOG.SUCCESS("Role changed");
+  return res.json(replaceData);
 }

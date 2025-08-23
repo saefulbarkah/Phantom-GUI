@@ -18,7 +18,7 @@ import {
 import { CheckConnection } from "../controller/ConnectionCheck";
 import { FilterAutoFarm, GetFilteredFarm, GetSonataLists, StoreSonataLists } from "../controller/FarmController";
 import { GetWeapons, OnAddWeapon, OnGetWeaponAdded, StoreWeapons } from "../controller/WeaponController";
-import { GetRoles, ReplaceRole, StoreRoles } from "../controller/RoleController";
+import { GetReplaceRole, GetRoles, ReplaceRole, StoreRoles } from "../controller/RoleController";
 
 const router = express.Router();
 
@@ -55,6 +55,7 @@ router.get("/inventory/weapons/check", OnGetWeaponAdded);
 router.get("/inventory/roles", GetRoles);
 router.post("/inventory/roles", StoreRoles);
 router.post("/inventory/roles/switch", ReplaceRole);
+router.get("/inventory/roles/switch", GetReplaceRole);
 
 // farms
 router.get("/farm/lists", GetSonataLists);
