@@ -4,7 +4,7 @@ import { UpdateEvent } from "@/API/Event";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
-import React, { useEffect } from "react";
+import React from "react";
 
 export const ESP = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();

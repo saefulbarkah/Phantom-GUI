@@ -15,4 +15,6 @@ export type TEvent = {
   onChangeUID?: boolean;
   onShowFPS?: boolean;
   onESPTrigger?: boolean;
+  onTreasureTpOverlayTrigger?: boolean;
+  onUnlockFPS?: boolean;
 };

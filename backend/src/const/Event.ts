@@ -36,6 +36,8 @@ export const EventState = {
 
   //misc
   onShowFPS: false,
+  onTreasureTpOverlayTrigger: false,
+  onUnlockFPS: false,
 };
 
 // daftar event yang auto-reset
@@ -54,4 +56,6 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onChangeUID",
   "onShowFPS",
   "onESPTrigger",
+  "onTreasureTpOverlayTrigger",
+  "onUnlockFPS",
 ];

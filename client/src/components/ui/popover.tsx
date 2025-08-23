@@ -13,7 +13,7 @@ function PopoverTrigger({ ...props }: React.ComponentProps<typeof PopoverPrimiti
   return (
     <PopoverPrimitive.Trigger
       data-slot="popover-trigger"
-      className="bg-[#0c141b] hover:bg-[#131C24] text-slate-200 hover:text-slate-100 hover:cursor-pointer"
+      className="text-slate-200 hover:text-slate-100 hover:cursor-pointer"
       {...props}
     />
   );

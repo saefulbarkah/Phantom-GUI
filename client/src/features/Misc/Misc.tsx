@@ -6,24 +6,28 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
+import { hexToRgba } from "@/lib/utils";
 import { Wheel } from "@uiw/react-color";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useDebounce } from "use-debounce";
 
 export const Misc = () => {
+  const [isInitial, setIsInitial] = useState(true);
   const [UIDColor, setUIDColor] = useState("#aabbcc");
   const [UID, setUid] = useState("");
   const { feature, OnUpdateFeature } = useFeatureManager();
+  const [uidValue] = useDebounce(UID, 500);
+  const [uidColorValue] = useDebounce(UIDColor, 500);
 
   const ChangeUID = async () => {
     try {
       await OnUpdateFeature("UID", UID);
       await OnUpdateFeature("UIDColor", UIDColor);
       await UpdateEvent({ onChangeUID: true });
-      toast.success("UID Changed");
     } catch (error) {
       console.error(error);
-      toast.success("Failed to change UID");
+      toast.error("Failed to change UID");
     }
   };
 
@@ -32,6 +36,15 @@ export const Misc = () => {
     if (feature.UID) setUid(feature.UID);
     if (feature.ShowFPS) UpdateEvent({ onShowFPS: true });
   }, [feature.UID, feature.UIDColor, feature.ShowFPS]);
+
+  useEffect(() => {
+    if (isInitial) {
+      setIsInitial(false);
+      return; // skip first render
+    }
+    ChangeUID();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uidValue, uidColorValue]);
 
   return (
     <section className="flex flex-col gap-5">
@@ -44,6 +57,7 @@ export const Misc = () => {
             defaultCheck={feature.ShowFPS}
             onSwitch={() => {
               OnUpdateFeature("ShowFPS");
+              UpdateEvent({ onShowFPS: true });
             }}
           />
 
@@ -62,33 +76,44 @@ export const Misc = () => {
             defaultCheck={feature.FPSUnlocker}
             onSwitch={() => {
               OnUpdateFeature("FPSUnlocker");
+              UpdateEvent({ onUnlockFPS: true });
             }}
           />
+        </div>
+      </div>
 
-          <FeatureCardSwitch title="UID Changer" description="lorem adma msd asd as das">
+      <div className="flex flex-col gap-5 mt-5">
+        <h2 className="text-xl font-semibold">UID Changer</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          <FeatureCardSwitch title="Change UID" description="lorem adma msd asd as das">
             <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
               <p>UID</p>
               <Input value={UID} onChange={(e) => setUid(e.currentTarget.value)} />
-
-              <p>Color</p>
-              <Popover>
-                <PopoverTrigger className="h-8 rounded cursor-pointer" style={{ backgroundColor: UIDColor }}>
-                  {UIDColor}
-                </PopoverTrigger>
-                <PopoverContent className="w-full p-2 rounded-full">
-                  <Wheel color={UIDColor} onChange={(color) => setUIDColor(color.hex)} />
-                </PopoverContent>
-              </Popover>
             </div>
-            <div className="mt-5 flex justify-end">
-              <Button className="w-32" onClick={() => ChangeUID()}>
-                Apply
-              </Button>
+          </FeatureCardSwitch>
+
+          <FeatureCardSwitch title="Change Color" description="lorem adma msd asd as das">
+            <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
+              <p>Color</p>
+              <div className="min-w-0">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button className="w-full" style={{ backgroundColor: hexToRgba(UIDColor, 0.05) }}>
+                      <span className="truncate" style={{ color: UIDColor }}>
+                        {UID}
+                      </span>
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full rounded-full">
+                    <Wheel color={UIDColor} onChange={(color) => setUIDColor(color.hex)} />
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
           </FeatureCardSwitch>
 
           <FeatureCardSwitch
-            title="Randomize Color UID"
+            title="Randomize Color"
             description="lorem adma msd asd as das"
             defaultCheck={feature.UIDColorRandomize}
             onSwitch={() => {
@@ -116,6 +141,7 @@ export const Misc = () => {
             defaultCheck={feature.TreasureTpOverlay}
             onSwitch={() => {
               OnUpdateFeature("TreasureTpOverlay");
+              UpdateEvent({ onTreasureTpOverlayTrigger: true });
             }}
           />
         </div>
