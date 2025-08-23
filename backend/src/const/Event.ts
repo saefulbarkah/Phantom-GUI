@@ -31,6 +31,9 @@ export const EventState = {
   onSaveConfig: false,
   onLoadConfig: false,
 
+  // camera
+  onFOVChanged: false,
+
   // ESP
   onESPTrigger: false,
 
@@ -58,4 +61,5 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onESPTrigger",
   "onTreasureTpOverlayTrigger",
   "onUnlockFPS",
+  "onFOVChanged",
 ];

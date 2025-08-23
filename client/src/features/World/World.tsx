@@ -2,7 +2,6 @@
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
-import { Switch } from "@/components/ui/switch";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { Dot } from "lucide-react";
 import React from "react";

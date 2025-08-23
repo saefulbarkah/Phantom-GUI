@@ -1,5 +1,6 @@
-import { UpdateSetting } from "@/API/settings";
+import { GetFeatureSettings, UpdateSetting } from "@/API/settings";
 import useFeatureManagerStore, { TFeature } from "@/stores/feature-manager";
+import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 export const useFeatureManager = () => {
@@ -12,6 +13,8 @@ export const useFeatureManager = () => {
     NetworkStatus,
     SetNetworkStatus,
   } = useFeatureManagerStore();
+
+  const queryFeature = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
 
   const OnUpdateFeature = async (key: keyof TFeature, value?: string | number | boolean) => {
     const data = updateFeature(key, value);
@@ -32,5 +35,6 @@ export const useFeatureManager = () => {
     SetFeatureReady,
     NetworkStatus,
     SetNetworkStatus,
+    queryFeature,
   };
 };

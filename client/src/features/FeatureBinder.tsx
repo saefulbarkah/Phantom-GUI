@@ -1,5 +1,4 @@
 "use client";
-import { GetFeatureSettings } from "@/API/settings";
 import { CheckConnection } from "@/API/test";
 import { useBuffs } from "@/hooks/useBuffs";
 import { useDungeons } from "@/hooks/useDungeons";
@@ -13,10 +12,10 @@ export const FeatureBinder = () => {
 
   // Initial queries
   const connection = useQuery({ queryKey: ["connection"], queryFn: CheckConnection });
-  const queryFeature = useQuery({ queryKey: ["features"], queryFn: GetFeatureSettings });
   const queryBuffs = useBuffs();
   const queryDungeon = useDungeons();
   const queryFarm = useFarms();
+  const { queryFeature } = useFeatureManager();
 
   React.useEffect(() => {
     if (queryFeature.isSuccess && queryBuffs.isSuccess && queryDungeon.isSuccess && queryFarm.isSuccess) {

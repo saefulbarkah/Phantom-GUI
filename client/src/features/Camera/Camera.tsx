@@ -2,11 +2,20 @@
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
+import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDebounce } from "use-debounce";
 
 export const Camera = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
+  const UpdateEvent = useEventMutation();
+  const [fovValue] = useDebounce(feature.FovValue, 500);
+
+  useEffect(() => {
+    UpdateEvent.mutate({ onFOVChanged: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fovValue]);
 
   return (
     <section className="flex flex-col gap-5">
@@ -19,6 +28,7 @@ export const Camera = () => {
             defaultCheck={feature.IsFovEnable}
             onSwitch={() => {
               OnUpdateFeature("IsFovEnable");
+              UpdateEvent.mutate({ onFOVChanged: true });
             }}
           >
             <FeatureSlider

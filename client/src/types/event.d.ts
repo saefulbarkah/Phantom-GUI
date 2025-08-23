@@ -17,4 +17,5 @@ export type TEvent = {
   onESPTrigger?: boolean;
   onTreasureTpOverlayTrigger?: boolean;
   onUnlockFPS?: boolean;
+  onFOVChanged: boolean;
 };
