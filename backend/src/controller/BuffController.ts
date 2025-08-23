@@ -15,7 +15,7 @@ export const TBuffsSchema = z.object({
 const filePath = "./phantom-buff.json";
 
 let state = Buff;
-let state_selected: TBuffs = { id: null, name: null, stacks: null };
+let state_selected: TBuffs[] = [];
 
 async function LoadConfig() {
   const data = await LoadSettings<TBuffs[]>(filePath, "Buff");
@@ -53,8 +53,11 @@ export const GetBuffsettings = async (req: Request, res: Response) => {
 };
 
 export async function GetSelectedBuff(req: Request, res: Response) {
-  const current: typeof state_selected = { ...state_selected, ...req.body };
-  LOG.SUCCESS(`Buff applied, name: ${chalk.green(current.name)} | ID: ${chalk.cyan(current.id)}`);
+  const current: typeof state_selected = state_selected;
+  for (const buff of current) {
+    LOG.SUCCESS(`Buff applied, name: ${chalk.green(buff.name)} | ID: ${chalk.cyan(buff.id)}`);
+  }
+  state_selected = []; // reset after getting buff
   return res.json(current);
 }
 
@@ -69,7 +72,7 @@ export const UpdateSelectedBuff = async (req: Request, res: Response) => {
   }
 
   const body = req.body as TBuffs;
-  state_selected = { ...state_selected, ...body }; // update status
+  state_selected = [...state_selected, { ...body }]; // update status
   LOG.INFO(`Waiting for applying buff name: ${chalk.green(body.name)} | ID: ${chalk.cyan(body.id)}`);
   return res.json(body);
 };

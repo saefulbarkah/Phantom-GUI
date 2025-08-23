@@ -1,11 +1,13 @@
 "use client";
 
+import { UpdateBuffSelected } from "@/API/buffs";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox } from "@/components/FeatureComboBox";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useBuffs } from "@/hooks/useBuffs";
+import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { TSelectedBuff } from "@/types/buff";
 import { Dot } from "lucide-react";
@@ -18,6 +20,7 @@ export const Buff = () => {
   const { data: buffs, ApplyBuff } = useBuffs();
   const [Buffid, SetBuffId] = React.useState<number | null>(null);
   const [buff, setBuff] = useState("");
+  const { mutate } = useEventMutation();
 
   // Cache mapping untuk By Sonata
   const buffOptions = useMemo(() => {
@@ -89,8 +92,8 @@ export const Buff = () => {
                   if (!Buffid) {
                     return toast.error("Invalid buff id");
                   }
-
-                  return toast("Applied buff " + Buffid);
+                  UpdateBuffSelected({ id: Buffid, name: "Custom Buff", stacks: 1 });
+                  mutate({ onApplyBuff: true });
                 }}
               >
                 Apply
