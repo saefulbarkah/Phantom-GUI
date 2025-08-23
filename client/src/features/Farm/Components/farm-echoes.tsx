@@ -6,7 +6,7 @@ import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox, TOptionValue } from "@/components/FeatureComboBox";
 import { LoadingContent } from "@/components/LoadingContent";
 import { Button } from "@/components/ui/button";
-import { useEvent } from "@/hooks/useEvent";
+import { useEventQuery } from "@/hooks/useEvent";
 import { useFarms, useFarmState } from "@/hooks/useFarms";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { HighlightNumberText } from "@/lib/utils";
@@ -24,7 +24,7 @@ const byCost: TOptionValue[] = [
 ];
 
 export const FarmEchoes = () => {
-  const { data: StartFarmEcho, refetch: RefetchFarmStatus } = useEvent("onStartFarmEchoes");
+  const { data: StartFarmEcho, refetch: RefetchFarmStatus } = useEventQuery("onStartFarmEchoes");
   const { filter, setFilter, monsters, setMonster, setSonata, sonata } = useFarmState();
   const { mutate } = useMutation({ mutationKey: ["filterFarm"], mutationFn: FilterSonata });
 
