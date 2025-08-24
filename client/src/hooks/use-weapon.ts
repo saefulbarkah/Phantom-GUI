@@ -39,7 +39,7 @@ export const useWeaponQuery = () => {
       }));
       await OnAddWeapon(mapped);
       toast.success(`All weapon added`);
-      await UpdateEvent({ onWeaponAdded: true });
+      await UpdateEvent({ onWeaponAdded: { status: true } });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Failed to add all weapon");
@@ -52,7 +52,7 @@ export const useWeaponQuery = () => {
     try {
       await OnAddWeapon([{ id: weapon.id, name: weapon.name, level: weapon.level, rank: weapon.rank }]);
       toast.success(`Weapon ${weapon.name} added`);
-      await UpdateEvent({ onWeaponAdded: true });
+      await UpdateEvent({ onWeaponAdded: { status: true } });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Failed to add weapon");

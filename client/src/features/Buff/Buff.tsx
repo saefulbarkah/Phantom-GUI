@@ -93,7 +93,7 @@ export const Buff = () => {
                     return toast.error("Invalid buff id");
                   }
                   UpdateBuffSelected({ id: Buffid, name: "Custom Buff", stacks: 1 });
-                  mutate({ onApplyBuff: true });
+                  mutate({ onApplyBuff: { status: true } });
                 }}
               >
                 Apply

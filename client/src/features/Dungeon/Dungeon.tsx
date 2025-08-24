@@ -22,7 +22,7 @@ export const Dungeon = () => {
   const { mutate } = useMutation({
     mutationFn: EnterDungeon,
     onSuccess: (_, t) => {
-      UpdateEvent({ onEnterDungeon: true }).finally(() => {
+      UpdateEvent({ onEnterDungeon: { status: true, data: { dungeonId: t.id } } }).finally(() => {
         toast.success(`Enter dungeon ${t.name}`);
       });
     },

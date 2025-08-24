@@ -1,46 +1,24 @@
-import { TGameState } from "../types/mod";
-
+// tiap event -> array (queue)
 export const EventState = {
-  // teleport
-  onTeleport: false,
-  onNextTeleport: false,
-  onPrevTeleport: false,
-
-  // farm echoes
-  onStartFarmEchoes: false,
-  onStopFarmEchoes: false,
-  onRefreshEchoes: false,
-  isEchoesRefreshed: false,
-
-  // Weapon
-  onWeaponAdded: false,
-
-  // role
-  onRoleReplaced: false,
-
-  // apply buff
-  onApplyBuff: false,
-
-  // Dungeon
-  onEnterDungeon: false,
-
-  // UID
-  onChangeUID: false,
-
-  // Config
-  onSaveConfig: false,
-  onLoadConfig: false,
-
-  // camera
-  onFOVChanged: false,
-
-  // ESP
-  onESPTrigger: false,
-
-  //misc
-  onShowFPS: false,
-  onTreasureTpOverlayTrigger: false,
-  onUnlockFPS: false,
+  onTeleport: { status: false, data: null },
+  onNextTeleport: { status: false, data: null },
+  onPrevTeleport: { status: false, data: null },
+  onStartFarmEchoes: { status: false, data: null },
+  onStopFarmEchoes: { status: false, data: null },
+  onRefreshEchoes: { status: false, data: null },
+  isEchoesRefreshed: { status: false, data: null },
+  onWeaponAdded: { status: false, data: null },
+  onRoleReplaced: { status: false, data: null },
+  onApplyBuff: { status: false, data: null },
+  onEnterDungeon: { status: false, data: null },
+  onChangeUID: { status: false, data: null },
+  onSaveConfig: { status: false, data: null },
+  onLoadConfig: { status: false, data: null },
+  onFOVChanged: { status: false, data: null },
+  onESPTrigger: { status: false, data: null },
+  onShowFPS: { status: false, data: null },
+  onTreasureTpOverlayTrigger: { status: false, data: null },
+  onUnlockFPS: { status: false, data: null },
 };
 
 // daftar event yang auto-reset

@@ -1,47 +1,48 @@
 import { Request, Response } from "express";
 import { EventState, oneTimeEvents } from "../const/Event";
-import { TGameState } from "../types/mod";
-
-let gameState = EventState;
 
 export async function GetStatus(req: Request, res: Response) {
   const key = req.query.q as string;
 
   if (key) {
-    if (key in gameState) {
-      const val = gameState[key as keyof TGameState] ?? null;
+    if (key in EventState) {
+      const ev = EventState[key as keyof typeof EventState];
 
-      // reset one-time event
-      if (val === true && oneTimeEvents.includes(key as keyof TGameState)) {
-        gameState[key as keyof TGameState] = false;
+      // reset one-time event setelah dibaca
+      if (ev.status === true && oneTimeEvents.includes(key as keyof typeof EventState)) {
+        EventState[key as keyof typeof EventState] = { status: false, data: null };
       }
 
-      return res.json({ [key]: val });
+      return res.json({ [key]: ev });
     } else {
-      // key tidak valid
       return res.status(404).json({ error: `Key '${key}' not found` });
-      // atau return { [key]: null } jika mau selalu return object
-      // return res.json({ [key]: null });
     }
   }
 
-  const result: Partial<TGameState> = {};
-  for (const k in gameState) {
-    let val = gameState[k as keyof TGameState] ?? null;
+  const result: any = {};
+  for (const k in EventState) {
+    const ev = EventState[k as keyof typeof EventState];
+    result[k] = ev;
 
-    // reset one-time event di sini juga
-    if (val === true && oneTimeEvents.includes(k as keyof TGameState)) {
-      gameState[k as keyof TGameState] = false;
+    if (ev.status === true && oneTimeEvents.includes(k as keyof typeof EventState)) {
+      EventState[k as keyof typeof EventState] = { status: false, data: null };
     }
-
-    result[k as keyof TGameState] = val;
   }
 
   return res.json(result);
 }
 
 export async function SetStatus(req: Request, res: Response) {
-  gameState = { ...gameState, ...req.body }; // update status
-  const body = req.body;
+  const body = req.body; // misalnya: { onTeleport: { status: true, data: { x: 1, y: 2 } } }
+
+  for (const k in body) {
+    if (k in EventState) {
+      EventState[k as keyof typeof EventState] = {
+        status: body[k].status ?? true,
+        data: body[k].data ?? null,
+      };
+    }
+  }
+
   return res.json(body);
 }

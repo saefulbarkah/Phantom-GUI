@@ -13,9 +13,9 @@ export const Camera = () => {
   const [fovValue] = useDebounce(feature.FovValue, 500);
 
   useEffect(() => {
-    UpdateEvent.mutate({ onFOVChanged: true });
+    if (feature.IsFovEnable) UpdateEvent.mutate({ onFOVChanged: { status: true, data: { fov: Number(fovValue) } } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fovValue]);
+  }, [fovValue, feature.IsFovEnable]);
 
   return (
     <section className="flex flex-col gap-5">
@@ -28,7 +28,6 @@ export const Camera = () => {
             defaultCheck={feature.IsFovEnable}
             onSwitch={() => {
               OnUpdateFeature("IsFovEnable");
-              UpdateEvent.mutate({ onFOVChanged: true });
             }}
           >
             <FeatureSlider

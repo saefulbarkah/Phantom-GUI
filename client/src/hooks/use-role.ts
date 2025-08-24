@@ -37,13 +37,18 @@ export const useRole = () => {
   });
 
   const onSwitchRole = async () => {
+    if (!store.role.replacer?.id || !store.role.target?.id) return;
+
     try {
       await ReplaceRole({
         replaceId: store.role.replacer!.skinId!,
         targetId: store.role.target!.id!,
       });
       await UpdateEvent({
-        onRoleReplaced: true,
+        onRoleReplaced: {
+          status: true,
+          data: { replaceId: store.role.replacer.skinId, targetId: store.role.target.id },
+        },
       });
       toast.success("Role replaced");
     } catch (error) {

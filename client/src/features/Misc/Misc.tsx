@@ -24,7 +24,15 @@ export const Misc = () => {
     try {
       await OnUpdateFeature("UID", UID);
       await OnUpdateFeature("UIDColor", UIDColor);
-      await UpdateEvent({ onChangeUID: true });
+      await UpdateEvent({
+        onChangeUID: {
+          status: true,
+          data: {
+            uid: UID,
+            color: UIDColor,
+          },
+        },
+      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to change UID");
@@ -34,7 +42,7 @@ export const Misc = () => {
   useEffect(() => {
     if (feature.UIDColor) setUIDColor(feature.UIDColor);
     if (feature.UID) setUid(feature.UID);
-    if (feature.ShowFPS) UpdateEvent({ onShowFPS: true });
+    if (feature.ShowFPS) UpdateEvent({ onShowFPS: { status: true } });
   }, [feature.UID, feature.UIDColor, feature.ShowFPS]);
 
   useEffect(() => {
@@ -57,7 +65,7 @@ export const Misc = () => {
             defaultCheck={feature.ShowFPS}
             onSwitch={() => {
               OnUpdateFeature("ShowFPS");
-              UpdateEvent({ onShowFPS: true });
+              UpdateEvent({ onShowFPS: { status: true } });
             }}
           />
 
@@ -76,7 +84,7 @@ export const Misc = () => {
             defaultCheck={feature.FPSUnlocker}
             onSwitch={() => {
               OnUpdateFeature("FPSUnlocker");
-              UpdateEvent({ onUnlockFPS: true });
+              UpdateEvent({ onUnlockFPS: { status: true } });
             }}
           />
         </div>
@@ -141,7 +149,7 @@ export const Misc = () => {
             defaultCheck={feature.TreasureTpOverlay}
             onSwitch={() => {
               OnUpdateFeature("TreasureTpOverlay");
-              UpdateEvent({ onTreasureTpOverlayTrigger: true });
+              UpdateEvent({ onTreasureTpOverlayTrigger: { status: true } });
             }}
           />
         </div>

@@ -39,7 +39,7 @@ export const FarmEchoes = () => {
   // Generic handler untuk start/stop farm
   const handleFarmToggle = async (start: boolean) => {
     try {
-      await UpdateEvent({ onStartFarmEchoes: start, onStopFarmEchoes: !start });
+      await UpdateEvent({ onStartFarmEchoes: { status: start }, onStopFarmEchoes: { status: !start } });
       RefetchFarmStatus();
       toast.success(start ? "Auto farm started!" : "Auto farm stopped!");
     } catch (error) {
@@ -192,7 +192,7 @@ export const FarmEchoes = () => {
           </div>
 
           <div className="flex gap-2 mt-5 w-full">
-            <Button className="flex-1" onClick={() => handleFarmToggle(true)} disabled={StartFarmEcho}>
+            <Button className="flex-1" onClick={() => handleFarmToggle(true)} disabled={StartFarmEcho?.status}>
               Start Farm
             </Button>
             <Button className="flex-1" onClick={() => handleFarmToggle(false)}>

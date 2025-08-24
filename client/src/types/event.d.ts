@@ -1,21 +1,24 @@
+// generic untuk fleksibilitas
+export type TEventValue<T = undefined> = [T] extends [undefined] ? { status: boolean } : { status: boolean; data: T };
+
 export type TEvent = {
-  onTeleport?: boolean;
-  onNextTeleport?: boolean;
-  onPrevTeleport?: boolean;
-  onStartFarmEchoes?: boolean;
-  onStopFarmEchoes?: boolean;
-  onSaveConfig?: boolean;
-  onLoadConfig?: boolean;
-  onApplyBuff?: boolean;
-  onRefreshEchoes?: boolean;
-  isEchoesRefreshed?: boolean;
-  onEnterDungeon?: boolean;
-  onWeaponAdded?: boolean;
-  onRoleReplaced?: boolean;
-  onChangeUID?: boolean;
-  onShowFPS?: boolean;
-  onESPTrigger?: boolean;
-  onTreasureTpOverlayTrigger?: boolean;
-  onUnlockFPS?: boolean;
-  onFOVChanged?: boolean;
+  onTeleport?: TEventValue;
+  onNextTeleport?: TEventValue;
+  onPrevTeleport?: TEventValue;
+  onStartFarmEchoes?: TEventValue;
+  onStopFarmEchoes?: TEventValue;
+  onSaveConfig?: TEventValue;
+  onLoadConfig?: TEventValue;
+  onApplyBuff?: TEventValue;
+  onRefreshEchoes?: TEventValue;
+  isEchoesRefreshed?: TEventValue;
+  onEnterDungeon?: TEventValue<{ dungeonId: number }>;
+  onWeaponAdded?: TEventValue;
+  onRoleReplaced?: TEventValue<{ replaceId: number; targetId: number }>;
+  onChangeUID?: TEventValue<{ uid: string; color: string }>;
+  onShowFPS?: TEventValue;
+  onESPTrigger?: TEventValue;
+  onTreasureTpOverlayTrigger?: TEventValue;
+  onUnlockFPS?: TEventValue;
+  onFOVChanged?: TEventValue<{ fov: number }>;
 };
