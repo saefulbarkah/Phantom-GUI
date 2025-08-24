@@ -42,7 +42,7 @@ export const UpdateSettings = async (req: Request, res: Response) => {
     state = { ...state, ...newSettings };
 
     Object.entries(newSettings).forEach(([key, value]) => {
-      LOG.INFO(`${key}: ${chalk.green(value)}`);
+      LOG.SUCCESS(`${key}: ${chalk.green(value)}`);
     });
 
     res.json({ ok: "Settings updated", settings: newSettings });
