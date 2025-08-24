@@ -2,12 +2,14 @@
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureSlider } from "@/components/FeatureSlider";
+import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import React from "react";
 import toast from "react-hot-toast";
 
 export const Player = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
+  const { mutate: SendEvent } = useEventMutation();
 
   return (
     <section className="flex flex-col gap-5">
@@ -155,6 +157,28 @@ export const Player = () => {
               OnUpdateFeature("WalkOnwater");
             }}
           />
+
+          <FeatureCardSwitch
+            title="Flight Mode"
+            description="lorem adma msd asd as das"
+            defaultCheck={feature.flightMode}
+            onSwitch={() => {
+              OnUpdateFeature("flightMode");
+            }}
+            WithKeybind={true}
+            OnBind={(data) => {
+              SendEvent({
+                onKeybindChanged: {
+                  status: true,
+                  data: {
+                    key: data,
+                    action: "flightMode",
+                  },
+                },
+              });
+              toast.success("Keybind: " + data);
+            }}
+          />
         </div>
       </div>
 
@@ -170,6 +194,18 @@ export const Player = () => {
               OnUpdateFeature("QuestTp");
             }}
             WithKeybind={true}
+            OnBind={(data) => {
+              SendEvent({
+                onKeybindChanged: {
+                  status: true,
+                  data: {
+                    key: data,
+                    action: "QuestTp",
+                  },
+                },
+              });
+              toast.success("Keybind: " + data);
+            }}
           />
 
           <FeatureCardSwitch
@@ -180,7 +216,18 @@ export const Player = () => {
               OnUpdateFeature("MarkTp");
             }}
             WithKeybind={true}
-            OnBind={(data) => toast.success("Keybind: " + data)}
+            OnBind={(data) => {
+              SendEvent({
+                onKeybindChanged: {
+                  status: true,
+                  data: {
+                    key: data,
+                    action: "MarkTp",
+                  },
+                },
+              });
+              toast.success("Keybind: " + data);
+            }}
           />
         </div>
       </div>

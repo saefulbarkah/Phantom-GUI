@@ -19,6 +19,7 @@ export const EventState = {
   onShowFPS: { status: false, data: null },
   onTreasureTpOverlayTrigger: { status: false, data: null },
   onUnlockFPS: { status: false, data: null },
+  onKeybindChanged: { status: false, data: null },
 };
 
 // daftar event yang auto-reset
@@ -39,4 +40,5 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onTreasureTpOverlayTrigger",
   "onUnlockFPS",
   "onFOVChanged",
+  "onKeybindChanged",
 ];

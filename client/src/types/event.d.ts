@@ -21,4 +21,5 @@ export type TEvent = {
   onTreasureTpOverlayTrigger?: TEventValue;
   onUnlockFPS?: TEventValue;
   onFOVChanged?: TEventValue<{ fov: number }>;
+  onKeybindChanged?: TEventValue<{ key: string; action: string }>;
 };

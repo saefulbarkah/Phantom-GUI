@@ -123,7 +123,11 @@ export const KeybindInput = ({ onBind }: KeyBindInputProps) => {
 
   return (
     <div className="flex items-center justify-between">
-      <Button className="outline-none border-none h-8 text-[14px] rounded" onClick={handleStartListening}>
+      <Button
+        className="outline-none border-none h-8 text-[14px] rounded disabled:opacity-100"
+        disabled={listening}
+        onClick={handleStartListening}
+      >
         {listening ? "..." : key}
       </Button>
     </div>
