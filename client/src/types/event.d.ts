@@ -1,3 +1,5 @@
+import { KeybindActionType } from "./keybind";
+
 // generic untuk fleksibilitas
 export type TEventValue<T = undefined> = [T] extends [undefined] ? { status: boolean } : { status: boolean; data: T };
 
@@ -21,5 +23,5 @@ export type TEvent = {
   onTreasureTpOverlayTrigger?: TEventValue;
   onUnlockFPS?: TEventValue;
   onFOVChanged?: TEventValue<{ fov: number }>;
-  onKeybindChanged?: TEventValue<{ key: string; action: string }>;
+  onKeybindChanged?: TEventValue<KeybindActionType>;
 };

@@ -172,7 +172,7 @@ export const Player = () => {
                   status: true,
                   data: {
                     key: data,
-                    action: "flightMode",
+                    action: "Flight",
                   },
                 },
               });
