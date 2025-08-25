@@ -14,6 +14,10 @@ type TRoute = {
 
 const Routes: TRoute[] = [
   {
+    label: "About",
+    href: "/about",
+  },
+  {
     label: "Player",
     href: "/",
   },
