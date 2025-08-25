@@ -1,3 +1,4 @@
+"use client";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
