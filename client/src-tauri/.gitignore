@@ -2,3 +2,7 @@
 # will have compiled files and executables
 /target/
 /gen/schemas
+/binaries/
+phantom-buff.json
+phantom-dungeon.json
+phantom.json
