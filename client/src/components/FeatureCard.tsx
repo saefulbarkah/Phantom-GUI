@@ -57,7 +57,7 @@ export const FeatureCardSwitch = ({
                 ) : null}
               </div>
             </div>
-            <p className="text-sm font-normal text-slate-300/80 line-clamp-2">{description}</p>
+            <p className="text-sm font-normal text-slate-300/80 line-clamp-2 hover:line-clamp-none">{description}</p>
           </div>
           {onSwitch ? (
             <Switch
