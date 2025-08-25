@@ -11,7 +11,7 @@ export type TEvent = {
   onStopFarmEchoes?: TEventValue;
   onSaveConfig?: TEventValue;
   onLoadConfig?: TEventValue;
-  onApplyBuff?: TEventValue;
+  onApplyBuff?: TEventValue<{ id: number; name: string }>;
   onRefreshEchoes?: TEventValue;
   isEchoesRefreshed?: TEventValue;
   onEnterDungeon?: TEventValue<{ dungeonId: number }>;

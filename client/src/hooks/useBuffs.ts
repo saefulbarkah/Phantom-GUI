@@ -10,7 +10,7 @@ export const useBuffs = () => {
   const ApplyBuff = async (data: Partial<TSelectedBuff>) => {
     try {
       await UpdateBuffSelected(data);
-      await UpdateEvent({ onApplyBuff: { status: true } });
+      await UpdateEvent({ onApplyBuff: { status: true, data: { id: data.id as number, name: data.name as string } } });
       toast.success("Applied buff " + data.id);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
