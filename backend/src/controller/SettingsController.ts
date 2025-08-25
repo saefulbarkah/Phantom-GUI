@@ -14,7 +14,7 @@ async function initializeSettings() {
   if (CheckIfConfigExist(filePath)) {
     const data = await LoadSettings<TModSettings>(filePath, "setting");
     if (data) {
-      LOG.INFO("Settings loaded from file.");
+      LOG.INFO("Settings loaded");
       state = data;
     }
   } else {

@@ -33,7 +33,7 @@ async function initializeSettings() {
   if (CheckIfConfigExist(filePath)) {
     const data = await LoadSettings<TBuffs[]>(filePath, "Buff");
     if (data) {
-      LOG.INFO("Buff loaded from file.");
+      LOG.INFO("Buff loaded");
       state = data;
     }
   } else {

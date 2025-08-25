@@ -8,13 +8,7 @@ import {
   LoadBuffJSON,
   UpdateSelectedBuff,
 } from "../controller/BuffController";
-import {
-  GetDungeons,
-  GetSelectedDungeon,
-  LoadDungeonJSON,
-  StoreDungeon,
-  UpdateSelectedDungeon,
-} from "../controller/DungeonController";
+import { GetDungeons } from "../controller/DungeonController";
 import { CheckConnection } from "../controller/ConnectionCheck";
 import { FilterAutoFarm, GetFilteredFarm, GetSonataLists, StoreSonataLists } from "../controller/FarmController";
 import { GetWeapons, OnAddWeapon, OnGetWeaponAdded, StoreWeapons } from "../controller/WeaponController";
@@ -38,12 +32,8 @@ router.get("/buffs/clear", ClearSelectedBuff);
 router.post("/buffs/update", UpdateSelectedBuff);
 router.post("/buffs/load", LoadBuffJSON);
 
-// Buff
+// Dungeon
 router.get("/dungeons", GetDungeons);
-router.get("/dungeons/check", GetSelectedDungeon);
-router.post("/dungeons/update", UpdateSelectedDungeon);
-router.post("/dungeons/store", StoreDungeon);
-router.post("/dungeons/load", LoadDungeonJSON);
 
 // Inventory -> Weapon
 router.get("/inventory/weapons", GetWeapons);
