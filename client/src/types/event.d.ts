@@ -14,7 +14,7 @@ export type TEvent = {
   onApplyBuff?: TEventValue<{ id: number; name: string }>;
   onRefreshEchoes?: TEventValue;
   isEchoesRefreshed?: TEventValue;
-  onEnterDungeon?: TEventValue<{ dungeonId: number }>;
+  onEnterDungeon?: TEventValue<{ dungeonId: number; SkipEntrance: boolean }>;
   onWeaponAdded?: TEventValue;
   onRoleReplaced?: TEventValue<{ replaceId: number; targetId: number }>;
   onChangeUID?: TEventValue<{ uid: string; color: string }>;

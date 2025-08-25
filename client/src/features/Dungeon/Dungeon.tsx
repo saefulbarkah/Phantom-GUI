@@ -1,32 +1,22 @@
 "use client";
 
-import { EnterDungeon } from "@/API/dungeons";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox } from "@/components/FeatureComboBox";
 import { Button } from "@/components/ui/button";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { TDungeon } from "@/types/dungeon";
-import { useMutation } from "@tanstack/react-query";
 import { RefreshCcw } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useDungeons } from "../../hooks/useDungeons";
-import { UpdateEvent } from "@/API/Event";
+import { useEventMutation } from "@/hooks/useEvent";
 
 export const Dungeon = () => {
   const [dungeon, SetDungeon] = useState<TDungeon | null>(null);
   const { feature, OnUpdateFeature } = useFeatureManager();
   const { dungeons, isFetching, refetch } = useDungeons();
   const [dungeonValue, setDungeonValue] = useState("");
-
-  const { mutate } = useMutation({
-    mutationFn: EnterDungeon,
-    onSuccess: (_, t) => {
-      UpdateEvent({ onEnterDungeon: { status: true, data: { dungeonId: t.id } } }).finally(() => {
-        toast.success(`Enter dungeon ${t.name}`);
-      });
-    },
-  });
+  const { mutate } = useEventMutation();
 
   // Cache mapping untuk By Sonata
   const dungeonOptions = useMemo(() => {
@@ -54,7 +44,6 @@ export const Dungeon = () => {
                     value={dungeonValue}
                     setValue={setDungeonValue}
                     onSelect={(val) => {
-                      toast(`Dungeon selected id ${val.real_value}`);
                       SetDungeon({ id: val.real_value, name: val.label });
                     }}
                   />
@@ -63,7 +52,13 @@ export const Dungeon = () => {
                   <Button
                     onClick={() => {
                       if (dungeon) {
-                        mutate(dungeon);
+                        mutate({
+                          onEnterDungeon: {
+                            status: true,
+                            data: { dungeonId: dungeon.id, SkipEntrance: feature.SkipEntranceDungeon as boolean },
+                          },
+                        });
+                        toast.success(`Enter dungeon ${dungeon.name}`);
                       } else {
                         toast.error("Please select dungeon");
                       }
