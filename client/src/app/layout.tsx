@@ -8,6 +8,7 @@ import { FeatureBinder } from "@/features/FeatureBinder";
 import Image from "next/image";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,21 +37,22 @@ export default function RootLayout({
             <FeatureBinder />
             <Navbar />
             <Sidebar />
-            <main className="ml-[224px] mt-[72px] p-5 min-h-screen">{children}</main>
+            <main className="ml-[224px] mt-[72px] p-5 min-h-screen mb-[40px]">{children}</main>
+            <Footer />
           </QueryProvider>
         </div>
-        <div className="fixed inset-0 z-50 pointer-events-none select-none opacity-75">
+        <div className="fixed inset-0 z-50 pointer-events-none select-none opacity-85">
           <Image src={"./assets/background/blur-pink.png"} fill alt="blur1" />
         </div>
         <div
           className="fixed inset-0 w-full h-full -translate-x-[50%]
-        translate-y-[50%] pointer-events-none select-none opacity-75"
+        translate-y-[50%] pointer-events-none select-none opacity-85"
         >
           <Image src="./assets/background/blur-blue.png" fill alt="blur1" />
         </div>
         <div
           className="fixed inset-0 w-full h-full translate-x-[50%]
-        translate-y-[50%] z-50 pointer-events-none select-none opacity-75"
+        translate-y-[50%] z-50 pointer-events-none select-none opacity-85"
         >
           <Image src="./assets/background/blur-red.png" fill alt="blur1" />
         </div>

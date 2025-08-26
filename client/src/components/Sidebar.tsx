@@ -65,8 +65,8 @@ const SideNav = ({ href, children }: LinkProps & HTMLAttributes<HTMLAnchorElemen
   return (
     <Link href={href}>
       <Button
-        className={`w-full cursor-pointer h-10 hover:bg-[#0e1c29] hover:text-white text-md capitalize ${
-          pathName === href ? "bg-[#0e1c29]" : "text-white/50"
+        className={`w-full cursor-pointer h-10 hover:bg-[#08111a] hover:text-white text-md capitalize ${
+          pathName === href ? "bg-[#08111a]" : "text-white/50"
         }`}
         variant={"ghost"}
       >
@@ -79,7 +79,7 @@ const SideNav = ({ href, children }: LinkProps & HTMLAttributes<HTMLAnchorElemen
 function Sidebar() {
   const { NetworkStatus } = useFeatureManager();
   return (
-    <aside className="fixed left-0 top-[72px] h-[calc(100vh-72px)] w-56 border-r border-r-slate-400/15 overflow-hidden select-none">
+    <aside className="fixed left-0 top-[72px] h-[calc(100vh-72px)] w-56 border-r border-r-slate-400/15 overflow-hidden select-none bg-background">
       <div className="h-full">
         <ScrollArea className="w-full h-[calc(100vh-120px)] relative">
           <div className="flex flex-col gap-2 mt-5 px-5">
