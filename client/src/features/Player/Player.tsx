@@ -4,14 +4,14 @@ import { FeatureCardSwitch } from "@/components/FeatureCard";
 import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import FeatureWrapper from "@/components/FeatureWrapper";
-import { useEventMutation } from "@/hooks/useEvent";
+import { KeybindInput } from "@/components/KeybindInput";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
+import { useKeybind } from "@/hooks/useKeybind";
 import React from "react";
-import toast from "react-hot-toast";
 
 export const Player = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
-  const { mutate: SendEvent } = useEventMutation();
+  const { keybind, UpdateKeybind } = useKeybind();
 
   return (
     <section>
@@ -24,6 +24,12 @@ export const Player = () => {
             onSwitch={() => {
               OnUpdateFeature("PlayerSpeed");
             }}
+            RightContent={
+              <KeybindInput
+                keybind={keybind.PlayerSpeed.key}
+                onBind={(key) => UpdateKeybind({ action: "PlayerSpeed", key: key })}
+              />
+            }
           >
             <FeatureSlider
               defaultValue={feature.playerSpeedValue!}
@@ -60,6 +66,12 @@ export const Player = () => {
             onSwitch={() => {
               OnUpdateFeature("NoClip");
             }}
+            RightContent={
+              <KeybindInput
+                keybind={keybind.NoClip.key}
+                onBind={(key) => UpdateKeybind({ action: "NoClip", key: key })}
+              />
+            }
           >
             <FeatureSlider
               defaultValue={feature.NoClipSpeed!}
@@ -87,19 +99,12 @@ export const Player = () => {
             onSwitch={() => {
               OnUpdateFeature("QuestTp");
             }}
-            WithKeybind={true}
-            OnBind={(data) => {
-              SendEvent({
-                onKeybindChanged: {
-                  status: true,
-                  data: {
-                    key: data,
-                    action: "QuestTp",
-                  },
-                },
-              });
-              toast.success("Keybind: " + data);
-            }}
+            RightContent={
+              <KeybindInput
+                keybind={keybind.QuestTp.key}
+                onBind={(key) => UpdateKeybind({ action: "QuestTp", key: key })}
+              />
+            }
           />
 
           <FeatureCardSwitch
@@ -109,19 +114,12 @@ export const Player = () => {
             onSwitch={() => {
               OnUpdateFeature("MarkTp");
             }}
-            WithKeybind={true}
-            OnBind={(data) => {
-              SendEvent({
-                onKeybindChanged: {
-                  status: true,
-                  data: {
-                    key: data,
-                    action: "MarkTp",
-                  },
-                },
-              });
-              toast.success("Keybind: " + data);
-            }}
+            RightContent={
+              <KeybindInput
+                keybind={keybind.MarkTp.key}
+                onBind={(key) => UpdateKeybind({ action: "MarkTp", key: key })}
+              />
+            }
           />
         </FeatureSection>
 
@@ -205,19 +203,12 @@ export const Player = () => {
             onSwitch={() => {
               OnUpdateFeature("flightMode");
             }}
-            WithKeybind={true}
-            OnBind={(data) => {
-              SendEvent({
-                onKeybindChanged: {
-                  status: true,
-                  data: {
-                    key: data,
-                    action: "Flight",
-                  },
-                },
-              });
-              toast.success("Keybind: " + data);
-            }}
+            RightContent={
+              <KeybindInput
+                keybind={keybind.MarkTp.key}
+                onBind={(key) => UpdateKeybind({ action: "MarkTp", key: key })}
+              />
+            }
           />
         </FeatureSection>
       </FeatureWrapper>

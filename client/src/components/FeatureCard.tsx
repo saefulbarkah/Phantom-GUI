@@ -4,7 +4,6 @@ import React from "react";
 import { Switch } from "./ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { CircleAlert } from "lucide-react";
-import { KeybindInput } from "./KeybindInput";
 
 type TFeatureCard = React.ComponentProps<"div"> & {
   title?: string;
@@ -13,9 +12,8 @@ type TFeatureCard = React.ComponentProps<"div"> & {
   defaultCheck?: boolean;
   warningInfo?: React.ReactNode;
   Info?: React.ReactNode;
-  WithKeybind?: boolean;
-  OnBind?: (e: string) => void;
   disabled?: boolean;
+  RightContent?: React.ReactNode;
 };
 
 export const FeatureCardSwitch = ({
@@ -26,9 +24,8 @@ export const FeatureCardSwitch = ({
   children,
   warningInfo,
   Info,
-  WithKeybind = false,
-  OnBind,
   disabled = false,
+  RightContent,
 }: TFeatureCard) => {
   return (
     <div className="py-6 first:pt-0 last:pb-0">
@@ -60,7 +57,7 @@ export const FeatureCardSwitch = ({
           ) : null}
         </div>
         <div className="flex items-center gap-3 mt-1">
-          {WithKeybind ? <KeybindInput onBind={OnBind} /> : null}
+          {RightContent ? RightContent : null}
           {onSwitch ? (
             <Switch
               disabled={disabled}

@@ -12,6 +12,8 @@ import { useDungeons } from "../../hooks/useDungeons";
 import { useEventMutation } from "@/hooks/useEvent";
 import FeatureWrapper from "@/components/FeatureWrapper";
 import FeatureSection from "@/components/FeatureSection";
+import { useKeybind } from "@/hooks/useKeybind";
+import { KeybindInput } from "@/components/KeybindInput";
 
 export const Dungeon = () => {
   const [dungeon, SetDungeon] = useState<TDungeon | null>(null);
@@ -19,6 +21,7 @@ export const Dungeon = () => {
   const { dungeons, isFetching, refetch } = useDungeons();
   const [dungeonValue, setDungeonValue] = useState("");
   const { mutate } = useEventMutation();
+  const { keybind, UpdateKeybind } = useKeybind();
 
   const dungeonOptions = useMemo(() => {
     return (
@@ -41,6 +44,12 @@ export const Dungeon = () => {
             onSwitch={() => {
               OnUpdateFeature("AutoRestartDungeon");
             }}
+            RightContent={
+              <KeybindInput
+                keybind={keybind.AutoRestartDungeon.key}
+                onBind={(key) => UpdateKeybind({ action: "AutoRestartDungeon", key: key })}
+              />
+            }
           />
           <FeatureCardSwitch
             title="Auto Challenge"

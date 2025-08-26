@@ -6,11 +6,13 @@ import { FeatureComboBox } from "@/components/FeatureComboBox";
 import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import FeatureWrapper from "@/components/FeatureWrapper";
+import { KeybindInput } from "@/components/KeybindInput";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useBuffs } from "@/hooks/useBuffs";
 import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
+import { useKeybind } from "@/hooks/useKeybind";
 import { TSelectedBuff } from "@/types/buff";
 import { Dot } from "lucide-react";
 import React, { useMemo, useState } from "react";
@@ -23,6 +25,7 @@ export const Buff = () => {
   const [Buffid, SetBuffId] = React.useState<number | null>(null);
   const [buff, setBuff] = useState("");
   const { mutate } = useEventMutation();
+  const { keybind, UpdateKeybind } = useKeybind();
 
   const buffOptions = useMemo(() => {
     return (
@@ -233,6 +236,12 @@ export const Buff = () => {
               onSwitch={() => {
                 OnUpdateFeature("StatEnhancement");
               }}
+              RightContent={
+                <KeybindInput
+                  keybind={keybind.StatEnhancement.key}
+                  onBind={(key) => UpdateKeybind({ action: "StatEnhancement", key: key })}
+                />
+              }
             />
 
             <FeatureCardSwitch title="Attack" description="Increase attack +600 per stack.">

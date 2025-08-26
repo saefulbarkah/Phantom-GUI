@@ -4,6 +4,7 @@ import { useBuffs } from "@/hooks/useBuffs";
 import { useDungeons } from "@/hooks/useDungeons";
 import { useFarms } from "@/hooks/useFarms";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
+import { useKeybind } from "@/hooks/useKeybind";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -16,9 +17,17 @@ export const FeatureBinder = () => {
   const queryDungeon = useDungeons();
   const queryFarm = useFarms();
   const { queryFeature } = useFeatureManager();
+  const { querykeybind, SyncKeybinds } = useKeybind();
 
   React.useEffect(() => {
-    if (queryFeature.isSuccess && queryBuffs.isSuccess && queryDungeon.isSuccess && queryFarm.isSuccess) {
+    if (
+      queryFeature.isSuccess &&
+      queryBuffs.isSuccess &&
+      queryDungeon.isSuccess &&
+      queryFarm.isSuccess &&
+      querykeybind.isSuccess
+    ) {
+      SyncKeybinds(querykeybind.data);
       setFeature(queryFeature.data?.data);
       SetFeatureReady(true);
       SetNetworkStatus("connected");

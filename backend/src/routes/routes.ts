@@ -13,6 +13,7 @@ import { CheckConnection } from "../controller/ConnectionCheck";
 import { FilterAutoFarm, GetFilteredFarm, GetSonataLists, StoreSonataLists } from "../controller/FarmController";
 import { GetWeapons, OnAddWeapon, OnGetWeaponAdded, StoreWeapons } from "../controller/WeaponController";
 import { GetReplaceRole, GetRoles, ReplaceRole, StoreRoles } from "../controller/RoleController";
+import { GetKeybinds } from "../controller/KeybindController";
 
 const router = express.Router();
 
@@ -52,6 +53,9 @@ router.get("/farm/lists", GetSonataLists);
 router.post("/farm/lists", StoreSonataLists);
 router.post("/farm/filter", FilterAutoFarm);
 router.get("/farm/filter", GetFilteredFarm);
+
+// Keybind
+router.get("/keybind", GetKeybinds);
 
 // event callback
 router.get("/status", GetStatus);

@@ -47,3 +47,33 @@ export function hexToRgba(hex: string, alpha: number) {
   const b = parseInt(hex.slice(5, 7), 16);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
+
+// utils/keybind.ts
+export const formatKeyUI = (key: string | null) => {
+  if (!key) return "None";
+
+  // tampilannya user-friendly
+  const map: Record<string, string> = {
+    SpaceBar: "Space",
+    LeftCtrl: "Ctrl",
+    RightCtrl: "Ctrl",
+    LeftShift: "Shift",
+    RightShift: "Shift",
+    LeftAlt: "Alt",
+    RightAlt: "Alt",
+    LeftCmd: "Cmd",
+    RightCmd: "Cmd",
+    Zero: "0",
+    One: "1",
+    Two: "2",
+    Three: "3",
+    Four: "4",
+    Five: "5",
+    Six: "6",
+    Seven: "7",
+    Eight: "8",
+    Nine: "9",
+  };
+
+  return map[key] ?? key;
+};

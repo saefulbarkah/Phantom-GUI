@@ -23,6 +23,7 @@ export type ActionName =
   | "StatEnhancement";
 
 export type KeybindActionType = {
-  key: string;
+  key: string | null;
   action: ActionName;
+  type: string;
 };

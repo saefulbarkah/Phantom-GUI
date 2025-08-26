@@ -2,23 +2,15 @@
 
 import React, { useState } from "react";
 import { Button } from "./ui/button";
+import { formatKeyUI } from "@/lib/utils";
 
 type KeyBindInputProps = {
-  onBind?: (key: string) => void; // custom callback
+  keybind: string | null;
+  onBind: (key: string | null) => void; // custom callback
 };
 
-export const KeybindInput = ({ onBind }: KeyBindInputProps) => {
-  const [key, setKey] = useState<string>("None");
+export const KeybindInput = ({ onBind, keybind }: KeyBindInputProps) => {
   const [listening, setListening] = useState<boolean>(false);
-
-  const formatKey = (e: KeyboardEvent) => {
-    if (e.code === "Space") return "Space";
-    if (e.code === "Enter") return "Enter";
-    if (e.code === "Tab") return "Tab";
-    if (e.code === "Escape") return "Escape";
-    if (e.code.startsWith("Arrow")) return e.code;
-    return e.key.length === 1 ? e.key.toUpperCase() : e.key;
-  };
 
   const formatKeyUE4 = (e: KeyboardEvent) => {
     const numberMap: Record<string, string> = {
@@ -101,16 +93,14 @@ export const KeybindInput = ({ onBind }: KeyBindInputProps) => {
 
       // Escape buat clear
       if (e.key.toLowerCase() === "escape") {
-        setKey("None");
         setListening(false);
         window.removeEventListener("keydown", handleKeyDown);
+        if (onBind) onBind(null);
         return;
       }
 
-      const singleKey = formatKey(e);
       const formatUe4 = formatKeyUE4(e);
 
-      setKey(singleKey);
       setListening(false);
 
       if (onBind) onBind(formatUe4);
@@ -128,7 +118,7 @@ export const KeybindInput = ({ onBind }: KeyBindInputProps) => {
         disabled={listening}
         onClick={handleStartListening}
       >
-        {listening ? "..." : key}
+        {listening ? "..." : keybind ? formatKeyUI(keybind) : "None"}
       </Button>
     </div>
   );

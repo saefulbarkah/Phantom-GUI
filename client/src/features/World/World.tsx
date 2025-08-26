@@ -4,12 +4,15 @@ import { FeatureCardSwitch } from "@/components/FeatureCard";
 import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import FeatureWrapper from "@/components/FeatureWrapper";
+import { KeybindInput } from "@/components/KeybindInput";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
+import { useKeybind } from "@/hooks/useKeybind";
 import { Dot } from "lucide-react";
 import React from "react";
 
 export const World = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
+  const { UpdateKeybind, keybind } = useKeybind();
 
   return (
     <section>
@@ -23,6 +26,12 @@ export const World = () => {
               onSwitch={() => {
                 OnUpdateFeature("WorldSpeed");
               }}
+              RightContent={
+                <KeybindInput
+                  keybind={keybind.WorldSpeed.key}
+                  onBind={(key) => UpdateKeybind({ action: "WorldSpeed", key: key })}
+                />
+              }
             >
               <FeatureSlider
                 defaultValue={feature.WorldSpeedValue!}
@@ -59,6 +68,12 @@ export const World = () => {
               onSwitch={() => {
                 OnUpdateFeature("MobVacuum");
               }}
+              RightContent={
+                <KeybindInput
+                  keybind={keybind.MobVacuum.key}
+                  onBind={(key) => UpdateKeybind({ action: "MobVacuum", key: key })}
+                />
+              }
             />
 
             <FeatureCardSwitch
@@ -80,6 +95,12 @@ export const World = () => {
               onSwitch={() => {
                 OnUpdateFeature("killAura");
               }}
+              RightContent={
+                <KeybindInput
+                  keybind={keybind.KillAura.key}
+                  onBind={(key) => UpdateKeybind({ action: "KillAura", key: key })}
+                />
+              }
             >
               <FeatureSlider
                 defaultValue={feature.killAuraRadius!}
@@ -183,6 +204,12 @@ export const World = () => {
             onSwitch={() => {
               OnUpdateFeature("AutoQuest");
             }}
+            RightContent={
+              <KeybindInput
+                keybind={keybind.SkipQuestNode.key}
+                onBind={(key) => UpdateKeybind({ action: "SkipQuestNode", key: key })}
+              />
+            }
           />
 
           <FeatureCardSwitch
@@ -197,9 +224,9 @@ export const World = () => {
           <FeatureCardSwitch
             title="Auto Sonance Casket"
             description="Open caskets automatically."
-            defaultCheck={feature.AutoDodge}
+            defaultCheck={feature.AutoSonanceCasket}
             onSwitch={() => {
-              OnUpdateFeature("AutoDodge");
+              OnUpdateFeature("AutoSonanceCasket");
             }}
           />
 
@@ -208,7 +235,7 @@ export const World = () => {
             description="Solve puzzles automatically."
             defaultCheck={feature.AutoParry}
             onSwitch={() => {
-              OnUpdateFeature("AutoParry");
+              OnUpdateFeature("AutoPuzzle");
             }}
             Info={
               <div className="flex flex-col gap-1">
