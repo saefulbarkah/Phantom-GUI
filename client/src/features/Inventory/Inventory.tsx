@@ -16,7 +16,7 @@ export const Inventory = () => {
   const weaponQuery = useWeaponQuery();
   const role = useRole();
   const [WeaponValue, SetWeaponValue] = useState("");
-  const [RankValue, SetRankValue] = useState("");
+  const [RankValue, SetRankValue] = useState("5");
   const [TargetRole, SetTargetRole] = useState("");
   const [ReplaceRole, SetReplaceRole] = useState("");
   const { feature, OnUpdateFeature } = useFeatureManager();
@@ -107,12 +107,16 @@ export const Inventory = () => {
             </div>
 
             <div className="flex gap-2 mt-5 w-full">
-              <Button className="flex-1" disabled={!weaponQuery.isSuccess} onClick={() => weaponQuery.addWeapon()}>
+              <Button
+                className="flex-1"
+                disabled={!weaponQuery.isSuccess || !feature.CustomWeapon}
+                onClick={() => weaponQuery.addWeapon()}
+              >
                 Add
               </Button>
               <Button
                 className="flex-1"
-                disabled={!weaponQuery.isSuccess}
+                disabled={!weaponQuery.isSuccess || !feature.CustomWeapon}
                 onClick={() => weaponQuery.AddAllWeapon(weaponQuery?.data ?? [])}
               >
                 Add all

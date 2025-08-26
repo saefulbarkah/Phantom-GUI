@@ -1,5 +1,6 @@
 import { KeybindActionType } from "./keybind";
 import { TFarmMonsterList } from "./farm";
+import { TWeapon } from "./weapon";
 
 // generic untuk fleksibilitas
 export type TEventValue<T = undefined> = [T] extends [undefined] ? { status: boolean } : { status: boolean; data: T };
@@ -16,7 +17,7 @@ export type TEvent = {
   onRefreshEchoes?: TEventValue;
   isEchoesRefreshed?: TEventValue;
   onEnterDungeon?: TEventValue<{ dungeonId: number; SkipEntrance: boolean }>;
-  onWeaponAdded?: TEventValue;
+  onWeaponAdded?: TEventValue<TWeapon[]>;
   onRoleReplaced?: TEventValue<{ replaceId: number; targetId: number }>;
   onChangeUID?: TEventValue<{ uid: string; color: string }>;
   onShowFPS?: TEventValue;

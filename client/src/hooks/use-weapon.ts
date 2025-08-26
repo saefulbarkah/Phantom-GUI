@@ -1,6 +1,6 @@
 "use client";
 
-import { AddWeapon as OnAddWeapon, GetWeapons } from "@/API/inventory/weapon";
+import { GetWeapons } from "@/API/inventory/weapon";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -37,11 +37,10 @@ export const useWeaponQuery = () => {
         level: weapon.level,
         rank: weapon.rank,
       }));
-      await OnAddWeapon(mapped);
       toast.success(`All weapon added`);
-      await UpdateEvent({ onWeaponAdded: { status: true } });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      await UpdateEvent({ onWeaponAdded: { status: true, data: mapped } });
     } catch (error) {
+      console.error(error);
       toast.error("Failed to add all weapon");
     }
   };
@@ -50,11 +49,16 @@ export const useWeaponQuery = () => {
     if (!weapon.name || !weapon.id) return;
 
     try {
-      await OnAddWeapon([{ id: weapon.id, name: weapon.name, level: weapon.level, rank: weapon.rank }]);
       toast.success(`Weapon ${weapon.name} added`);
-      await UpdateEvent({ onWeaponAdded: { status: true } });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const t = weapon as TWeapon;
+      await UpdateEvent({
+        onWeaponAdded: {
+          status: true,
+          data: [{ ...t }],
+        },
+      });
     } catch (error) {
+      console.error(error);
       toast.error("Failed to add weapon");
     }
   };
