@@ -9,7 +9,7 @@
     "start": "npx tsx dist/index.js",
     "bundle": "esbuild src/index.ts --bundle --platform=node --target=node20 --outfile=dist/index.cjs --minify",
     "dev": "npx tsx watch src/index.ts",
-    "pkg": "pkg dist/index.cjs --compress GZip --targets node20 --output dist/phantom.exe --options experimental-modules",
+    "pkg": "pkg dist/index.cjs --compress GZip --targets node20 --output dist/phantom-x86_64-pc-windows-msvc.exe --options experimental-modules",
     "build:exe": "npm run bundle && npm run pkg",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
