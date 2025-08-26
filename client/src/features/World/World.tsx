@@ -5,6 +5,7 @@ import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import FeatureWrapper from "@/components/FeatureWrapper";
 import { KeybindInput } from "@/components/KeybindInput";
+import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { useKeybind } from "@/hooks/useKeybind";
 import { Dot } from "lucide-react";
@@ -13,6 +14,7 @@ import React from "react";
 export const World = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
   const { UpdateKeybind, keybind } = useKeybind();
+  const { mutate: UpdateEvent } = useEventMutation();
 
   return (
     <section>
@@ -25,6 +27,9 @@ export const World = () => {
               defaultCheck={feature.WorldSpeed}
               onSwitch={() => {
                 OnUpdateFeature("WorldSpeed");
+                UpdateEvent({
+                  onWorldSpeedChanged: { status: true, data: { IsEnabled: !feature.WorldSpeed } },
+                });
               }}
               RightContent={
                 <KeybindInput

@@ -5,6 +5,7 @@ import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
 import FeatureWrapper from "@/components/FeatureWrapper";
 import { KeybindInput } from "@/components/KeybindInput";
+import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { useKeybind } from "@/hooks/useKeybind";
 import React from "react";
@@ -12,6 +13,7 @@ import React from "react";
 export const Player = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
   const { keybind, UpdateKeybind } = useKeybind();
+  const { mutate: UpdateEvent } = useEventMutation();
 
   return (
     <section>
@@ -23,6 +25,9 @@ export const Player = () => {
             defaultCheck={feature.PlayerSpeed}
             onSwitch={() => {
               OnUpdateFeature("PlayerSpeed");
+              UpdateEvent({
+                onPlayerSpeedChanged: { status: true, data: { IsEnabled: !feature.PlayerSpeed } },
+              });
             }}
             RightContent={
               <KeybindInput
@@ -65,6 +70,9 @@ export const Player = () => {
             defaultCheck={feature.NoClip}
             onSwitch={() => {
               OnUpdateFeature("NoClip");
+              UpdateEvent({
+                onNoClipChanged: { status: true, data: { IsEnabled: !feature.NoClip } },
+              });
             }}
             RightContent={
               <KeybindInput

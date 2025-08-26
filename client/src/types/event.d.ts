@@ -27,4 +27,7 @@ export type TEvent = {
   onUnlockFPS?: TEventValue;
   onFOVChanged?: TEventValue<{ fov: number }>;
   onKeybindChanged?: TEventValue<KeybindActionType>;
+  onWorldSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;
+  onPlayerSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;
+  onNoClipChanged?: TEventValue<{ IsEnabled: boolean }>;
 };

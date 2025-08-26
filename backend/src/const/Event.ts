@@ -21,6 +21,9 @@ export const EventState = {
   onUnlockFPS: { status: false, data: null },
   onKeybindChanged: { status: false, data: null },
   onRemoveAllWeapon: { status: false, data: null },
+  onWorldSpeedChanged: { status: false, data: null },
+  onPlayerSpeedChanged: { status: false, data: null },
+  onNoClipChanged: { status: false, data: null },
 };
 
 // daftar event yang auto-reset
@@ -45,4 +48,7 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onStartFarmEchoes",
   "onStopFarmEchoes",
   "onRemoveAllWeapon",
+  "onWorldSpeedChanged",
+  "onPlayerSpeedChanged",
+  "onNoClipChanged",
 ];
