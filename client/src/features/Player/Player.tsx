@@ -205,8 +205,8 @@ export const Player = () => {
             }}
             RightContent={
               <KeybindInput
-                keybind={keybind.MarkTp.key}
-                onBind={(key) => UpdateKeybind({ action: "MarkTp", key: key })}
+                keybind={keybind.Flight.key}
+                onBind={(key) => UpdateKeybind({ action: "Flight", key: key })}
               />
             }
           />
