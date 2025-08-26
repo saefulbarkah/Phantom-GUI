@@ -8,7 +8,7 @@ export type TEvent = {
   onTeleport?: TEventValue;
   onNextTeleport?: TEventValue;
   onPrevTeleport?: TEventValue;
-  onStartFarmEchoes?: TEventValue<{ monsters: TFarmMonsterList[] }>;
+  onStartFarmEchoes?: TEventValue<{ monsters: TFarmMonsterList[]; name: string; id: number }>;
   onStopFarmEchoes?: TEventValue;
   onSaveConfig?: TEventValue;
   onLoadConfig?: TEventValue;

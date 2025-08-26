@@ -37,10 +37,10 @@ export const FarmEchoes = () => {
 
   const StartFarm = async () => {
     try {
-      if (!sonata?.monsters) return;
+      if (!sonata?.monsters || !sonata.id || !sonata.name) return;
 
       UpdateEvent({
-        onStartFarmEchoes: { status: true, data: { monsters: sonata.monsters } },
+        onStartFarmEchoes: { status: true, data: { monsters: sonata.monsters, id: sonata.id, name: sonata.name } },
       });
       toast.success("Auto farm started!");
     } catch (error) {
