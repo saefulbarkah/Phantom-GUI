@@ -15,15 +15,23 @@ type TFeatureComboBox<T> = {
   onSelect?: (val: T) => void;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  disabled?: boolean;
 };
 
-export function FeatureComboBox<T extends TOptionValue>({ data, onSelect, value, setValue }: TFeatureComboBox<T>) {
+export function FeatureComboBox<T extends TOptionValue>({
+  data,
+  onSelect,
+  value,
+  setValue,
+  disabled = false,
+}: TFeatureComboBox<T>) {
   const [open, setOpen] = React.useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          disabled={disabled}
           role="combobox"
           aria-expanded={open}
           className="w-full

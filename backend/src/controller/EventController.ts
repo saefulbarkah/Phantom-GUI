@@ -8,7 +8,6 @@ export async function GetStatus(req: Request, res: Response) {
     if (key in EventState) {
       const ev = EventState[key as keyof typeof EventState];
 
-      // reset one-time event setelah dibaca
       if (ev.status === true && oneTimeEvents.includes(key as keyof typeof EventState)) {
         EventState[key as keyof typeof EventState] = { status: false, data: null };
       }

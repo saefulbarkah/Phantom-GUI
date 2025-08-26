@@ -1,4 +1,5 @@
 import { KeybindActionType } from "./keybind";
+import { TFarmMonsterList } from "./farm";
 
 // generic untuk fleksibilitas
 export type TEventValue<T = undefined> = [T] extends [undefined] ? { status: boolean } : { status: boolean; data: T };
@@ -7,7 +8,7 @@ export type TEvent = {
   onTeleport?: TEventValue;
   onNextTeleport?: TEventValue;
   onPrevTeleport?: TEventValue;
-  onStartFarmEchoes?: TEventValue;
+  onStartFarmEchoes?: TEventValue<{ monsters: TFarmMonsterList[] }>;
   onStopFarmEchoes?: TEventValue;
   onSaveConfig?: TEventValue;
   onLoadConfig?: TEventValue;

@@ -41,4 +41,6 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onUnlockFPS",
   "onFOVChanged",
   "onKeybindChanged",
+  "onStartFarmEchoes",
+  "onStopFarmEchoes",
 ];

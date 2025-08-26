@@ -1,6 +1,5 @@
 "use client";
 
-import { UpdateEvent } from "@/API/Event";
 import { FilterSonata } from "@/API/farms/auto-farm-echoes";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox, TOptionValue } from "@/components/FeatureComboBox";
@@ -8,7 +7,7 @@ import FeatureSection from "@/components/FeatureSection";
 import FeatureWrapper from "@/components/FeatureWrapper";
 import { LoadingContent } from "@/components/LoadingContent";
 import { Button } from "@/components/ui/button";
-import { useEventQuery } from "@/hooks/useEvent";
+import { useEventMutation } from "@/hooks/useEvent";
 import { useFarms, useFarmState } from "@/hooks/useFarms";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { HighlightNumberText } from "@/lib/utils";
@@ -26,9 +25,9 @@ const byCost: TOptionValue[] = [
 ];
 
 export const FarmEchoes = () => {
-  const { data: StartFarmEcho, refetch: RefetchFarmStatus } = useEventQuery("onStartFarmEchoes");
   const { filter, setFilter, monsters, setMonster, setSonata, sonata } = useFarmState();
   const { mutate } = useMutation({ mutationKey: ["filterFarm"], mutationFn: FilterSonata });
+  const { mutate: UpdateEvent } = useEventMutation();
 
   const [SonataValue, setSonataValue] = useState("");
   const [CostValue, setCostValue] = useState("");
@@ -36,11 +35,27 @@ export const FarmEchoes = () => {
   const { refetch, data, isFetching } = useFarms();
   const { IsFeatureReady } = useFeatureManager();
 
-  const handleFarmToggle = async (start: boolean) => {
+  const StartFarm = async () => {
     try {
-      await UpdateEvent({ onStartFarmEchoes: { status: start }, onStopFarmEchoes: { status: !start } });
-      RefetchFarmStatus();
-      toast.success(start ? "Auto farm started!" : "Auto farm stopped!");
+      if (!sonata?.monsters) return;
+
+      UpdateEvent({
+        onStartFarmEchoes: { status: true, data: { monsters: sonata.monsters } },
+      });
+      toast.success("Auto farm started!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to update farm status");
+    }
+  };
+
+  const StopFarm = async () => {
+    try {
+      if (!sonata?.monsters) return;
+      UpdateEvent({
+        onStopFarmEchoes: { status: true },
+      });
+      toast.success("Auto farm stopped!");
     } catch (error) {
       console.error(error);
       toast.error("Failed to update farm status");
@@ -138,6 +153,7 @@ export const FarmEchoes = () => {
 
               <p>By Cost</p>
               <FeatureComboBox
+                disabled={!sonata.id}
                 data={byCost}
                 value={CostValue}
                 setValue={setCostValue}
@@ -153,6 +169,7 @@ export const FarmEchoes = () => {
 
               <p>By Echo</p>
               <FeatureComboBox
+                disabled={!sonata.id}
                 data={echoOptions}
                 value={EchoValue}
                 setValue={setEchoValue}
@@ -168,10 +185,10 @@ export const FarmEchoes = () => {
             </div>
 
             <div className="flex gap-2 mt-5 w-full">
-              <Button className="flex-1" onClick={() => handleFarmToggle(true)} disabled={StartFarmEcho?.status}>
+              <Button className="flex-1" disabled={!sonata.name} onClick={() => StartFarm()}>
                 Start
               </Button>
-              <Button className="flex-1" onClick={() => handleFarmToggle(false)}>
+              <Button className="flex-1" onClick={() => StopFarm()}>
                 Stop
               </Button>
               <Button size="icon" className="flex-shrink-0" onClick={() => refetch()} disabled={isFetching}>
