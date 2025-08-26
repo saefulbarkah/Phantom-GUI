@@ -7,6 +7,7 @@ import LOG from "../utils/logging";
 
 const filePath = "./phantom.json";
 
+let IsNeedUpdate = false;
 let state = { ...ModSettings };
 
 // Saat server mulai, load dulu dari file (sync/async sesuai kebutuhan)
@@ -27,7 +28,11 @@ async function initializeSettings() {
 initializeSettings();
 
 export const GetSettings = async (req: Request, res: Response) => {
-  res.json(state);
+  let listenChanges = IsNeedUpdate;
+
+  IsNeedUpdate = false; // fallback reset to avoid spam game sync
+
+  res.json({ ...state, IsChanges: listenChanges });
 };
 
 export const UpdateSettings = async (req: Request, res: Response) => {
@@ -45,6 +50,7 @@ export const UpdateSettings = async (req: Request, res: Response) => {
       LOG.SUCCESS(`${key}: ${chalk.green(value)}`);
     });
 
+    IsNeedUpdate = true; // everything changes, set as changes
     res.json({ ok: "Settings updated", settings: newSettings });
   } catch (err) {
     console.error(err);
