@@ -18,6 +18,7 @@ export type TEvent = {
   isEchoesRefreshed?: TEventValue;
   onEnterDungeon?: TEventValue<{ dungeonId: number; SkipEntrance: boolean }>;
   onWeaponAdded?: TEventValue<TWeapon[]>;
+  onRemoveAllWeapon?: TEventValue;
   onRoleReplaced?: TEventValue<{ replaceId: number; targetId: number }>;
   onChangeUID?: TEventValue<{ uid: string; color: string }>;
   onShowFPS?: TEventValue;

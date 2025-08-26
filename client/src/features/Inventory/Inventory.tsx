@@ -121,7 +121,12 @@ export const Inventory = () => {
               >
                 Add all
               </Button>
-              <Button className="flex-1" disabled={!weaponQuery.isSuccess} variant={"destructive"}>
+              <Button
+                className="flex-1"
+                disabled={!weaponQuery.isSuccess}
+                variant={"destructive"}
+                onClick={() => weaponQuery.removeAllWeapon()}
+              >
                 Remove all
               </Button>
               <Button size="icon" className="flex-shrink-0" onClick={() => weaponQuery.refreshWeapon()}>

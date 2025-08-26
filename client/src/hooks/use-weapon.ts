@@ -63,6 +63,20 @@ export const useWeaponQuery = () => {
     }
   };
 
+  const removeAllWeapon = async () => {
+    try {
+      await UpdateEvent({
+        onRemoveAllWeapon: {
+          status: true,
+        },
+      });
+      toast.success(`Weapon removed`);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add weapon");
+    }
+  };
+
   const UpdateWeapon = (data: Partial<WeaponStore>) => {
     SetWeapon((set) => ({
       ...set,
@@ -70,5 +84,5 @@ export const useWeaponQuery = () => {
     }));
   };
 
-  return { ...a, refreshWeapon, addWeapon, AddAllWeapon, weapon, UpdateWeapon };
+  return { ...a, refreshWeapon, addWeapon, AddAllWeapon, weapon, UpdateWeapon, removeAllWeapon };
 };

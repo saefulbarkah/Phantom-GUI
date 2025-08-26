@@ -20,6 +20,7 @@ export const EventState = {
   onTreasureTpOverlayTrigger: { status: false, data: null },
   onUnlockFPS: { status: false, data: null },
   onKeybindChanged: { status: false, data: null },
+  onRemoveAllWeapon: { status: false, data: null },
 };
 
 // daftar event yang auto-reset
@@ -43,4 +44,5 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onKeybindChanged",
   "onStartFarmEchoes",
   "onStopFarmEchoes",
+  "onRemoveAllWeapon",
 ];
