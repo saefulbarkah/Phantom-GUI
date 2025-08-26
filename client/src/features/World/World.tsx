@@ -1,7 +1,9 @@
 "use client";
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
+import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
+import FeatureWrapper from "@/components/FeatureWrapper";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { Dot } from "lucide-react";
 import React from "react";
@@ -10,127 +12,119 @@ export const World = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
 
   return (
-    <section className="flex flex-col gap-5">
-      {/* Player */}
-      <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold ">World</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-          <FeatureCardSwitch
-            title="World Speed"
-            description="lorem adma msd asd as das"
-            defaultCheck={feature.WorldSpeed}
-            onSwitch={() => {
-              OnUpdateFeature("WorldSpeed");
-            }}
-          >
-            <FeatureSlider
-              defaultValue={feature.WorldSpeedValue!}
-              disabled={!feature.WorldSpeed}
-              maxValue={15}
-              onValueChange={(e) => {
-                OnUpdateFeature("WorldSpeedValue", e);
+    <section>
+      <FeatureWrapper>
+        <div className="flex flex-col gap-5">
+          <FeatureSection title="World">
+            <FeatureCardSwitch
+              title="World Speed"
+              description="Adjust world speed."
+              defaultCheck={feature.WorldSpeed}
+              onSwitch={() => {
+                OnUpdateFeature("WorldSpeed");
+              }}
+            >
+              <FeatureSlider
+                defaultValue={feature.WorldSpeedValue!}
+                disabled={!feature.WorldSpeed}
+                maxValue={15}
+                onValueChange={(e) => {
+                  OnUpdateFeature("WorldSpeedValue", e);
+                }}
+              />
+            </FeatureCardSwitch>
+
+            <FeatureCardSwitch
+              title="Auto Kill Animal"
+              description="Enable instant kills."
+              defaultCheck={feature.KillAnimal}
+              onSwitch={() => {
+                OnUpdateFeature("KillAnimal");
               }}
             />
-          </FeatureCardSwitch>
 
-          <FeatureCardSwitch
-            title="Kill Animal"
-            description="lorem adma msd asd as das"
-            defaultCheck={feature.KillAnimal}
-            onSwitch={() => {
-              OnUpdateFeature("KillAnimal");
-            }}
-          />
+            <FeatureCardSwitch
+              title="Enable Plot Skip"
+              description="Skip story plot."
+              defaultCheck={feature.PlotSkip}
+              onSwitch={() => {
+                OnUpdateFeature("PlotSkip");
+              }}
+            />
 
-          <FeatureCardSwitch
-            title="Enable Plot Skip"
-            description="lorem adma msd asd as das sad asd asda dasd das sda asdas as dasd asda sda d asdas das das das dasd  asdas das "
-            defaultCheck={feature.PlotSkip}
-            onSwitch={() => {
-              OnUpdateFeature("PlotSkip");
-            }}
-          />
+            <FeatureCardSwitch
+              title="Mob Vacuum"
+              description="Pull mobs automatically."
+              defaultCheck={feature.MobVacuum}
+              onSwitch={() => {
+                OnUpdateFeature("MobVacuum");
+              }}
+            />
 
-          <FeatureCardSwitch
-            title="Mob Vacuum"
-            description="lorem adma msd asd as das"
-            defaultCheck={feature.MobVacuum}
-            onSwitch={() => {
-              OnUpdateFeature("MobVacuum");
-            }}
-          />
+            <FeatureCardSwitch
+              title="Collect Vacuum"
+              description="Collect items automatically."
+              defaultCheck={feature.VacuumCollect}
+              onSwitch={() => {
+                OnUpdateFeature("VacuumCollect");
+              }}
+            />
+          </FeatureSection>
 
-          <FeatureCardSwitch
-            title="Collect Vacuum"
-            description="lorem adma msd asd as das"
-            defaultCheck={feature.VacuumCollect}
-            onSwitch={() => {
-              OnUpdateFeature("VacuumCollect");
-            }}
-          />
-        </div>
-      </div>
+          <FeatureSection title="Combat Features">
+            <FeatureCardSwitch
+              title="Enable Kill Aura"
+              description="Attack nearby enemies."
+              warningInfo={<p>Avoid use this in quest</p>}
+              defaultCheck={feature.killAura}
+              onSwitch={() => {
+                OnUpdateFeature("killAura");
+              }}
+            >
+              <FeatureSlider
+                defaultValue={feature.killAuraRadius!}
+                disabled={!feature.killAura}
+                maxValue={100}
+                onValueChange={(e) => {
+                  OnUpdateFeature("killAuraRadius", e);
+                }}
+              />
+            </FeatureCardSwitch>
 
-      {/* Player */}
-      <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold ">Kill Aura</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-          <FeatureCardSwitch
-            title="Enable Kill Aura"
-            description="lorem adma msd asd as das"
-            warningInfo={<p>Avoid use this in quest</p>}
-            defaultCheck={feature.killAura}
-            onSwitch={() => {
-              OnUpdateFeature("killAura");
-            }}
-          >
-            <FeatureSlider
-              defaultValue={feature.killAuraRadius!}
+            <FeatureCardSwitch
               disabled={!feature.killAura}
-              maxValue={100}
-              onValueChange={(e) => {
-                OnUpdateFeature("killAuraRadius", e);
+              title="Damage Over Time"
+              description="Apply DOT effect."
+              defaultCheck={feature.isDotKillAura}
+              onSwitch={() => {
+                if (feature.isInstantKillAura) {
+                  OnUpdateFeature("isInstantKillAura", false);
+                }
+
+                OnUpdateFeature("isDotKillAura");
               }}
             />
-          </FeatureCardSwitch>
 
-          <FeatureCardSwitch
-            disabled={!feature.killAura}
-            title="Damage Over Time"
-            description="Damage over time to enemy"
-            defaultCheck={feature.isDotKillAura}
-            onSwitch={() => {
-              if (feature.isInstantKillAura) {
-                OnUpdateFeature("isInstantKillAura", false);
-              }
+            <FeatureCardSwitch
+              title="Instant Kill"
+              disabled={!feature.killAura}
+              description="Kill instantly."
+              defaultCheck={feature.isInstantKillAura}
+              onSwitch={() => {
+                if (feature.isDotKillAura) {
+                  OnUpdateFeature("isDotKillAura", false);
+                }
 
-              OnUpdateFeature("isDotKillAura");
-            }}
-          />
-
-          <FeatureCardSwitch
-            title="Instant Kill"
-            disabled={!feature.killAura}
-            description="Instant kill enemy"
-            defaultCheck={feature.isInstantKillAura}
-            onSwitch={() => {
-              if (feature.isDotKillAura) {
-                OnUpdateFeature("isDotKillAura", false);
-              }
-
-              OnUpdateFeature("isInstantKillAura");
-            }}
-          />
+                OnUpdateFeature("isInstantKillAura");
+              }}
+            />
+          </FeatureSection>
         </div>
-      </div>
 
-      {/* Ability */}
-      <div className="flex flex-col gap-5 mt-5">
-        <h2 className="text-xl font-semibold">Auto Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+        <FeatureSection title="Automation Features">
           <FeatureCardSwitch
             title="Auto Absorb"
-            description="lorem adma msd asd as das"
+            description="Absorb items automatically."
             defaultCheck={feature.AutoAbsorb}
             onSwitch={() => {
               OnUpdateFeature("AutoAbsorb");
@@ -139,7 +133,7 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Auto Loot"
-            description="lorem adma msd asd as das"
+            description="Automatically loot items."
             defaultCheck={feature.AutoLoot}
             onSwitch={() => {
               OnUpdateFeature("AutoLoot");
@@ -157,7 +151,7 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Auto Pick Treasure"
-            description="lorem adma msd asd as das"
+            description="Automatically pick treasures."
             defaultCheck={feature.AutoPickTreasure}
             onSwitch={() => {
               OnUpdateFeature("AutoPickTreasure");
@@ -175,7 +169,7 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Auto Plot Skip"
-            description="lorem adma msd asd as das"
+            description="Skip plots automatically."
             defaultCheck={feature.AutoSkipPlot}
             onSwitch={() => {
               OnUpdateFeature("AutoSkipPlot");
@@ -184,7 +178,7 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Semi Auto Quest"
-            description="lorem adma msd asd as das"
+            description="Assist quest automatically."
             defaultCheck={feature.AutoQuest}
             onSwitch={() => {
               OnUpdateFeature("AutoQuest");
@@ -193,7 +187,7 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Auto Open Teleport"
-            description="lorem adma msd asd as das"
+            description="Open teleports automatically."
             defaultCheck={feature.AutoOpenTeleports}
             onSwitch={() => {
               OnUpdateFeature("AutoOpenTeleports");
@@ -202,7 +196,7 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Auto Sonance Casket"
-            description="lorem adma msd asd as das"
+            description="Open caskets automatically."
             defaultCheck={feature.AutoDodge}
             onSwitch={() => {
               OnUpdateFeature("AutoDodge");
@@ -211,7 +205,7 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Auto Solve Puzzle"
-            description="Automatically solve some puzzle"
+            description="Solve puzzles automatically."
             defaultCheck={feature.AutoParry}
             onSwitch={() => {
               OnUpdateFeature("AutoParry");
@@ -249,14 +243,14 @@ export const World = () => {
 
           <FeatureCardSwitch
             title="Auto Mining"
-            description="lorem adma msd asd as das"
+            description="Mine/destroy blocks automatically."
             defaultCheck={feature.AutoDestroy}
             onSwitch={() => {
               OnUpdateFeature("AutoDestroy");
             }}
           />
-        </div>
-      </div>
+        </FeatureSection>
+      </FeatureWrapper>
     </section>
   );
 };

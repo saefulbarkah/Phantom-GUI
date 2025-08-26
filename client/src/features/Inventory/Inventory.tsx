@@ -1,6 +1,8 @@
 "use client";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox, TOptionValue } from "@/components/FeatureComboBox";
+import FeatureSection from "@/components/FeatureSection";
+import FeatureWrapper from "@/components/FeatureWrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRole } from "@/hooks/use-role";
@@ -55,125 +57,118 @@ export const Inventory = () => {
   ];
 
   return (
-    <section className="flex flex-col gap-5">
-      {/* Player */}
-      <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold ">Inventory</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-3">
-          <div>
-            <FeatureCardSwitch
-              title="Custom Weapon"
-              description="You can use custom weapon"
-              defaultCheck={feature.CustomWeapon}
-              onSwitch={() => {
-                OnUpdateFeature("CustomWeapon");
-              }}
-            >
-              <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
-                <p>Weapon</p>
-                <FeatureComboBox
-                  data={Weapons}
-                  value={WeaponValue}
-                  setValue={SetWeaponValue}
-                  onSelect={(data) => {
-                    weaponQuery.UpdateWeapon({
-                      id: data.id,
-                      name: data.name,
-                    });
-                  }}
-                />
+    <section>
+      <FeatureWrapper>
+        <FeatureSection title="Custom Weapon">
+          <FeatureCardSwitch
+            title="Enable Custom Weapon"
+            description="Equip and modify weapons with custom options"
+            defaultCheck={feature.CustomWeapon}
+            onSwitch={() => {
+              OnUpdateFeature("CustomWeapon");
+            }}
+          >
+            <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center mt-5">
+              <p>Weapon</p>
+              <FeatureComboBox
+                data={Weapons}
+                value={WeaponValue}
+                setValue={SetWeaponValue}
+                onSelect={(data) => {
+                  weaponQuery.UpdateWeapon({
+                    id: data.id,
+                    name: data.name,
+                  });
+                }}
+              />
 
-                <p>Rank</p>
-                <FeatureComboBox
-                  data={RankOptions}
-                  value={RankValue}
-                  setValue={SetRankValue}
-                  onSelect={(data) => {
-                    weaponQuery.UpdateWeapon({
-                      rank: Number(data.value),
-                    });
-                  }}
-                />
+              <p>Rank</p>
+              <FeatureComboBox
+                data={RankOptions}
+                value={RankValue}
+                setValue={SetRankValue}
+                onSelect={(data) => {
+                  weaponQuery.UpdateWeapon({
+                    rank: Number(data.value),
+                  });
+                }}
+              />
 
-                <p>Level</p>
-                <Input
-                  defaultValue={weaponQuery.weapon.level}
-                  onChange={(e) => {
-                    if (!Number(e.currentTarget.value)) return;
-                    weaponQuery.UpdateWeapon({
-                      rank: Number(e.currentTarget.value),
-                    });
-                  }}
-                />
-              </div>
+              <p>Level</p>
+              <Input
+                defaultValue={weaponQuery.weapon.level}
+                onChange={(e) => {
+                  if (!Number(e.currentTarget.value)) return;
+                  weaponQuery.UpdateWeapon({
+                    rank: Number(e.currentTarget.value),
+                  });
+                }}
+              />
+            </div>
 
-              <div className="flex gap-2 mt-5 w-full">
-                <Button className="flex-1" disabled={!weaponQuery.isSuccess} onClick={() => weaponQuery.addWeapon()}>
-                  Add
-                </Button>
-                <Button
-                  className="flex-1"
-                  disabled={!weaponQuery.isSuccess}
-                  onClick={() => weaponQuery.AddAllWeapon(weaponQuery?.data ?? [])}
-                >
-                  Add all
-                </Button>
-                <Button className="flex-1" disabled={!weaponQuery.isSuccess} variant={"destructive"}>
-                  Remove all
-                </Button>
-                <Button size="icon" className="flex-shrink-0" onClick={() => weaponQuery.refreshWeapon()}>
-                  <RefreshCcw />
-                </Button>
-              </div>
-            </FeatureCardSwitch>
-          </div>
+            <div className="flex gap-2 mt-5 w-full">
+              <Button className="flex-1" disabled={!weaponQuery.isSuccess} onClick={() => weaponQuery.addWeapon()}>
+                Add
+              </Button>
+              <Button
+                className="flex-1"
+                disabled={!weaponQuery.isSuccess}
+                onClick={() => weaponQuery.AddAllWeapon(weaponQuery?.data ?? [])}
+              >
+                Add all
+              </Button>
+              <Button className="flex-1" disabled={!weaponQuery.isSuccess} variant={"destructive"}>
+                Remove all
+              </Button>
+              <Button size="icon" className="flex-shrink-0" onClick={() => weaponQuery.refreshWeapon()}>
+                <RefreshCcw />
+              </Button>
+            </div>
+          </FeatureCardSwitch>
+        </FeatureSection>
 
-          <div>
-            <FeatureCardSwitch
-              title="Custom Role"
-              description="You can use custom role only replacing models and skills"
-            >
-              <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
-                <p>Target Role</p>
-                <FeatureComboBox
-                  data={OwnRoles}
-                  value={TargetRole}
-                  setValue={SetTargetRole}
-                  onSelect={(data) => {
-                    role.store.setRole({ target: { id: data.id, name: data.value, skinId: data.skinId } });
-                  }}
-                />
+        <FeatureSection title="Custom Role" description="Replace models and skills with custom roles">
+          <FeatureCardSwitch>
+            <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
+              <p>Target Role</p>
+              <FeatureComboBox
+                data={OwnRoles}
+                value={TargetRole}
+                setValue={SetTargetRole}
+                onSelect={(data) => {
+                  role.store.setRole({ target: { id: data.id, name: data.value, skinId: data.skinId } });
+                }}
+              />
 
-                <p>Replace With</p>
-                <FeatureComboBox
-                  data={CustomRoles}
-                  value={ReplaceRole}
-                  setValue={SetReplaceRole}
-                  onSelect={(data) => {
-                    role.store.setRole({ replacer: { id: data.id, name: data.value, skinId: data.skinId } });
-                  }}
-                />
-              </div>
+              <p>Replace With</p>
+              <FeatureComboBox
+                data={CustomRoles}
+                value={ReplaceRole}
+                setValue={SetReplaceRole}
+                onSelect={(data) => {
+                  role.store.setRole({ replacer: { id: data.id, name: data.value, skinId: data.skinId } });
+                }}
+              />
+            </div>
 
-              <div className="flex gap-2 mt-5 justify-end">
-                <Button className="w-32" onClick={() => role.onSwitchRole()}>
-                  Apply
-                </Button>
-                <Button
-                  size="icon"
-                  onClick={() => {
-                    role.CustomRole.refetch();
-                    role.ownRole.refetch();
-                    toast.success("Role refreshed");
-                  }}
-                >
-                  <RefreshCcw />
-                </Button>
-              </div>
-            </FeatureCardSwitch>
-          </div>
-        </div>
-      </div>
+            <div className="flex gap-2 mt-5 justify-end">
+              <Button className="w-32" onClick={() => role.onSwitchRole()}>
+                Apply
+              </Button>
+              <Button
+                size="icon"
+                onClick={() => {
+                  role.CustomRole.refetch();
+                  role.ownRole.refetch();
+                  toast.success("Role refreshed");
+                }}
+              >
+                <RefreshCcw />
+              </Button>
+            </div>
+          </FeatureCardSwitch>
+        </FeatureSection>
+      </FeatureWrapper>
     </section>
   );
 };

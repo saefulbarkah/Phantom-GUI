@@ -10,6 +10,8 @@ import React, { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useDungeons } from "../../hooks/useDungeons";
 import { useEventMutation } from "@/hooks/useEvent";
+import FeatureWrapper from "@/components/FeatureWrapper";
+import FeatureSection from "@/components/FeatureSection";
 
 export const Dungeon = () => {
   const [dungeon, SetDungeon] = useState<TDungeon | null>(null);
@@ -18,7 +20,6 @@ export const Dungeon = () => {
   const [dungeonValue, setDungeonValue] = useState("");
   const { mutate } = useEventMutation();
 
-  // Cache mapping untuk By Sonata
   const dungeonOptions = useMemo(() => {
     return (
       dungeons?.map((item, index) => ({
@@ -30,11 +31,37 @@ export const Dungeon = () => {
   }, [dungeons]);
 
   return (
-    <section className="flex flex-col gap-5">
-      {/* Player */}
-      <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold ">Enter Dungeon</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+    <section>
+      <FeatureWrapper>
+        <FeatureSection title="Dungeon Automation">
+          <FeatureCardSwitch
+            title="Auto Restart"
+            description="Restart dungeon automatically."
+            defaultCheck={feature.AutoRestartDungeon}
+            onSwitch={() => {
+              OnUpdateFeature("AutoRestartDungeon");
+            }}
+          />
+          <FeatureCardSwitch
+            title="Auto Challenge"
+            description="Start dungeon challenge automatically."
+            defaultCheck={feature.AutoChallengeBoss}
+            onSwitch={() => {
+              OnUpdateFeature("AutoChallengeBoss");
+            }}
+          />
+
+          <FeatureCardSwitch
+            title="Auto Claim Reward"
+            description="Claim dungeon reward automatically."
+            defaultCheck={feature.AutoClaimRewardDungeon}
+            onSwitch={() => {
+              OnUpdateFeature("AutoClaimRewardDungeon");
+            }}
+          />
+        </FeatureSection>
+
+        <FeatureSection title="Dungeon Entry">
           <FeatureCardSwitch title="Select Dungeon" description="">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
@@ -83,45 +110,14 @@ export const Dungeon = () => {
 
           <FeatureCardSwitch
             title="Skip Entrance"
-            description="Quick enter dungeon when you turn on."
+            description="Enter dungeon instantly."
             defaultCheck={feature.SkipEntranceDungeon}
             onSwitch={() => {
               OnUpdateFeature("SkipEntranceDungeon");
             }}
           />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-5 mt-5">
-        <h2 className="text-xl font-semibold ">Dungeon</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-          <FeatureCardSwitch
-            title="Auto Restart Dungeon"
-            description="Automatically restart dungeon when instance finish."
-            defaultCheck={feature.AutoRestartDungeon}
-            onSwitch={() => {
-              OnUpdateFeature("AutoRestartDungeon");
-            }}
-          />
-          <FeatureCardSwitch
-            title="Auto Start Challenge"
-            description="Automatically start challenge in dungeon."
-            defaultCheck={feature.AutoChallengeBoss}
-            onSwitch={() => {
-              OnUpdateFeature("AutoChallengeBoss");
-            }}
-          />
-
-          <FeatureCardSwitch
-            title="Auto Claim Reward"
-            description="Automatically claim reward in dungeon, and check your power if not enough will ignore it."
-            defaultCheck={feature.AutoClaimRewardDungeon}
-            onSwitch={() => {
-              OnUpdateFeature("AutoClaimRewardDungeon");
-            }}
-          />
-        </div>
-      </div>
+        </FeatureSection>
+      </FeatureWrapper>
     </section>
   );
 };

@@ -1,7 +1,9 @@
 "use client";
 
 import { FeatureCardSwitch } from "@/components/FeatureCard";
+import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
+import FeatureWrapper from "@/components/FeatureWrapper";
 import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import React, { useEffect } from "react";
@@ -18,13 +20,12 @@ export const Camera = () => {
   }, [fovValue, feature.IsFovEnable]);
 
   return (
-    <section className="flex flex-col gap-5">
-      <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold ">Camera</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+    <section>
+      <FeatureWrapper>
+        <FeatureSection title="Camera Settings">
           <FeatureCardSwitch
             title="FOV Changer"
-            description="lorem adma msd asd as das"
+            description="Adjust the camera's field of view for a wider or narrower perspective"
             defaultCheck={feature.IsFovEnable}
             onSwitch={() => {
               OnUpdateFeature("IsFovEnable");
@@ -41,8 +42,8 @@ export const Camera = () => {
           </FeatureCardSwitch>
 
           <FeatureCardSwitch
-            title="Anti Dither"
-            description="lorem adma msd asd as das"
+            title="Anti-Dither"
+            description="Prevent dithering effects for a smoother visual experience"
             defaultCheck={feature.AntiDither}
             onSwitch={() => {
               OnUpdateFeature("AntiDither");
@@ -50,15 +51,15 @@ export const Camera = () => {
           />
 
           <FeatureCardSwitch
-            title="FIrst Person Mode"
-            description="lorem adma msd asd as das"
+            title="First Person Mode"
+            description="Switch the camera to first-person perspective"
             defaultCheck={feature.FirstPersonMode}
             onSwitch={() => {
               OnUpdateFeature("FirstPersonMode");
             }}
           />
-        </div>
-      </div>
+        </FeatureSection>
+      </FeatureWrapper>
     </section>
   );
 };

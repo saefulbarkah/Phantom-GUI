@@ -3,7 +3,9 @@
 import { UpdateBuffSelected } from "@/API/buffs";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import { FeatureComboBox } from "@/components/FeatureComboBox";
+import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
+import FeatureWrapper from "@/components/FeatureWrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useBuffs } from "@/hooks/useBuffs";
@@ -22,7 +24,6 @@ export const Buff = () => {
   const [buff, setBuff] = useState("");
   const { mutate } = useEventMutation();
 
-  // Cache mapping untuk By Sonata
   const buffOptions = useMemo(() => {
     return (
       buffs?.map((item, index) => ({
@@ -35,81 +36,12 @@ export const Buff = () => {
   }, [buffs]);
 
   return (
-    <section className="flex flex-col gap-5">
-      <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold">Custom Buff</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-          <FeatureCardSwitch title="Apply Custom Buff" description="">
-            <div className="flex items-center gap-4">
-              <div className="flex-1 min-w-0">
-                <FeatureComboBox
-                  data={buffOptions}
-                  onSelect={(val) => {
-                    toast(`Buff selected ID ${val.real_value}`);
-                    SetSelectedBuff({
-                      id: val.real_value,
-                      name: val.label,
-                      stacks: val.stacks,
-                    });
-                  }}
-                  value={buff}
-                  setValue={setBuff}
-                />
-              </div>
-
-              <Button
-                size={"lg"}
-                onClick={() => {
-                  if (!SelectedBuff) {
-                    return toast.error("Please select buff");
-                  }
-                  ApplyBuff(SelectedBuff);
-                }}
-              >
-                Apply
-              </Button>
-            </div>
-          </FeatureCardSwitch>
-
-          <FeatureCardSwitch title="Custom Buff ID" description="">
-            <div className="flex items-center gap-5">
-              <Input
-                placeholder="Enter buff id..."
-                className="h-10"
-                onChange={(e) => {
-                  const value = e.currentTarget.value;
-
-                  if (Number(value)) {
-                    SetBuffId(Number(value));
-                  } else {
-                    SetBuffId(null);
-                  }
-                }}
-              />
-              <Button
-                size={"lg"}
-                onClick={() => {
-                  if (!Buffid) {
-                    return toast.error("Invalid buff id");
-                  }
-                  UpdateBuffSelected({ id: Buffid, name: "Custom Buff", stacks: 1 });
-                  mutate({ onApplyBuff: { status: true, data: { id: Buffid, name: "custom" } } });
-                }}
-              >
-                Apply
-              </Button>
-            </div>
-          </FeatureCardSwitch>
-        </div>
-      </div>
-
-      {/* Player */}
-      <div className="flex flex-col gap-5 mt-5">
-        <h2 className="text-xl font-semibold ">Character Buff</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+    <section>
+      <FeatureWrapper>
+        <FeatureSection title="Character Buff">
           <FeatureCardSwitch
             title="Resonance Chain"
-            description="lorem adma msd asd as das"
+            description="Modify resonance chain."
             defaultCheck={feature.ResonanceChainModifier}
             onSwitch={() => {
               OnUpdateFeature("ResonanceChainModifier");
@@ -127,7 +59,7 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="Weapon Rank"
-            description="lorem adma msd asd as das"
+            description="Modify weapon rank."
             defaultCheck={feature.WeaponRankModifier}
             onSwitch={() => {
               OnUpdateFeature("WeaponRankModifier");
@@ -145,7 +77,7 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="+100% Critical Rate"
-            description="lorem adma msd asd as das"
+            description="Always crit."
             defaultCheck={feature.AlwaysCrit}
             onSwitch={() => {
               OnUpdateFeature("AlwaysCrit");
@@ -154,7 +86,7 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="Sprint Buff"
-            description="lorem adma msd asd as das sad asd asda dasd das sda asdas as dasd asda sda d asdas das das das dasd  asdas das "
+            description="Increase sprint speed."
             defaultCheck={feature.IllusiveSprint}
             onSwitch={() => {
               OnUpdateFeature("IllusiveSprint");
@@ -163,7 +95,7 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="One Hit Kill"
-            description="Dealing damage to enemy by 99% max hp enemy"
+            description="Damage 99% max HP."
             defaultCheck={feature.OneHitKill}
             onSwitch={() => {
               OnUpdateFeature("OneHitKill");
@@ -172,7 +104,7 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="Super Buff"
-            description="Increasing attribute character"
+            description="Boost character stats."
             defaultCheck={feature.SuperBuff}
             onSwitch={() => {
               OnUpdateFeature("SuperBuff");
@@ -198,17 +130,17 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="+50% Echoes"
-            description="Increasing echoes drop chance +50%"
+            description="Increase echo drop."
             defaultCheck={feature.EchoesBuff}
             onSwitch={() => {
               OnUpdateFeature("EchoesBuff");
             }}
-            Info={<p>Useless if your databank level over 15</p>}
+            Info={<p>Useless if databank {">"} 15</p>}
           />
 
           <FeatureCardSwitch
             title="+50% Material and Coin"
-            description="Increasing material and coin drop chance +50%"
+            description="Increase drops."
             defaultCheck={feature.MaterialShellBuff}
             onSwitch={() => {
               OnUpdateFeature("MaterialShellBuff");
@@ -217,7 +149,7 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="Ultimate Mode Zani"
-            description="Always on second form zani"
+            description="Always second form."
             defaultCheck={feature.Always2ndFormZani}
             onSwitch={() => {
               OnUpdateFeature("Always2ndFormZani");
@@ -226,65 +158,118 @@ export const Buff = () => {
 
           <FeatureCardSwitch
             title="Ultimate Mode Fleurdelys"
-            description="Skip animation transform to Fleurdelys mode"
+            description="Skip transform animation."
             defaultCheck={feature.Always2ndFormFleurdelys}
             onSwitch={() => {
               OnUpdateFeature("Always2ndFormFleurdelys");
             }}
           />
+        </FeatureSection>
+
+        <div className="flex flex-col gap-5">
+          <FeatureSection title="Custom Buff">
+            <FeatureCardSwitch title="Apply Custom Buff" description="">
+              <div className="flex items-center gap-4">
+                <div className="flex-1 min-w-0">
+                  <FeatureComboBox
+                    data={buffOptions}
+                    onSelect={(val) => {
+                      toast(`Buff selected ID ${val.real_value}`);
+                      SetSelectedBuff({
+                        id: val.real_value,
+                        name: val.label,
+                        stacks: val.stacks,
+                      });
+                    }}
+                    value={buff}
+                    setValue={setBuff}
+                  />
+                </div>
+
+                <Button
+                  size={"lg"}
+                  onClick={() => {
+                    if (!SelectedBuff) {
+                      return toast.error("Please select buff");
+                    }
+                    ApplyBuff(SelectedBuff);
+                  }}
+                >
+                  Apply
+                </Button>
+              </div>
+            </FeatureCardSwitch>
+
+            <FeatureCardSwitch title="Custom Buff ID" description="">
+              <div className="flex items-center gap-5">
+                <Input
+                  placeholder="Enter buff id..."
+                  className="h-10"
+                  onChange={(e) => {
+                    const value = e.currentTarget.value;
+                    if (Number(value)) SetBuffId(Number(value));
+                    else SetBuffId(null);
+                  }}
+                />
+                <Button
+                  size={"lg"}
+                  onClick={() => {
+                    if (!Buffid) return toast.error("Invalid buff id");
+                    UpdateBuffSelected({ id: Buffid, name: "Custom Buff", stacks: 1 });
+                    mutate({ onApplyBuff: { status: true, data: { id: Buffid, name: "custom" } } });
+                  }}
+                >
+                  Apply
+                </Button>
+              </div>
+            </FeatureCardSwitch>
+          </FeatureSection>
+
+          <FeatureSection title="Stats Modifier">
+            <FeatureCardSwitch
+              title="Enable Stat Modifier"
+              description="Allow stat modifications."
+              defaultCheck={feature.StatEnhancement}
+              onSwitch={() => {
+                OnUpdateFeature("StatEnhancement");
+              }}
+            />
+
+            <FeatureCardSwitch title="Attack" description="Increase attack +600 per stack.">
+              <FeatureSlider
+                defaultValue={feature.Atk!}
+                disabled={!feature.StatEnhancement}
+                maxValue={100}
+                onValueChange={(e) => {
+                  OnUpdateFeature("Atk", e);
+                }}
+              />
+            </FeatureCardSwitch>
+
+            <FeatureCardSwitch title="Critical Damage" description="Increase crit damage +20% per stack.">
+              <FeatureSlider
+                defaultValue={feature.Cdm!}
+                disabled={!feature.StatEnhancement}
+                maxValue={100}
+                onValueChange={(e) => {
+                  OnUpdateFeature("Cdm", e);
+                }}
+              />
+            </FeatureCardSwitch>
+
+            <FeatureCardSwitch title="Health" description="Increase HP +20% per stack.">
+              <FeatureSlider
+                defaultValue={feature.Hp!}
+                disabled={!feature.StatEnhancement}
+                maxValue={20}
+                onValueChange={(e) => {
+                  OnUpdateFeature("Hp", e);
+                }}
+              />
+            </FeatureCardSwitch>
+          </FeatureSection>
         </div>
-      </div>
-
-      {/* Ability */}
-      <div className="flex flex-col gap-5 mt-5">
-        <h2 className="text-xl font-semibold">Stats Modifier</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-          <FeatureCardSwitch
-            title="Enable Stat Modifier"
-            description="To allow modify your stat, please enable this"
-            defaultCheck={feature.StatEnhancement}
-            onSwitch={() => {
-              OnUpdateFeature("StatEnhancement");
-            }}
-          />
-
-          <FeatureCardSwitch title="Attack" description="Increasing attack by +600 per stack, maximum stack 100">
-            <FeatureSlider
-              defaultValue={feature.Atk!}
-              disabled={!feature.StatEnhancement}
-              maxValue={100}
-              onValueChange={(e) => {
-                OnUpdateFeature("Atk", e);
-              }}
-            />
-          </FeatureCardSwitch>
-
-          <FeatureCardSwitch
-            title="Critical Damage"
-            description="Increasing crit damage by +20% per stack, maximum stack 100"
-          >
-            <FeatureSlider
-              defaultValue={feature.Cdm!}
-              disabled={!feature.StatEnhancement}
-              maxValue={100}
-              onValueChange={(e) => {
-                OnUpdateFeature("Cdm", e);
-              }}
-            />
-          </FeatureCardSwitch>
-
-          <FeatureCardSwitch title="Health" description="Increasing Health by +20% per stack, maximum stack 20">
-            <FeatureSlider
-              defaultValue={feature.Hp!}
-              disabled={!feature.StatEnhancement}
-              maxValue={20}
-              onValueChange={(e) => {
-                OnUpdateFeature("Hp", e);
-              }}
-            />
-          </FeatureCardSwitch>
-        </div>
-      </div>
+      </FeatureWrapper>
     </section>
   );
 };

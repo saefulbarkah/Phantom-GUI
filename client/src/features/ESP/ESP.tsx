@@ -2,26 +2,30 @@
 
 import { UpdateEvent } from "@/API/Event";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
+import FeatureSection from "@/components/FeatureSection";
 import { FeatureSlider } from "@/components/FeatureSlider";
+import FeatureWrapper from "@/components/FeatureWrapper";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import React from "react";
 
 export const ESP = () => {
   const { feature, OnUpdateFeature } = useFeatureManager();
 
+  const triggerESPUpdate = () => {
+    UpdateEvent({ onESPTrigger: { status: true } });
+  };
+
   return (
-    <section className="flex flex-col gap-5">
-      {/* Player */}
-      <div className="flex flex-col gap-5">
-        <h2 className="text-xl font-semibold ">ESP</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+    <section>
+      <FeatureWrapper>
+        <FeatureSection title="ESP Options">
           <FeatureCardSwitch
-            title="ESP"
-            description="lorem adma msd asd as das"
+            title="Enable ESP"
+            description="Toggle ESP (Extra Sensory Perception) to visualize entities in the world"
             defaultCheck={feature.ESP}
             onSwitch={() => {
               OnUpdateFeature("ESP");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           >
             <FeatureSlider
@@ -30,148 +34,144 @@ export const ESP = () => {
               maxValue={500}
               onValueChange={(e) => {
                 OnUpdateFeature("ESPRadius", e);
-                UpdateEvent({ onESPTrigger: { status: true } });
+                triggerESPUpdate();
               }}
             />
           </FeatureCardSwitch>
 
           <FeatureCardSwitch
             title="Show Name"
-            description="lorem adma msd asd as das"
+            description="Display entity names above them"
             defaultCheck={feature.ShowName}
             onSwitch={() => {
               OnUpdateFeature("ShowName");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
             title="Show Distance"
-            description="lorem adma msd asd as das"
+            description="Show the distance from your character to the entity"
             defaultCheck={feature.ShowDistance}
             onSwitch={() => {
               OnUpdateFeature("ShowDistance");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
             title="Show Box"
-            description="lorem adma msd asd as das"
+            description="Draw a box around entities for easier tracking"
             defaultCheck={feature.ShowBox}
             onSwitch={() => {
               OnUpdateFeature("ShowBox");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
             title="Debug Entity"
-            description="lorem adma msd asd as das"
+            description="Display debug information for entities"
             defaultCheck={feature.DebugEntity}
             onSwitch={() => {
               OnUpdateFeature("DebugEntity");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
-        </div>
-      </div>
+        </FeatureSection>
 
-      {/* Ability */}
-      <div className="flex flex-col gap-5 mt-5">
-        <h2 className="text-xl font-semibold">ESP Filter</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+        <FeatureSection title="ESP Filters">
           <FeatureCardSwitch
-            title="Animal"
-            description="lorem adma msd asd as das"
+            title="Animals"
+            description="Display animals in ESP"
             defaultCheck={feature.ShowAnimal}
             onSwitch={() => {
               OnUpdateFeature("ShowAnimal");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
-            title="Blobify"
-            description="lorem adma msd asd as das"
+            title="Blobfly"
+            description="Display Blobfly creatures in ESP"
             defaultCheck={feature.ShowBlobfly}
             onSwitch={() => {
               OnUpdateFeature("ShowBlobfly");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
-            title="Monster"
-            description="lorem adma msd asd as das"
+            title="Monsters"
+            description="Display monsters in ESP"
             defaultCheck={feature.ShowMonster}
             onSwitch={() => {
               OnUpdateFeature("ShowMonster");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
-            title="Collection"
-            description="lorem adma msd asd as das"
+            title="Collections"
+            description="Display collectible items in ESP"
             defaultCheck={feature.ShowCollect}
             onSwitch={() => {
               OnUpdateFeature("ShowCollect");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
             title="Treasure"
-            description="lorem adma msd asd as das"
+            description="Display treasure chests in ESP"
             defaultCheck={feature.ShowTreasure}
             onSwitch={() => {
               OnUpdateFeature("ShowTreasure");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
-            title="Puzzle"
-            description="lorem adma msd asd as das"
+            title="Puzzles"
+            description="Display puzzle objects in ESP"
             defaultCheck={feature.ShowPuzzle}
             onSwitch={() => {
               OnUpdateFeature("ShowPuzzle");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
-            title="Casket"
-            description="lorem adma msd asd as das"
+            title="Caskets"
+            description="Display caskets in ESP"
             defaultCheck={feature.ShowCasket}
             onSwitch={() => {
               OnUpdateFeature("ShowCasket");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
-            title="Rock"
-            description="lorem adma msd asd as das"
+            title="Rocks"
+            description="Display rocks in ESP"
             defaultCheck={feature.ShowRock}
             onSwitch={() => {
               OnUpdateFeature("ShowRock");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
 
           <FeatureCardSwitch
-            title="Mutterfly"
-            description="lorem adma msd asd as das"
+            title="Butterflies"
+            description="Display butterflies in ESP"
             defaultCheck={feature.ShowMutterfly}
             onSwitch={() => {
               OnUpdateFeature("ShowMutterfly");
-              UpdateEvent({ onESPTrigger: { status: true } });
+              triggerESPUpdate();
             }}
           />
-        </div>
-      </div>
+        </FeatureSection>
+      </FeatureWrapper>
     </section>
   );
 };
