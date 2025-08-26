@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { z } from "zod";
+import { keyof, z } from "zod";
 import LOG from "../utils/logging";
 import { CheckIfConfigExist, LoadSettings, SaveSettings } from "../stores/settings-store";
 import { DEFAULT_KEYBINDS, KEY_TYPE } from "../const/Keybinds";
@@ -26,4 +26,25 @@ initializeKeybinds();
 
 export const GetKeybinds = async (req: Request, res: Response) => {
   res.json(keybinds);
+};
+
+export const UpdateKeybind = async (req: Request, res: Response) => {
+  const { action, key, type } = req.body as {
+    action: keyof KEY_TYPE;
+    type: string;
+    key: "string" | null;
+  };
+
+  if (!keybinds || !keybinds[action]) return res.json("Failed to update keybind");
+
+  keybinds[action].action = action;
+  keybinds[action].type = type;
+  keybinds[action].key = key;
+
+  res.json("Keybind updated");
+};
+
+export const SaveKeybindJSON = async (req: Request, res: Response) => {
+  await SaveSettings(keybinds, KEYBIND_CONFIG_NAME, "Keybind");
+  res.json("Keybind saved");
 };

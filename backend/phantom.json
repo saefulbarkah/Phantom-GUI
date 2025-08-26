@@ -48,7 +48,7 @@
   "Custom_Skills": 0,
   "Custom_Skills_id": 300520,
   "AutoDestroy": false,
-  "WorldSpeed": false,
+  "WorldSpeed": true,
   "WorldSpeedValue": 1,
   "ShowFPS": false,
   "PlotSkip": false,

@@ -1,4 +1,5 @@
 import fs from "fs";
+import LOG from "../utils/logging";
 
 export function CheckIfConfigExist(filePath: string) {
   if (fs.existsSync(filePath)) {
@@ -11,7 +12,7 @@ export function CheckIfConfigExist(filePath: string) {
 export async function SaveSettings<T>(setting: T, filePath: string, name: string) {
   const data = JSON.stringify(setting, null, 2);
   fs.writeFileSync(filePath, data, "utf-8");
-  console.log(`JSON ${name} saved!`);
+  LOG.SUCCESS(`${name} saved to json`);
 }
 
 export async function LoadSettings<T>(filePath: string, name: string): Promise<T | null> {

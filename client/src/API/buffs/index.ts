@@ -23,3 +23,9 @@ export async function LoadConfig() {
   const response = await API.get<{ data: TBuffs[] }>("/buffs/load");
   return response.data.data;
 }
+
+// load config
+export async function SaveBuffConfig() {
+  const response = await API.post("/buffs/save");
+  return response.data.data;
+}

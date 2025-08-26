@@ -21,3 +21,13 @@ export const UpdateSetting = async (data: TUpdateSetting) => {
     return null;
   }
 };
+
+export const SaveSettings = async () => {
+  try {
+    const response = await API.post("/settings/save");
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

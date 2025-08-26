@@ -6,6 +6,7 @@ import {
   GetBuffsettings,
   GetSelectedBuff,
   LoadBuffJSON,
+  SaveBuffConfigJSON,
   UpdateSelectedBuff,
 } from "../controller/BuffController";
 import { GetDungeons } from "../controller/DungeonController";
@@ -13,7 +14,7 @@ import { CheckConnection } from "../controller/ConnectionCheck";
 import { FilterAutoFarm, GetFilteredFarm, GetSonataLists, StoreSonataLists } from "../controller/FarmController";
 import { GetWeapons, OnAddWeapon, OnGetWeaponAdded, StoreWeapons } from "../controller/WeaponController";
 import { GetReplaceRole, GetRoles, ReplaceRole, StoreRoles } from "../controller/RoleController";
-import { GetKeybinds } from "../controller/KeybindController";
+import { GetKeybinds, SaveKeybindJSON, UpdateKeybind } from "../controller/KeybindController";
 
 const router = express.Router();
 
@@ -32,6 +33,7 @@ router.get("/buffs/check", GetSelectedBuff);
 router.get("/buffs/clear", ClearSelectedBuff);
 router.post("/buffs/update", UpdateSelectedBuff);
 router.post("/buffs/load", LoadBuffJSON);
+router.post("/buffs/save", SaveBuffConfigJSON);
 
 // Dungeon
 router.get("/dungeons", GetDungeons);
@@ -56,6 +58,8 @@ router.get("/farm/filter", GetFilteredFarm);
 
 // Keybind
 router.get("/keybind", GetKeybinds);
+router.post("/keybind", UpdateKeybind);
+router.post("/keybind/save", SaveKeybindJSON);
 
 // event callback
 router.get("/status", GetStatus);

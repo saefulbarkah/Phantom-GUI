@@ -93,3 +93,8 @@ export const LoadBuffJSON = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to update Buff" });
   }
 };
+
+export const SaveBuffConfigJSON = async (req: Request, res: Response) => {
+  await SaveSettings(state, filePath, "Buff");
+  res.json("Buff config saved");
+};
