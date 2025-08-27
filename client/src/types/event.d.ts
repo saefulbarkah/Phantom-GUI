@@ -23,7 +23,7 @@ export type TEvent = {
   onChangeUID?: TEventValue<{ uid: string; color: string }>;
   onShowFPS?: TEventValue;
   onESPTrigger?: TEventValue;
-  onTreasureTpOverlayTrigger?: TEventValue;
+  onTreasureTpOverlayTrigger?: TEventValue<{ IsEnabled: boolean }>;
   onUnlockFPS?: TEventValue;
   onFOVChanged?: TEventValue<{ fov: number }>;
   onKeybindChanged?: TEventValue<KeybindActionType>;

@@ -115,7 +115,9 @@ export const Misc = () => {
               defaultCheck={feature.TreasureTpOverlay}
               onSwitch={() => {
                 OnUpdateFeature("TreasureTpOverlay");
-                UpdateEvent({ onTreasureTpOverlayTrigger: { status: true } });
+                UpdateEvent({
+                  onTreasureTpOverlayTrigger: { status: true, data: { IsEnabled: !feature.TreasureTpOverlay } },
+                });
               }}
             />
           </FeatureSection>
