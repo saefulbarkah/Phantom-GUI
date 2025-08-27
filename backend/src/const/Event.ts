@@ -24,6 +24,7 @@ export const EventState = {
   onWorldSpeedChanged: { status: false, data: null },
   onPlayerSpeedChanged: { status: false, data: null },
   onNoClipChanged: { status: false, data: null },
+  onFreezeTime: { status: false, data: null },
 };
 
 // daftar event yang auto-reset
@@ -51,4 +52,5 @@ export const oneTimeEvents: (keyof typeof EventState)[] = [
   "onWorldSpeedChanged",
   "onPlayerSpeedChanged",
   "onNoClipChanged",
+  "onFreezeTime",
 ];

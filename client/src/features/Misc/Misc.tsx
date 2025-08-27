@@ -166,9 +166,10 @@ export const Misc = () => {
             <FeatureCardSwitch
               title="Freeze Time"
               description="Pause in-game time"
-              defaultCheck={feature.ShowFPS}
+              defaultCheck={feature.FreezeGameTime}
               onSwitch={() => {
                 OnUpdateFeature("FreezeGameTime");
+                UpdateEvent({ onFreezeTime: { status: true, data: { IsEnabled: !feature.FreezeGameTime } } });
               }}
               RightContent={
                 <KeybindInput

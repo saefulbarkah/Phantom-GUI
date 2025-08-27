@@ -30,4 +30,5 @@ export type TEvent = {
   onWorldSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;
   onPlayerSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;
   onNoClipChanged?: TEventValue<{ IsEnabled: boolean }>;
+  onFreezeTime?: TEventValue<{ IsEnabled: boolean }>;
 };
