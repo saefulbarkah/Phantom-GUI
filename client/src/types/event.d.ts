@@ -31,4 +31,5 @@ export type TEvent = {
   onPlayerSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;
   onNoClipChanged?: TEventValue<{ IsEnabled: boolean }>;
   onFreezeTime?: TEventValue<{ IsEnabled: boolean }>;
+  onCopyCoordinate?: TEventValue;
 };

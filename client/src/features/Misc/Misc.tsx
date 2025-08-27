@@ -1,6 +1,5 @@
 "use client";
 
-import { UpdateEvent } from "@/API/Event";
 import { FeatureCardSwitch } from "@/components/FeatureCard";
 import FeatureSection from "@/components/FeatureSection";
 import FeatureWrapper from "@/components/FeatureWrapper";
@@ -8,6 +7,7 @@ import { KeybindInput } from "@/components/KeybindInput";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useEventMutation } from "@/hooks/useEvent";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { useKeybind } from "@/hooks/useKeybind";
 import { hexToRgba } from "@/lib/utils";
@@ -24,6 +24,7 @@ export const Misc = () => {
   const [uidValue] = useDebounce(UID, 500);
   const [uidColorValue] = useDebounce(UIDColor, 500);
   const { keybind, UpdateKeybind } = useKeybind();
+  const { mutateAsync: UpdateEvent } = useEventMutation();
 
   const ChangeUID = async () => {
     try {
@@ -45,6 +46,7 @@ export const Misc = () => {
     if (feature.UIDColor) setUIDColor(feature.UIDColor);
     if (feature.UID) setUid(feature.UID);
     if (feature.ShowFPS) UpdateEvent({ onShowFPS: { status: true } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feature.UID, feature.UIDColor, feature.ShowFPS]);
 
   useEffect(() => {
@@ -187,7 +189,13 @@ export const Misc = () => {
                     keybind={keybind.CopyTpCordinate.key}
                     onBind={(key) => UpdateKeybind({ action: "CopyTpCordinate", key: key })}
                   />
-                  <Button>Copy</Button>
+                  <Button
+                    onClick={() => {
+                      UpdateEvent({ onCopyCoordinate: { status: true } });
+                    }}
+                  >
+                    Copy
+                  </Button>
                 </div>
               }
             />
