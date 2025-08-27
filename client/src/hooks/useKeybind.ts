@@ -36,6 +36,24 @@ export const useKeybind = () => {
   });
 
   const UpdateKeybind = (data: Pick<KeybindActionType, "action" | "key">) => {
+    const state = useKeybindStore.getState();
+    const { keybind, SetKeybind } = state;
+
+    // cari action lain yang punya key sama
+    const conflictingAction = Object.entries(keybind).find(
+      ([action, info]) => info.key === data.key && action !== data.action
+    );
+
+    if (conflictingAction) {
+      const [otherAction] = conflictingAction;
+      const typedAction = otherAction as ActionName;
+      SetKeybind(otherAction as ActionName, { ...keybind[typedAction], key: null });
+      UpdateKeyToServer({ ...keybind[typedAction], key: null, type: "toggle" });
+      SendEvent({
+        onKeybindChanged: { status: true, data: { ...keybind[typedAction], key: null, type: "Toggle" } },
+      });
+    }
+
     SendEvent({ onKeybindChanged: { status: true, data: { ...data, type: "Toggle" } } }).catch((err) =>
       console.error(err)
     );
