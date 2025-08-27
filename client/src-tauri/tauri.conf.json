@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "phantom-gui",
   "mainBinaryName": "phantom-gui",
-  "version": "0.9.0",
+  "version": "0.9.1-beta",
   "identifier": "phantom-gui",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -29,6 +29,11 @@
     "active": true,
     "targets": "all",
     "icon": ["icons/kafka-logo.ico"],
-    "externalBin": ["binaries/phantom"]
+    "externalBin": ["binaries/phantom"],
+    "windows": {
+      "nsis": {
+        "installMode": "perMachine"
+      }
+    }
   }
 }
