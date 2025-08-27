@@ -29,11 +29,6 @@
     "active": true,
     "targets": "all",
     "icon": ["icons/kafka-logo.ico"],
-    "externalBin": ["binaries/phantom"],
-    "windows": {
-      "nsis": {
-        "installMode": "perMachine"
-      }
-    }
+    "externalBin": ["binaries/phantom"]
   }
 }
