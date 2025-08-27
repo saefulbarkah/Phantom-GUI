@@ -24,7 +24,7 @@ export type TEvent = {
   onShowFPS?: TEventValue;
   onESPTrigger?: TEventValue;
   onTreasureTpOverlayTrigger?: TEventValue<{ IsEnabled: boolean }>;
-  onUnlockFPS?: TEventValue;
+  onUnlockFPS?: TEventValue<{ IsEnabled: boolean }>;
   onFOVChanged?: TEventValue<{ fov: number }>;
   onKeybindChanged?: TEventValue<KeybindActionType>;
   onWorldSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;

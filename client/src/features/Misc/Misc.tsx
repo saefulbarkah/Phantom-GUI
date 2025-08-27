@@ -94,7 +94,7 @@ export const Misc = () => {
               defaultCheck={feature.FPSUnlocker}
               onSwitch={() => {
                 OnUpdateFeature("FPSUnlocker");
-                UpdateEvent({ onUnlockFPS: { status: true } });
+                UpdateEvent({ onUnlockFPS: { status: true, data: { IsEnabled: !feature.FPSUnlocker } } });
               }}
             />
           </FeatureSection>
