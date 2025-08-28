@@ -199,6 +199,14 @@ export const Misc = () => {
                 </div>
               }
             />
+            <FeatureCardSwitch
+              title="Feature Notification"
+              description="Turn the in-game notification indicator on or off"
+              defaultCheck={feature.FeatureNotification}
+              onSwitch={() => {
+                OnUpdateFeature("FeatureNotification");
+              }}
+            />
           </FeatureSection>
         </div>
       </FeatureWrapper>
