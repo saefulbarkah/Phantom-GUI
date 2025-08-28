@@ -70,7 +70,7 @@ function About() {
       <div className="w-full h-[1px] bg-gray-800"></div>
       <div className="flex flex-col">
         <h2 className="text-2xl font-semibold">Our Team</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-5 mt-5">
           {Profiles.map((item, i) => (
             <ProfileCard discord={item.discord} name={item.name} tag={item.tag} image={item.image} key={i} />
           ))}
