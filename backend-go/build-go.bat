@@ -1,1 +1,0 @@
-go build -ldflags "-s -w" -o build/main.exe main.go
