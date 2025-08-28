@@ -18,6 +18,12 @@ const Profiles: ProfileCardTypes[] = [
     image: "https://avatar.iran.liara.run/public/22",
   },
   {
+    name: "HoyHeúM",
+    discord: "@k0ctu4ek",
+    tag: ["Contributor"],
+    image: "https://avatar.iran.liara.run/public/22",
+  },
+  {
     name: "Mickey",
     discord: "@lovelymickey_",
     tag: ["Supporter"],
