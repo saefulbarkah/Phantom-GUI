@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import z from "zod";
 import LOG from "../utils/logging";
+import { SaveSettings } from "../stores/settings-store";
 
 const TSonataSchema = z.object({
   id: z.number().min(1),
@@ -76,7 +77,7 @@ export async function StoreSonataLists(req: Request, res: Response) {
   LOG.SUCCESS(`${sonataList.length} sonata was loaded`);
 
   sonataLists = [...sonataLists, ...sonataList];
-  // await SaveSettings(sonataLists, filePath, "phantom-farm");
+  await SaveSettings(sonataLists, "resources/farm.json", "phantom-farm");
   return res.json(sonataLists);
 }
 
