@@ -50,6 +50,10 @@ const Routes: TRoute[] = [
     href: "/camera",
   },
   {
+    label: "Teleport",
+    href: "/teleport",
+  },
+  {
     label: "ESP",
     href: "/esp",
   },
@@ -80,8 +84,8 @@ function Sidebar() {
   const { NetworkStatus } = useFeatureManager();
   return (
     <aside className="fixed left-0 top-[72px] h-[calc(100vh-72px)] w-56 border-r border-r-slate-400/15 overflow-hidden select-none bg-background">
-      <div className="h-full">
-        <ScrollArea className="w-full h-[calc(100vh-120px)] relative">
+      <div className="h-full w-full relative">
+        <ScrollArea className="w-full h-[calc(100vh-130px)]">
           <div className="flex flex-col gap-2 mt-5 px-5">
             {Routes.map((item, i) => (
               <SideNav key={i} href={item.href}>
@@ -90,7 +94,7 @@ function Sidebar() {
             ))}
           </div>
         </ScrollArea>
-        <div className="px-5 shadow-xl shadow-slate-200">
+        <div className="px-5 border-t border-t-slate-400/15 absolute h-12 right-0 bottom-0 left-0">
           <div className="flex items-center justify-center gap-2 h-12 shrink-0 text-sm text-slate-400">
             <div className="flex items-center gap-2">
               {NetworkStatus === "connected" ? (
