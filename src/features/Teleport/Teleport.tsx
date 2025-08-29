@@ -140,7 +140,6 @@ export const Teleport = () => {
                       UpdateKeybind({ action: "NextTp", key: key });
                     }}
                   />
-                  <Button>Teleport</Button>
                 </div>
               }
             />
@@ -156,7 +155,6 @@ export const Teleport = () => {
                       UpdateKeybind({ action: "PrevTp", key: key });
                     }}
                   />
-                  <Button>Teleport</Button>
                 </div>
               }
             />
