@@ -25,6 +25,7 @@ export const Teleport = () => {
     SetTeleportSelected,
     teleportSelected,
   } = useTeleportState();
+
   const { data: teleport, refetch: refetchTeleport } = useTeleportFile(fileName);
   const { query } = useTeleport();
   const { mutate: SendEvent } = useEventMutation();
@@ -44,7 +45,7 @@ export const Teleport = () => {
 
   const filterTeleports = useMemo(() => {
     return (
-      teleport.map((item) => ({
+      teleport?.map((item) => ({
         label: item.name,
         value: `${item.id}`,
         data: { ...item },
@@ -52,12 +53,17 @@ export const Teleport = () => {
     );
   }, [teleport]);
 
-  const SendTeleport = (IsStart: boolean, type: "AUTO" | "MANUAL" | "LOOP") => {
-    SendEvent({ onTeleport: { status: true, data: { enabled: IsStart, data: [], type: type } } });
+  const SendTeleport = (enabled: boolean, type: "AUTO" | "MANUAL" | "LOOP") => {
+    SendEvent({
+      onTeleport: {
+        status: true,
+        data: { enabled, data: [], type },
+      },
+    });
   };
 
   useEffect(() => {
-    if (teleport.length === 0) return;
+    if (!teleport || teleport.length === 0) return;
     SendEvent({
       onTeleport: {
         status: true,
@@ -76,8 +82,8 @@ export const Teleport = () => {
       <FeatureWrapper>
         <div className="flex flex-col gap-5">
           <FeatureSection
-            title="Custom Teleport"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, pariatur."
+            title="Teleport Manager"
+            description="Manage teleport files and locations easily for fast travel."
           >
             <FeatureCardSwitch>
               <div className="mt-3">
@@ -88,8 +94,8 @@ export const Teleport = () => {
                     value={fileName}
                     setValue={(s) => SetFileName(s as string)}
                     onSelect={(d) => {
-                      toast(`Filename selected ${d.filename}`);
-                      SetTargetName(""); // auto reset when select filename
+                      toast(`File selected: ${d.filename}`);
+                      SetTargetName(""); // reset when selecting a new file
                     }}
                   />
 
@@ -107,10 +113,18 @@ export const Teleport = () => {
                   <Button
                     className="flex-1"
                     onClick={() => {
+                      if (!teleportSelected) {
+                        toast.error("Please select a teleport target first");
+                        return;
+                      }
                       SendEvent({
                         onTeleport: {
                           status: true,
-                          data: { type: "MANUAL", data: [{ ...teleportSelected! }], enabled: true },
+                          data: {
+                            type: "MANUAL",
+                            data: [{ ...teleportSelected }],
+                            enabled: true,
+                          },
                         },
                       });
                     }}
@@ -123,6 +137,7 @@ export const Teleport = () => {
                     onClick={() => {
                       query.refetch();
                       refetchTeleport();
+                      toast.success("Teleport data refreshed");
                     }}
                   >
                     <RefreshCcw />
@@ -133,13 +148,13 @@ export const Teleport = () => {
 
             <FeatureCardSwitch
               title="Next Teleport"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, pariatur."
+              description="Use a hotkey to jump to the next teleport target."
               RightContent={
                 <div className="flex items-center gap-2">
                   <KeybindInput
                     keybind={keybind.NextTp.key}
                     onBind={(key) => {
-                      UpdateKeybind({ action: "NextTp", key: key });
+                      UpdateKeybind({ action: "NextTp", key });
                     }}
                   />
                 </div>
@@ -148,13 +163,13 @@ export const Teleport = () => {
 
             <FeatureCardSwitch
               title="Previous Teleport"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, pariatur."
+              description="Use a hotkey to go back to the previous teleport target."
               RightContent={
                 <div className="flex items-center gap-2">
                   <KeybindInput
                     keybind={keybind.PrevTp.key}
                     onBind={(key) => {
-                      UpdateKeybind({ action: "PrevTp", key: key });
+                      UpdateKeybind({ action: "PrevTp", key });
                     }}
                   />
                 </div>
@@ -163,7 +178,7 @@ export const Teleport = () => {
 
             <FeatureCardSwitch
               title="Auto Teleport"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, pariatur."
+              description="Enable automatic teleport."
               defaultCheck={IsAutoTeleport}
               onSwitch={() => {
                 SetAutoTeleport(!IsAutoTeleport);
@@ -173,7 +188,7 @@ export const Teleport = () => {
 
             <FeatureCardSwitch
               title="Loop Teleport"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, pariatur."
+              description="Enable continuous loop teleport between targets."
               defaultCheck={IsLoopEnabled}
               onSwitch={() => {
                 SetLoopTeleport(!IsLoopEnabled);
