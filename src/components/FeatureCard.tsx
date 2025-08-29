@@ -4,6 +4,7 @@ import React from "react";
 import { Switch } from "./ui/switch";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { CircleAlert } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 type TFeatureCard = React.ComponentProps<"div"> & {
   title?: string;
@@ -26,9 +27,10 @@ export const FeatureCardSwitch = ({
   Info,
   disabled = false,
   RightContent,
+  className,
 }: TFeatureCard) => {
   return (
-    <div className="py-6 first:pt-0 last:pb-0">
+    <div className={cn("py-6 first:pt-0 last:pb-0", className)}>
       <div className="flex gap-5 w-full transition items-start">
         <div className="flex flex-col gap-2 flex-1 min-w-0 pr-5">
           <div className="flex items-center gap-2">
