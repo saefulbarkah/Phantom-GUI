@@ -29,6 +29,7 @@
     "active": true,
     "targets": "all",
     "icon": ["icons/kafka-logo.ico"],
-    "externalBin": ["binaries/phantom"]
+    "externalBin": ["binaries/phantom"],
+    "resources": ["resources/**/*"]
   }
 }

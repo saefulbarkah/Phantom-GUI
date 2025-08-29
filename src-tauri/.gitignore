@@ -3,6 +3,7 @@
 /target/
 /gen/schemas
 /binaries/
+/resources/
 phantom-buff.json
 phantom-dungeon.json
 phantom.json
