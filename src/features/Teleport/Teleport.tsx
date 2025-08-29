@@ -32,11 +32,13 @@ export const Teleport = () => {
 
   const teleports = useMemo(() => {
     return (
-      query.data?.map((item) => ({
-        label: item.name,
-        value: item.filename,
-        ...item,
-      })) ?? []
+      query.data
+        ?.map((item) => ({
+          label: item.name,
+          value: item.filename,
+          ...item,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name)) ?? []
     );
   }, [query.data]);
 
