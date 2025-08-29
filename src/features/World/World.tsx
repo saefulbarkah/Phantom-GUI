@@ -238,7 +238,7 @@ export const World = () => {
           <FeatureCardSwitch
             title="Auto Solve Puzzle"
             description="Solve puzzles automatically."
-            defaultCheck={feature.AutoParry}
+            defaultCheck={feature.AutoPuzzle}
             onSwitch={() => {
               OnUpdateFeature("AutoPuzzle");
             }}
