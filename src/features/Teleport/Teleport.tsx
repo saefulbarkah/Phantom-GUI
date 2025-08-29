@@ -42,7 +42,7 @@ export const Teleport = () => {
 
   const filterTeleports = useMemo(() => {
     return (
-      teleport?.map((item) => ({
+      teleport.map((item) => ({
         label: item.name,
         value: `${item.id}`,
         data: { ...item },
@@ -55,13 +55,13 @@ export const Teleport = () => {
   };
 
   useEffect(() => {
-    if (teleport && teleport.length === 0) return;
+    if (teleport.length === 0) return;
     SendEvent({
       onTeleport: {
         status: true,
         data: {
           type: "BIND",
-          data: teleport!,
+          data: teleport,
           enabled: true,
         },
       },
@@ -130,7 +130,7 @@ export const Teleport = () => {
             </FeatureCardSwitch>
 
             <FeatureCardSwitch
-              title="Next Location"
+              title="Next Teleport"
               description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, pariatur."
               RightContent={
                 <div className="flex items-center gap-2">
@@ -145,7 +145,7 @@ export const Teleport = () => {
             />
 
             <FeatureCardSwitch
-              title="Previous Location"
+              title="Previous Teleport"
               description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, pariatur."
               RightContent={
                 <div className="flex items-center gap-2">

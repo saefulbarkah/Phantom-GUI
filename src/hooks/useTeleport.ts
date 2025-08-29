@@ -44,6 +44,7 @@ export const useTeleportState = create<teleportState>((set) => ({
 
 export const useTeleportFile = (filename: string) => {
   return useQuery({
+    initialData: [],
     queryKey: ["teleport-file", filename],
     queryFn: () => GetTeleportFile(filename),
     enabled: filename !== "",
