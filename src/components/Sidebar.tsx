@@ -5,7 +5,7 @@ import React, { HTMLAttributes } from "react";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
 import { ScrollArea } from "./ui/scroll-area";
-import { useFeatureManager } from "@/hooks/useFeatureManager";
+import useFeatureManagerStore from "@/stores/feature-manager";
 
 type TRoute = {
   label: string;
@@ -81,7 +81,7 @@ const SideNav = ({ href, children }: LinkProps & HTMLAttributes<HTMLAnchorElemen
 };
 
 function Sidebar() {
-  const { NetworkStatus } = useFeatureManager();
+  const NetworkStatus = useFeatureManagerStore((state) => state.NetworkStatus);
   return (
     <aside className="fixed left-0 top-[72px] h-[calc(100vh-72px)] w-56 border-r border-r-slate-400/15 overflow-hidden select-none bg-background">
       <div className="h-full w-full relative">

@@ -17,7 +17,7 @@ export const QueryProvider = ({ children }: React.ComponentProps<"div">) => {
   });
 
   const RunServer = async () => {
-    const t = toast.loading("Connecting to server...");
+    const t = toast.loading("Starting server...");
     const command = Command.sidecar("binaries/phantom");
 
     command.spawn().then((child) => {
@@ -29,7 +29,7 @@ export const QueryProvider = ({ children }: React.ComponentProps<"div">) => {
         child.kill();
       });
 
-      toast.success("Server connected", { id: t });
+      toast.success("Server started", { id: t });
     });
   };
 
