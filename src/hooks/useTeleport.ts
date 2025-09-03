@@ -46,7 +46,7 @@ export const useTeleportFile = (filename: string) => {
   return useQuery({
     initialData: [],
     queryKey: ["teleport-file", filename],
-    queryFn: () => GetTeleportFile(filename),
+    queryFn: () => GetTeleportFile(encodeURIComponent(filename)),
     enabled: filename !== "",
   });
 };
