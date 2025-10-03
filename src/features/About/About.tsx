@@ -47,6 +47,12 @@ const Profiles: ProfileCardTypes[] = [
     tag: ["Supporter"],
     image: "https://avatar.iran.liara.run/public/22",
   },
+  {
+    name: "Scott~",
+    discord: "@scottayato",
+    tag: ["Supporter"],
+    image: "https://avatar.iran.liara.run/public/22",
+  },
 ];
 
 function About() {
