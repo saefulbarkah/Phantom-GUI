@@ -65,7 +65,6 @@ export const useKeybind = () => {
 
     payload.push({
       ...data,
-      key: null,
       type: "Toggle",
     });
 
