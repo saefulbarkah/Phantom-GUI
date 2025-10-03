@@ -36,6 +36,8 @@ export const useKeybind = () => {
   });
 
   const UpdateKeybind = (data: Pick<KeybindActionType, "action" | "key">) => {
+    const payload: KeybindActionType[] = [];
+
     const state = useKeybindStore.getState();
     const { keybind, SetKeybind } = state;
 
@@ -49,14 +51,25 @@ export const useKeybind = () => {
       const typedAction = otherAction as ActionName;
       SetKeybind(otherAction as ActionName, { ...keybind[typedAction], key: null });
       UpdateKeyToServer({ ...keybind[typedAction], key: null, type: "toggle" });
-      SendEvent({
-        onKeybindChanged: { status: true, data: { ...keybind[typedAction], key: null, type: "Toggle" } },
+
+      // SendEvent({
+      //   onKeybindChanged: { status: true, data: { ...keybind[typedAction], key: null, type: "Toggle" } },
+      // });
+
+      payload.push({
+        ...keybind[typedAction],
+        key: null,
+        type: "Toggle",
       });
     }
 
-    SendEvent({ onKeybindChanged: { status: true, data: { ...data, type: "Toggle" } } }).catch((err) =>
-      console.error(err)
-    );
+    payload.push({
+      ...data,
+      key: null,
+      type: "Toggle",
+    });
+
+    SendEvent({ onKeybindChanged: { status: true, data: payload } }).catch((err) => console.error(err));
     SetKeybind(data.action, { ...data, type: "Toggle" });
     UpdateKeyToServer({ ...data, type: "toggle" });
   };

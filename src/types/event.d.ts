@@ -27,7 +27,7 @@ export type TEvent = {
   onTreasureTpOverlayTrigger?: TEventValue<{ IsEnabled: boolean }>;
   onUnlockFPS?: TEventValue<{ IsEnabled: boolean }>;
   onFOVChanged?: TEventValue<{ fov: number }>;
-  onKeybindChanged?: TEventValue<KeybindActionType>;
+  onKeybindChanged?: TEventValue<KeybindActionType[]>;
   onWorldSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;
   onPlayerSpeedChanged?: TEventValue<{ IsEnabled: boolean }>;
   onNoClipChanged?: TEventValue<{ IsEnabled: boolean }>;
