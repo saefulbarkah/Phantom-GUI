@@ -1,5 +1,5 @@
 "use client";
-import { CheckConnection } from "@/API/test";
+import { GetConnection } from "@/API/test";
 import { useBuffs } from "@/hooks/useBuffs";
 import { useDungeons } from "@/hooks/useDungeons";
 import { useFarms } from "@/hooks/useFarms";
@@ -12,7 +12,15 @@ export const FeatureBinder = () => {
   const { setFeature, SetFeatureReady, SetNetworkStatus } = useFeatureManager();
 
   // Initial queries
-  const connection = useQuery({ queryKey: ["connection"], queryFn: CheckConnection });
+  const connection = useQuery({
+    queryKey: ["connection"],
+    queryFn: GetConnection,
+    refetchInterval: (d) => {
+      if (!d.state.data?.data.IsConnected) return 3000;
+      return false;
+    },
+  });
+
   const queryBuffs = useBuffs();
   const queryDungeon = useDungeons();
   const queryFarm = useFarms();
@@ -25,13 +33,14 @@ export const FeatureBinder = () => {
       queryBuffs.isSuccess &&
       queryDungeon.isSuccess &&
       queryFarm.isSuccess &&
-      querykeybind.isSuccess
+      querykeybind.isSuccess &&
+      connection.data?.data?.IsConnected
     ) {
       SyncKeybinds(querykeybind.data);
       setFeature(queryFeature.data?.data);
       SetFeatureReady(true);
       SetNetworkStatus("connected");
-    } else if (connection.failureCount > 0 && connection.isFetching) {
+    } else if (connection.isSuccess && !connection.data?.data?.IsConnected) {
       SetNetworkStatus("reconnect");
     } else {
       SetNetworkStatus("disconnected");
@@ -42,8 +51,8 @@ export const FeatureBinder = () => {
     queryBuffs.isSuccess,
     queryDungeon.isSuccess,
     queryFarm.isSuccess,
-    connection.failureCount,
     connection.isFetching,
+    connection.isError,
   ]);
 
   return null;
