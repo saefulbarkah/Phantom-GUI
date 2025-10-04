@@ -25,6 +25,16 @@ export const Misc = () => {
   const ChangeUID = async () => {
     try {
       await OnUpdateFeature("UID", UID);
+
+      await UpdateEvent({
+        onChangeUID: {
+          status: true,
+          data: {
+            color: UIDColor,
+            uid: UID,
+          },
+        },
+      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to change UID");
@@ -34,6 +44,16 @@ export const Misc = () => {
   const ChangeUIDColor = async () => {
     try {
       await OnUpdateFeature("UIDColor", UIDColor);
+
+      await UpdateEvent({
+        onChangeUID: {
+          status: true,
+          data: {
+            color: UIDColor,
+            uid: UID,
+          },
+        },
+      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to change UID");
