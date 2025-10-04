@@ -61,6 +61,17 @@ export const Navbar = () => {
               </TooltipTrigger>
               <TooltipContent>Maximize</TooltipContent>
             </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  className="bg-red-500 w-4 h-4 rounded-full p-0 hover:bg-red-400 relative"
+                  onClick={() => {
+                    appWindow().close();
+                  }}
+                />
+              </TooltipTrigger>
+              <TooltipContent>Close App</TooltipContent>
+            </Tooltip>
           </div>
         </div>
       </div>
