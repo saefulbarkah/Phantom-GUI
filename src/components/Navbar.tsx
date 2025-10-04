@@ -28,16 +28,22 @@ export const Navbar = () => {
         </div>
         <div className={`flex-1 h-full hover:cursor-grab`} ref={ref} />
         <div className="flex items-center gap-5">
-          <Button
-            onClick={() => {
-              SaveSettings();
-              SaveKeybinds();
-              SaveBuffConfig();
-              toast.success("Config saved");
-            }}
-          >
-            <SaveIcon />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={() => {
+                  SaveSettings();
+                  SaveKeybinds();
+                  SaveBuffConfig();
+                  toast.success("Config saved");
+                }}
+              >
+                <SaveIcon />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Save Config</TooltipContent>
+          </Tooltip>
+
           <div className="flex items-center justify-center gap-2 drag">
             <Tooltip>
               <TooltipTrigger asChild>
