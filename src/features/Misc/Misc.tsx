@@ -14,28 +14,26 @@ import { hexToRgba } from "@/lib/utils";
 import { Wheel } from "@uiw/react-color";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDebounce } from "use-debounce";
 
 export const Misc = () => {
-  const [isInitial, setIsInitial] = useState(true);
   const [UIDColor, setUIDColor] = useState("#aabbcc");
   const [UID, setUid] = useState("");
   const { feature, OnUpdateFeature } = useFeatureManager();
-  const [uidValue] = useDebounce(UID, 500);
-  const [uidColorValue] = useDebounce(UIDColor, 500);
   const { keybind, UpdateKeybind } = useKeybind();
   const { mutateAsync: UpdateEvent } = useEventMutation();
 
   const ChangeUID = async () => {
     try {
       await OnUpdateFeature("UID", UID);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to change UID");
+    }
+  };
+
+  const ChangeUIDColor = async () => {
+    try {
       await OnUpdateFeature("UIDColor", UIDColor);
-      await UpdateEvent({
-        onChangeUID: {
-          status: true,
-          data: { uid: UID, color: UIDColor },
-        },
-      });
     } catch (error) {
       console.error(error);
       toast.error("Failed to change UID");
@@ -48,15 +46,6 @@ export const Misc = () => {
     if (feature.ShowFPS) UpdateEvent({ onShowFPS: { status: true } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feature.UID, feature.UIDColor, feature.ShowFPS]);
-
-  useEffect(() => {
-    if (isInitial) {
-      setIsInitial(false);
-      return; // skip first render
-    }
-    ChangeUID();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uidValue, uidColorValue]);
 
   return (
     <section>
@@ -130,26 +119,36 @@ export const Misc = () => {
             <FeatureCardSwitch title="Custom UID" description="Set custom UID to display">
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
                 <p>UID</p>
-                <Input value={UID} onChange={(e) => setUid(e.currentTarget.value)} />
+                <div className="flex items-center gap-2">
+                  <Input value={UID} onChange={(e) => setUid(e.currentTarget.value)} />
+                  <Button className="w-26" onClick={() => ChangeUID()}>
+                    Update
+                  </Button>
+                </div>
               </div>
             </FeatureCardSwitch>
 
             <FeatureCardSwitch title="UID Color" description="Set custom color for UID">
               <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 items-center">
                 <p>Color</p>
-                <div className="min-w-0">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button className="w-full" style={{ backgroundColor: hexToRgba(UIDColor, 0.05) }}>
-                        <span className="truncate" style={{ color: UIDColor }}>
-                          {UID}
-                        </span>
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full rounded-full">
-                      <Wheel color={UIDColor} onChange={(color) => setUIDColor(color.hex)} />
-                    </PopoverContent>
-                  </Popover>
+                <div className="flex items-center gap-2">
+                  <div className="w-full">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button className="w-full" style={{ backgroundColor: hexToRgba(UIDColor, 0.05) }}>
+                          <span className="truncate" style={{ color: UIDColor }}>
+                            {UID}
+                          </span>
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-full rounded-full">
+                        <Wheel color={UIDColor} onChange={(color) => setUIDColor(color.hex)} />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                  <Button className="w-26" onClick={() => ChangeUIDColor()}>
+                    Update
+                  </Button>
                 </div>
               </div>
             </FeatureCardSwitch>
