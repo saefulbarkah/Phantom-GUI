@@ -85,6 +85,23 @@ export const KeybindInput = ({ onBind, keybind }: KeyBindInputProps) => {
     }
   };
 
+  const formatMouseUE4 = (button: number) => {
+    switch (button) {
+      case 0:
+        return "LeftMouseButton";
+      case 1:
+        return "MiddleMouseButton";
+      case 2:
+        return "RightMouseButton";
+      case 3:
+        return "ThumbMouseButton";
+      case 4:
+        return "ThumbMouseButton2";
+      default:
+        return null;
+    }
+  };
+
   const handleStartListening = () => {
     setListening(true);
 
@@ -108,7 +125,16 @@ export const KeybindInput = ({ onBind, keybind }: KeyBindInputProps) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
 
+    const handleMouse = (e: MouseEvent) => {
+      e.preventDefault();
+      const format = formatMouseUE4(e.button);
+      setListening(false);
+      if (onBind) onBind(format);
+      window.removeEventListener("auxclick", handleMouse);
+    };
+
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("auxclick", handleMouse);
   };
 
   return (
