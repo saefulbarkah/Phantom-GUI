@@ -1,6 +1,7 @@
 "use client";
 import { GetConnection } from "@/API/test";
 import { useBuffs } from "@/hooks/useBuffs";
+import { useSendConnection } from "@/hooks/useConnection";
 import { useDungeons } from "@/hooks/useDungeons";
 import { useFarms } from "@/hooks/useFarms";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
@@ -26,6 +27,7 @@ export const FeatureBinder = () => {
   const queryFarm = useFarms();
   const { queryFeature } = useFeatureManager();
   const { querykeybind, SyncKeybinds } = useKeybind();
+  const { mutate } = useSendConnection();
 
   React.useEffect(() => {
     if (
@@ -41,8 +43,10 @@ export const FeatureBinder = () => {
       SetFeatureReady(true);
       SetNetworkStatus("connected");
     } else if (connection.isSuccess && !connection.data?.data?.IsConnected) {
+      mutate(true);
       SetNetworkStatus("reconnect");
     } else {
+      mutate(true);
       SetNetworkStatus("disconnected");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
