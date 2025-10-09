@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "phantom-gui",
   "mainBinaryName": "phantom-gui",
-  "version": "1.0",
+  "version": "1.0.0",
   "identifier": "phantom-gui",
   "build": {
     "beforeDevCommand": "npm run dev",
