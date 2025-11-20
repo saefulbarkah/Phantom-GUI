@@ -1,5 +1,6 @@
 #[cfg(windows)]
 use std::path::Path;
+use std::process::Command;
 
 #[tauri::command]
 pub fn run_detached(program: String, args: Vec<String>) -> Result<(), String> {
@@ -48,4 +49,27 @@ pub fn run_detached(program: String, args: Vec<String>) -> Result<(), String> {
     }
 
     Ok(())
+}
+
+#[tauri::command]
+pub fn is_process_running(process_name: String) -> bool {
+    #[cfg(windows)]
+    {
+        if let Ok(output) = Command::new("tasklist").output() {
+            let stdout = String::from_utf8_lossy(&output.stdout).to_lowercase();
+            stdout.contains(&process_name.to_lowercase())
+        } else {
+            false
+        }
+    }
+
+    #[cfg(not(windows))]
+    {
+        if let Ok(output) = std::process::Command::new("ps").arg("aux").output() {
+            let stdout = String::from_utf8_lossy(&output.stdout).to_lowercase();
+            stdout.contains(&process_name.to_lowercase())
+        } else {
+            false
+        }
+    }
 }

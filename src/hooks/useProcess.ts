@@ -1,21 +1,14 @@
 import { invoke } from "@tauri-apps/api/core";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
 type TProcess = {
-  IsProcessRunning: boolean;
-  setProcessRunning: (value: boolean) => void;
   launcherPath: string;
   setLauncherPath: (path: string) => void;
 };
 
 const useProcessState = create<TProcess>((set) => ({
-  IsProcessRunning: false,
-  setProcessRunning: (path) =>
-    set(() => ({
-      IsProcessRunning: path,
-    })),
-
   launcherPath: "",
   setLauncherPath: (path) =>
     set(() => ({
@@ -43,9 +36,30 @@ export const useProcess = () => {
     }
   };
 
-  const CheckIsProcessRunning = () => {
-    return processState.IsProcessRunning;
+  return { exec, ...processState };
+};
+
+export const useProcessStatus = (processName: string, intervalMs = 5000) => {
+  const [IsProcessRunning, setProcessRunning] = useState<boolean>();
+
+  const refresh = async () => {
+    const state = await invoke<boolean>("is_process_running", { processName });
+    setProcessRunning(state);
   };
 
-  return { exec, CheckIsProcessRunning, ...processState };
+  useEffect(() => {
+    // refresh pertama
+    refresh();
+
+    // interval
+    const id = setInterval(() => {
+      refresh();
+    }, intervalMs);
+
+    // cleanup
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [processName, intervalMs]);
+
+  return { IsProcessRunning, refresh };
 };

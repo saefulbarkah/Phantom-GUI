@@ -27,7 +27,8 @@ pub fn run() {
         }))
         .invoke_handler(tauri::generate_handler![
             write_file,
-            commands::process::run_detached
+            commands::process::run_detached,
+            commands::process::is_process_running
         ])
         .setup(|app| {
             // tray
