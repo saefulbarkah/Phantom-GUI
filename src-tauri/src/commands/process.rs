@@ -1,6 +1,6 @@
+use std::os::windows::process::CommandExt;
 #[cfg(windows)]
 use std::path::Path;
-use std::process::Command;
 
 #[tauri::command]
 pub fn run_detached(program: String, args: Vec<String>) -> Result<(), String> {
@@ -55,8 +55,17 @@ pub fn run_detached(program: String, args: Vec<String>) -> Result<(), String> {
 pub fn is_process_running(process_name: String) -> bool {
     #[cfg(windows)]
     {
-        if let Ok(output) = Command::new("tasklist").output() {
-            let stdout = String::from_utf8_lossy(&output.stdout).to_lowercase();
+        let flag = 0x08000000; // CREATE_NO_WINDOW
+
+        let output = std::process::Command::new("wmic")
+            .arg("process")
+            .arg("get")
+            .arg("name")
+            .creation_flags(flag)
+            .output();
+
+        if let Ok(out) = output {
+            let stdout = String::from_utf8_lossy(&out.stdout).to_lowercase();
             stdout.contains(&process_name.to_lowercase())
         } else {
             false
@@ -65,11 +74,6 @@ pub fn is_process_running(process_name: String) -> bool {
 
     #[cfg(not(windows))]
     {
-        if let Ok(output) = std::process::Command::new("ps").arg("aux").output() {
-            let stdout = String::from_utf8_lossy(&output.stdout).to_lowercase();
-            stdout.contains(&process_name.to_lowercase())
-        } else {
-            false
-        }
+        false
     }
 }
