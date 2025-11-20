@@ -6,7 +6,7 @@ import { InputFile } from "@/components/ui/InputFile";
 import { useProcess } from "@/hooks/useProcess";
 
 export const Settings = () => {
-  const { launcherPath, setLauncherPath } = useProcess();
+  const { launcherPath, setLauncherPath, mutate } = useProcess();
 
   return (
     <>
@@ -20,6 +20,7 @@ export const Settings = () => {
                   path={launcherPath}
                   onSelect={(s) => {
                     setLauncherPath(s as string);
+                    mutate.mutate({ path: s as string, args: null });
                   }}
                 />
               </div>

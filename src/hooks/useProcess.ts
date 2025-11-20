@@ -1,20 +1,37 @@
+import { GetConfigLauncher, StoreConfigLauncher } from "@/API/config";
+import { Launcher } from "@/types/config";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 
 type TProcess = {
-  launcherPath: string;
-  setLauncherPath: (path: string) => void;
+  launcherPath: string | null;
+  setLauncherPath: (path: string | null) => void;
 };
 
 const useProcessState = create<TProcess>((set) => ({
-  launcherPath: "",
+  launcherPath: null,
   setLauncherPath: (path) =>
     set(() => ({
       launcherPath: path,
     })),
 }));
+
+const useMutationLauncher = () => {
+  return useMutation({
+    mutationKey: ["store-launcher"],
+    mutationFn: (data: Launcher) => StoreConfigLauncher(data), // ambil data sesuai key
+  });
+};
+
+const useQueryLauncher = () => {
+  return useQuery({
+    queryKey: ["launcherConfig"],
+    queryFn: GetConfigLauncher,
+  });
+};
 
 export const useProcess = () => {
   const processState = useProcessState();
@@ -29,14 +46,15 @@ export const useProcess = () => {
         program: processState.launcherPath,
         args: ["-external"],
       });
+
       //   processState.setProcessRunning(true);
-      toast.success("running");
+      toast.success("Running");
     } catch (error) {
       console.log(error);
     }
   };
 
-  return { exec, ...processState };
+  return { exec, ...processState, query: useQueryLauncher(), mutate: useMutationLauncher() };
 };
 
 export const useProcessStatus = (processName: string, intervalMs = 5000) => {

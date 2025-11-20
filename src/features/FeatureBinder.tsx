@@ -6,6 +6,7 @@ import { useDungeons } from "@/hooks/useDungeons";
 import { useFarms } from "@/hooks/useFarms";
 import { useFeatureManager } from "@/hooks/useFeatureManager";
 import { useKeybind } from "@/hooks/useKeybind";
+import { useProcess } from "@/hooks/useProcess";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -28,6 +29,7 @@ export const FeatureBinder = () => {
   const { queryFeature } = useFeatureManager();
   const { querykeybind, SyncKeybinds } = useKeybind();
   const { mutate } = useSendConnection();
+  const { query: queryLauncher, setLauncherPath } = useProcess();
 
   React.useEffect(() => {
     if (
@@ -36,10 +38,12 @@ export const FeatureBinder = () => {
       queryDungeon.isSuccess &&
       queryFarm.isSuccess &&
       querykeybind.isSuccess &&
-      connection.data?.data?.IsConnected
+      connection.data?.data?.IsConnected &&
+      queryLauncher.isSuccess
     ) {
       SyncKeybinds(querykeybind.data);
       setFeature(queryFeature.data?.data);
+      setLauncherPath(queryLauncher.data.path);
       SetFeatureReady(true);
       SetNetworkStatus("connected");
     } else if (connection.isSuccess && !connection.data?.data?.IsConnected) {
@@ -57,6 +61,7 @@ export const FeatureBinder = () => {
     queryFarm.isSuccess,
     connection.isFetching,
     connection.isError,
+    queryLauncher.isError,
   ]);
 
   return null;

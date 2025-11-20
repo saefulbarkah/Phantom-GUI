@@ -4,7 +4,7 @@ import React, { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 type TProps = {
-  path: string;
+  path: string | null;
   onSelect: (path: string) => void;
 };
 
@@ -29,7 +29,7 @@ export const InputFile = ({ onSelect, className, path, ...props }: TProps & HTML
         }}
         {...props}
       >
-        <p className="ml-2 mr-35 text-sm line-clamp-1">
+        <p className="ml-2 w-[90%] text-sm line-clamp-1">
           {path ? (
             <span>{path}</span>
           ) : (
@@ -39,7 +39,9 @@ export const InputFile = ({ onSelect, className, path, ...props }: TProps & HTML
             </span>
           )}
         </p>
-        <button className="absolute right-0 top-0 bottom-0 bg-[#202d3a] px-2 text-sm rounded-r">Select File</button>
+        <button className="absolute right-0 top-0 bottom-0 bg-[#202d3a] px-2 text-sm rounded-r cursor-pointer">
+          Select File
+        </button>
       </div>
     </>
   );
