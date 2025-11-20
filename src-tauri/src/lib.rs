@@ -5,6 +5,7 @@ use tauri::{
     Manager,
 };
 
+mod commands;
 use std::fs;
 
 #[tauri::command]
@@ -14,6 +15,8 @@ fn write_file(name: String, content: String) -> Result<(), String> {
 
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_prevent_default::init())
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
@@ -22,7 +25,10 @@ pub fn run() {
                 .expect("no main window")
                 .set_focus();
         }))
-        .invoke_handler(tauri::generate_handler![write_file])
+        .invoke_handler(tauri::generate_handler![
+            write_file,
+            commands::process::run_detached
+        ])
         .setup(|app| {
             // tray
             let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;

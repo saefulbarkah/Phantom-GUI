@@ -9,9 +9,11 @@ import { SaveSettings } from "@/API/settings";
 import toast from "react-hot-toast";
 import { SaveKeybinds } from "@/API/Keybind";
 import { SaveBuffConfig } from "@/API/buffs";
+import { useProcess } from "@/hooks/useProcess";
 
 export const Navbar = () => {
   const { appWindow, ref } = useWindowEvent();
+  const { exec, CheckIsProcessRunning } = useProcess();
 
   return (
     <nav className={`fixed top-0 right-0 left-0 bg-background border-b h-18 border-b-slate-400/15 z-50 select-none`}>
@@ -28,6 +30,10 @@ export const Navbar = () => {
         </div>
         <div className={`flex-1 h-full hover:cursor-grab`} ref={ref} />
         <div className="flex items-center gap-5">
+          <Button onClick={() => exec()} disabled={CheckIsProcessRunning()}>
+            {CheckIsProcessRunning() ? <span>Running...</span> : <span>Start Launcher</span>}
+          </Button>
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button

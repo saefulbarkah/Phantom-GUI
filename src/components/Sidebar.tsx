@@ -18,6 +18,10 @@ const Routes: TRoute[] = [
     href: "/about",
   },
   {
+    label: "Settings",
+    href: "/settings",
+  },
+  {
     label: "Player",
     href: "/",
   },

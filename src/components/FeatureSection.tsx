@@ -9,7 +9,7 @@ type T = {
 
 function FeatureSection({ title, children, description }: T) {
   return (
-    <Card className="rounded-xl transition outline-1 outline-slate-300/5">
+    <Card className="rounded-xl transition outline-1 outline-slate-300/5 w-full">
       <CardHeader>
         <CardTitle className="text-xl 2xl:text-2xl font-semibold">{title}</CardTitle>
         {description ? (
